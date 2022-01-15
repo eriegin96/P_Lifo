@@ -4,13 +4,13 @@ import { getAuth, connectAuthEmulator } from 'firebase/auth';
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 
 const firebaseConfig = {
-	apiKey: 'AIzaSyAB3WZS_5M5vHhN52ZCQRWsVT8MUs1WHMY',
-	authDomain: 'lifo-95316.firebaseapp.com',
-	projectId: 'lifo-95316',
-	storageBucket: 'lifo-95316.appspot.com',
-	messagingSenderId: '732294534920',
-	appId: '1:732294534920:web:94543a524dae9c40fd3ebd',
-	measurementId: 'G-P73FG37HYV',
+	apiKey: process.env.REACT_APP_FIREBASE_API,
+	authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+	projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+	storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+	messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+	appId: process.env.REACT_APP_FIREBASE_APP_ID,
+	measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
