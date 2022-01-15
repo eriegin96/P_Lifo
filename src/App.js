@@ -6,12 +6,12 @@ function App() {
 	const [modalType, setModalType] = useState();
 
 	return (
-		<div className='bg-bg text-white min-h-screen'>
+		<div className='relative bg-bg text-white min-h-screen'>
 			<Background />
 			<Navbar setModalType={setModalType} />
 			<Menu />
 			<Audio />
-			<Modal type={modalType} />
+			<Modal type={modalType} setType={setModalType} />
 		</div>
 	);
 }

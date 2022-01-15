@@ -5,11 +5,12 @@
 :root {
 	--color-primary: #f3a952;
 	--color-secondary: #8b8aa2;
-	--color-transparent-13: rgba(255, 255, 255, 0.13);
-	--color-transparent-30: rgba(255, 255, 255, 0.3);
+	--color-transparent-w-10: rgba(255, 255, 255, 0.1);
+	--color-transparen-w-30: rgba(255, 255, 255, 0.3);
+	--color-transparent-b-50: rgba(0, 0, 0, 0.5);
+	--color-transparent-b-70: rgba(0, 0, 0, 0.7);
+	--color-transparent-b-80: rgba(0, 0, 0, 0.8);
 	--color-bg: #1c1a23;
-	--color-bg-100: rgba(0, 0, 0, 0.8);
-	--color-bg-150: rgba(0, 0, 0, 0.5);
 	--color-bg-200: #14141d;
 	--color-bg-300: #24242f;
 	--color-clear: transparent;
@@ -34,6 +35,10 @@ body {
 
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.slick-active div {
+	opacity: 1;
 }
 
 .firebase-emulator-warning {

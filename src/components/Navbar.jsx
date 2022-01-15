@@ -80,7 +80,7 @@ export default function Navbar({ setModalType }) {
 				</Button>
 
 				<Button
-					className='mx-4 py-1 px-3 bg-bg-transparent border border-transparent rounded-full text-xs'
+					className='mx-4 py-1 px-3 bg-transparent-w-10 border border-transparent rounded-full text-xs'
 					onClick={() => setModalType('share')}
 				>
 					Share
