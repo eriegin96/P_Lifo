@@ -1,13 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--color-primary: #f3a952;
+	--color-secondary: #8b8aa2;
+	--color-transparent-13: rgba(255, 255, 255, 0.13);
+	--color-transparent-30: rgba(255, 255, 255, 0.3);
+	--color-bg: #1c1a23;
+	--color-bg-100: rgba(0, 0, 0, 0.8);
+	--color-bg-150: rgba(0, 0, 0, 0.5);
+	--color-bg-200: #14141d;
+	--color-bg-300: #24242f;
+	--color-clear: transparent;
+	--size-xs: 4px;
+	--size-s: 8px;
+	--size-m: 16px;
+	--size-l: 32px;
+	--size-xl: 64px;
+	--default-shadow: 0px 3px 20px rgba(0, 0, 0, 0.13);
+	--gradient: linear-gradient(360deg, #1f1c2b, rgba(31, 28, 43, 0));
+	--gradient-r: linear-gradient(180deg, #1f1c2b, rgba(31, 28, 43, 0));
+	--gradient-half: linear-gradient(360deg, #1f1c2b, #1f1c2b 40%, rgba(31, 28, 43, 0));
+}
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	margin: 0;
+	font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+		'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.firebase-emulator-warning {
+	display: none;
 }
