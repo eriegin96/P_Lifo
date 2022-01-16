@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
@@ -7,6 +7,7 @@ import { Button } from '..';
 import closeIcon from '../../assets/icons/close.svg';
 import logo from '../../assets/images/logo.gif';
 import { TUTORIAL_VIDEOS_LINKS } from '../../constants';
+import { AppContext } from '../../context/AppProvider';
 
 function CarouselText({
 	first,
@@ -133,16 +134,18 @@ function Carousel({ setType }) {
 	);
 }
 
-export default function Tutorial({ setType }) {
+export default function Tutorial() {
+	const { setModalType } = useContext(AppContext);
+
 	return (
 		<div className='w-full h-full animate-fadeIn'>
-			<Button className='absolute top-8 right-8' onClick={() => setType(null)}>
+			<Button className='absolute top-8 right-8' onClick={() => setModalType(null)}>
 				<img src={closeIcon} alt='close' />
 			</Button>
 
 			<div className='h-full flex flex-col items-center'>
 				<div className='h-full max-w-[500px] overflow-x-hidden pt-4'>
-					<Carousel setType={setType} />
+					<Carousel setType={setModalType} />
 				</div>
 			</div>
 		</div>

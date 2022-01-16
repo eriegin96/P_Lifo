@@ -1,24 +1,34 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { About, Contact, Profile, Share, Tutorial, Upgrade } from '..';
+import { AppContext } from '../../context/AppProvider';
 
-export default function Modal({ type, setType }) {
+export default function Modal() {
+	const { modalType, setModalType } = useContext(AppContext);
+
 	return (
 		<>
-			{type && (
+			{modalType && (
 				<div
-					className={`absolute inset-0 ${
-						type === 'tutorial' ? 'bg-transparent-b-70 backdrop-blur-xl' : 'bg-transparent-b-50'
+					className={`absolute inset-0 flex justify-center items-center animate-fadeIn ${
+						modalType === 'tutorial'
+							? 'bg-transparent-b-70 backdrop-blur-xl'
+							: 'bg-transparent-b-50'
 					}`}
-					// onClick={() => {
-					// 	type !== 'tutorial' && setType(null);
-					// }}
 				>
-					{type === 'tutorial' && <Tutorial setType={setType} />}
-					{type === 'upgrade' && <Upgrade setType={setType} />}
-					{type === 'contact' && <Contact />}
-					{type === 'about' && <About />}
-					{type === 'profile' && <Profile />}
-					{type === 'share' && <Share />}
+					<div
+						className='absolute inset-0 z-10'
+						onClick={() => {
+							modalType !== 'tutorial' && modalType !== 'about' && setModalType(null);
+						}}
+					/>
+					<div className='max-h-full overflow-y-auto z-20'>
+						{modalType === 'tutorial' && <Tutorial />}
+						{modalType === 'upgrade' && <Upgrade />}
+						{modalType === 'contact' && <Contact />}
+						{modalType === 'about' && <About />}
+						{modalType === 'profile' && <Profile />}
+						{modalType === 'share' && <Share />}
+					</div>
 				</div>
 			)}
 		</>

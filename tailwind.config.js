@@ -3,12 +3,15 @@ module.exports = {
 	theme: {
 		extend: {
 			animation: {
-				fadeIn: 'fadeIn 0.5s ease',
+				fadeIn: 'fadeIn 0.3s ease',
+				fadeOut: 'fadeOut 0.3s ease',
 			},
 			backgroundColor: (theme) => ({
 				...theme('colors'),
 				bg: 'var(--color-bg)',
 				'transparent-w-10': 'var(--color-transparent-w-10)',
+				'transparent-w-20': 'var(--color-transparent-w-20)',
+				'transparent-w-30': 'var(--color-transparent-w-30)',
 				'transparent-b-50': 'var(--color-transparent-b-50)',
 				'transparent-b-70': 'var(--color-transparent-b-70)',
 				'transparent-b-80': 'var(--color-transparent-b-80)',
@@ -33,7 +36,9 @@ module.exports = {
 				primary: 'var(--color-primary)',
 				secondary: 'var(--color-secondary)',
 				clear: 'var(--color-clear)',
-				transparent: 'var(--color-transparent-w-30)',
+				'transparent-w-10': 'var(--color-transparent-w-10)',
+				'transparent-w-20': 'var(--color-transparent-w-20)',
+				'transparent-w-30': 'var(--color-transparent-w-30)',
 			},
 			flexGrow: {
 				2: 2,
@@ -50,6 +55,10 @@ module.exports = {
 				fadeIn: {
 					'0%': { opacity: 0 },
 					'100%': { opacity: 1 },
+				},
+				fadeOut: {
+					'0%': { opacity: 1 },
+					'100%': { opacity: 0 },
 				},
 			},
 			letterSpacing: {

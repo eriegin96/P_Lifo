@@ -9,9 +9,9 @@ import profileIcon from '../assets/icons/profile.svg';
 import { AppContext } from '../context/AppProvider';
 import { Button } from '.';
 
-export default function Navbar({ setModalType }) {
-	const { fullscreen, setFullscreen } = useContext(AppContext);
-	const [checked, setChecked] = useState(false);
+export default function Navbar() {
+	const { fullscreen, setFullscreen, setModalType } = useContext(AppContext);
+	const [checked, setChecked] = useState(true);
 
 	const toggleFullscreen = () => {
 		if (!document.fullscreenElement) {
@@ -52,16 +52,25 @@ export default function Navbar({ setModalType }) {
 					>
 						Contact us
 					</Button>
-					<Button
-						className='p-[18px] font-bold text-md'
-						activeButton
-						onClick={() => setModalType('about')}
-					>
-						More
-					</Button>
-					<Button className='p-[18px] font-bold text-md' activeButton>
-						Merch
-					</Button>
+					<div className='group relative'>
+						<Button className='p-[18px] font-bold text-md' activeButton>
+							More
+						</Button>
+
+						<div className='invisible group-hover:visible absolute min-w-[120px] top-full left-1/2 transform -translate-x-1/2 flex flex-col  items-center bg-transparent-w-20 text-sm py-2 px-4 rounded-lg gap-y-1 font-semibold text-center shadow-md group-hover:animate-fadeIn animate-fadeOut'>
+							<Button className='w-full font-semibold' onClick={() => setModalType('about')}>
+								About Lofi.co
+							</Button>
+							<a
+								href='https://github.com/eriegin96'
+								target='_blank'
+								rel='noreferrer'
+								className='w-full hover:opacity-50 duration-200 ease-in'
+							>
+								My portfolio
+							</a>
+						</div>
+					</div>
 				</div>
 			)}
 
