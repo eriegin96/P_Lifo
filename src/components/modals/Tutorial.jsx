@@ -22,8 +22,8 @@ function CarouselText({
 }) {
 	return (
 		<div className='mt-[50px] text-center'>
-			<h2 className='text-primary text-4xl font-bold'>{title1}</h2>
-			<h2 className='text-primary text-4xl font-bold'>{title2}</h2>
+			<h2 className='text-primary text-3xl font-bold'>{title1}</h2>
+			<h2 className='text-primary text-3xl font-bold'>{title2}</h2>
 			<p className={`my-4 text-sm ${des2 ? 'text-left' : 'text-center'}`}>{des1}</p>
 			<p className='mb-4 text-sm text-left whitespace-pre-wrap'>{des2}</p>
 
@@ -136,11 +136,7 @@ function Carousel({ setType }) {
 export default function Tutorial({ setType }) {
 	return (
 		<div className='w-full h-full animate-fadeIn'>
-			<Button
-				className='absolute top-8 right-8 text-white'
-				iconButton
-				onClick={() => setType(null)}
-			>
+			<Button className='absolute top-8 right-8' onClick={() => setType(null)}>
 				<img src={closeIcon} alt='close' />
 			</Button>
 

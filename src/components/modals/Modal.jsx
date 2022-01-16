@@ -6,15 +6,15 @@ export default function Modal({ type, setType }) {
 		<>
 			{type && (
 				<div
-					className={`absolute inset-0 z-10 ${
+					className={`absolute inset-0 ${
 						type === 'tutorial' ? 'bg-transparent-b-70 backdrop-blur-xl' : 'bg-transparent-b-50'
 					}`}
-					onClick={() => {
-						type !== 'tutorial' && setType(null);
-					}}
+					// onClick={() => {
+					// 	type !== 'tutorial' && setType(null);
+					// }}
 				>
 					{type === 'tutorial' && <Tutorial setType={setType} />}
-					{type === 'upgrade' && <Upgrade />}
+					{type === 'upgrade' && <Upgrade setType={setType} />}
 					{type === 'contact' && <Contact />}
 					{type === 'about' && <About />}
 					{type === 'profile' && <Profile />}

@@ -14,6 +14,7 @@ module.exports = {
 				'transparent-b-80': 'var(--color-transparent-b-80)',
 				'bg-200': 'var(--color-bg-200)',
 				'bg-300': 'var(--color-bg-300)',
+				'bg-400': 'var(--color-bg-400)',
 			}),
 			backgroundImage: {
 				gradient: 'var(--gradient)',
@@ -24,6 +25,9 @@ module.exports = {
 			borderWidth: {},
 			boxShadow: {
 				default: 'var(--default-shadow)',
+			},
+			brightness: {
+				1000: '100',
 			},
 			colors: {
 				primary: 'var(--color-primary)',
@@ -58,7 +62,10 @@ module.exports = {
 			maxWidth: {},
 			rotate: {},
 			spacing: {},
-			zIndex: {},
+			zIndex: {
+				1: 1,
+				'-1': -1,
+			},
 		},
 	},
 	plugins: [],

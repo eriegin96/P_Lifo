@@ -31,19 +31,37 @@ export default function Navbar({ setModalType }) {
 
 			{!fullscreen && (
 				<div className='flex items-center'>
-					<Button className='p-[18px] font-bold text-md' onClick={() => setModalType('tutorial')}>
+					<Button
+						className='p-[18px] font-bold text-md'
+						activeButton
+						onClick={() => setModalType('tutorial')}
+					>
 						How it works
 					</Button>
-					<Button className='p-[18px] font-bold text-md' onClick={() => setModalType('upgrade')}>
+					<Button
+						className='p-[18px] font-bold text-md'
+						activeButton
+						onClick={() => setModalType('upgrade')}
+					>
 						Upgrade
 					</Button>
-					<Button className='p-[18px] font-bold text-md' onClick={() => setModalType('contact')}>
+					<Button
+						className='p-[18px] font-bold text-md'
+						activeButton
+						onClick={() => setModalType('contact')}
+					>
 						Contact us
 					</Button>
-					<Button className='p-[18px] font-bold text-md' onClick={() => setModalType('about')}>
+					<Button
+						className='p-[18px] font-bold text-md'
+						activeButton
+						onClick={() => setModalType('about')}
+					>
 						More
 					</Button>
-					<Button className='p-[18px] font-bold text-md'>Merch</Button>
+					<Button className='p-[18px] font-bold text-md' activeButton>
+						Merch
+					</Button>
 				</div>
 			)}
 
@@ -71,11 +89,11 @@ export default function Navbar({ setModalType }) {
 					/>
 				</div>
 
-				<Button className='mx-4' onClick={toggleFullscreen} iconButton>
+				<Button className='mx-4' onClick={toggleFullscreen}>
 					<img src={fullscreenIcon} alt='full-screen' />
 				</Button>
 
-				<Button iconButton onClick={() => setModalType('profile')}>
+				<Button onClick={() => setModalType('profile')}>
 					<img src={profileIcon} alt='profile' />
 				</Button>
 

@@ -13,6 +13,7 @@
 	--color-bg: #1c1a23;
 	--color-bg-200: #14141d;
 	--color-bg-300: #24242f;
+	--color-bg-400: rgba(243, 169, 82, 0.1);
 	--color-clear: transparent;
 	--size-xs: 4px;
 	--size-s: 8px;
@@ -35,6 +36,10 @@ body {
 
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+*::-webkit-scrollbar {
+	display: none;
 }
 
 .slick-active div {
