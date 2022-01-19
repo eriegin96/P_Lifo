@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import Switch from 'react-switch';
-import Slider from 'react-slick';
+import Slick from 'react-slick';
 
 import { Button } from '..';
 import closeIcon from '../../assets/icons/close.svg';
@@ -25,10 +25,10 @@ function Carousel() {
 	};
 
 	return (
-		<Slider {...settings}>
+		<Slick {...settings}>
 			<img src={mosaicImg} alt='mosaic' />
 			<img src={mosaicImg} alt='mosaic' />
-		</Slider>
+		</Slick>
 	);
 }
 

@@ -6,7 +6,7 @@ import closeIcon from '../../assets/icons/close.svg';
 import instagramIcon from '../../assets/icons/instagram.svg';
 import twitterIcon from '../../assets/icons/twitter.svg';
 import mailIcon from '../../assets/icons/mail.svg';
-import { ABOUT_US_1, ABOUT_US_2 } from '../../constants/texts';
+import { ABOUT_US_1, ABOUT_US_2 } from '../../constants';
 
 export default function About() {
 	const { setModalType } = useContext(AppContext);

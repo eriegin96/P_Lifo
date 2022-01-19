@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { Menu, Navbar, Background, Audio, Modal } from './components';
 
 function App() {

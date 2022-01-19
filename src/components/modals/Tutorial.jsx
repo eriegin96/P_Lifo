@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import Slider from 'react-slick';
+import Slick from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 
@@ -63,7 +63,7 @@ function CarouselText({
 }
 
 function Carousel({ setType }) {
-	const sliderRef = useRef();
+	const slickRef = useRef();
 	const [, setRerender] = useState(false);
 
 	useEffect(() => {
@@ -92,7 +92,7 @@ function Carousel({ setType }) {
 	};
 
 	return (
-		<Slider {...settings} ref={sliderRef}>
+		<Slick {...settings} ref={slickRef}>
 			<div>
 				<img src={logo} alt='logo' className='mb-[100px]' />
 
@@ -102,8 +102,8 @@ function Carousel({ setType }) {
 					title2='You Can Vibe With'
 					des1='Welcome to lofi.co. Let us show you around!'
 					button='Take tour'
-					handleNext={sliderRef?.current?.slickNext}
-					handlePrev={sliderRef?.current?.slickPrev}
+					handleNext={slickRef?.current?.slickNext}
+					handlePrev={slickRef?.current?.slickPrev}
 				/>
 			</div>
 
@@ -124,13 +124,13 @@ function Carousel({ setType }) {
 						des1={video.des1}
 						des2={video.des2}
 						button='Next'
-						handleNext={sliderRef?.current?.slickNext}
-						handlePrev={sliderRef?.current?.slickPrev}
+						handleNext={slickRef?.current?.slickNext}
+						handlePrev={slickRef?.current?.slickPrev}
 						setType={setType}
 					/>
 				</div>
 			))}
-		</Slider>
+		</Slick>
 	);
 }
 

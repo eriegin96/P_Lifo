@@ -9,10 +9,12 @@ module.exports = {
 			backgroundColor: (theme) => ({
 				...theme('colors'),
 				bg: 'var(--color-bg)',
+				'bg-menu': 'var(--color-bg-menu)',
 				'transparent-w-10': 'var(--color-transparent-w-10)',
 				'transparent-w-20': 'var(--color-transparent-w-20)',
 				'transparent-w-30': 'var(--color-transparent-w-30)',
 				'transparent-b-50': 'var(--color-transparent-b-50)',
+				'transparent-b-60': 'var(--color-transparent-b-60)',
 				'transparent-b-70': 'var(--color-transparent-b-70)',
 				'transparent-b-80': 'var(--color-transparent-b-80)',
 				'bg-200': 'var(--color-bg-200)',
@@ -34,6 +36,7 @@ module.exports = {
 			},
 			colors: {
 				primary: 'var(--color-primary)',
+				'primary-20': 'var(--color-primary-20)',
 				secondary: 'var(--color-secondary)',
 				clear: 'var(--color-clear)',
 				'transparent-w-10': 'var(--color-transparent-w-10)',
