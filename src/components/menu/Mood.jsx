@@ -1,35 +1,66 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import ReactSlider from 'react-slider';
 
-import sleepyIcon from '../../assets/icons/sleepy.svg';
-import jazzyIcon from '../../assets/icons/jazzy.svg';
-import chillIcon from '../../assets/icons/chill.svg';
-import volumeMinIcon from '../../assets/icons/volume-min.svg';
-import volumeMaxIcon from '../../assets/icons/volume-max.svg';
+import { sleepyIcon, jazzyIcon, chillIcon, volumeMinIcon, volumeMaxIcon } from '../../assets/icons';
 import { NOISE_ICONS } from '../../constants';
 import { AppContext } from '../../context/AppProvider';
 
-function MoodItem({ iconSrc, label, className }) {
+function MoodItem({ iconSrc, label, className, isActive, handleClick }) {
 	return (
-		<div className='relative h-[84px] w-[84px] bg-bg-200 rounded-xl cursor-pointer'>
+		<div
+			className='relative h-[84px] w-[84px] bg-bg-200 rounded-xl cursor-pointer'
+			onClick={handleClick}
+		>
 			<div className={`absolute w-[150px] h-[150px] -top-12 pointer-events-none ${className}`}>
-				<img src={iconSrc} alt='mood-icon' className='h-full w-full ' />
+				<img
+					src={iconSrc}
+					alt='mood-icon'
+					className={`h-full w-full transition duration-200 ease-out ${
+						isActive ? 'opacity-100 brightness-100' : 'opacity-10 brightness-200'
+					}`}
+				/>
 			</div>
-			<p className='absolute bottom-2 left-1/2 transform -translate-x-1/2 font-semibold'>{label}</p>
+			<p
+				className={`absolute bottom-2 left-1/2 transform -translate-x-1/2 font-semibold transition duration-200 ease-out ${
+					isActive ? 'opacity-100 brightness-100' : 'opacity-10 brightness-200'
+				}`}
+			>
+				{label}
+			</p>
 		</div>
 	);
 }
 
 export default function Mood() {
 	const { mainSoundRef, noisesRefs } = useContext(AppContext);
+	const initialTab = { sleepy: false, jazzy: false, chill: false };
+	const [moodTab, setMoodTab] = useState({ ...initialTab, chill: true });
 
 	return (
 		<div>
-			<h4 className='font-bold my-4 text-xl'>Mood</h4>
+			<h4 className='font-bold mb-4 text-xl'>Mood</h4>
 			<div className='my-4 flex justify-between items-center'>
-				<MoodItem iconSrc={sleepyIcon} label='Sleepy' className='-left-7' />
-				<MoodItem iconSrc={jazzyIcon} label='Jazzy' className='-left-7' />
-				<MoodItem iconSrc={chillIcon} label='Chill' className='-left-8' />
+				<MoodItem
+					isActive={moodTab.sleepy}
+					iconSrc={sleepyIcon}
+					label='Sleepy'
+					className='-left-7'
+					handleClick={() => setMoodTab({ ...initialTab, sleepy: true })}
+				/>
+				<MoodItem
+					isActive={moodTab.jazzy}
+					iconSrc={jazzyIcon}
+					label='Jazzy'
+					className='-left-7'
+					handleClick={() => setMoodTab({ ...initialTab, jazzy: true })}
+				/>
+				<MoodItem
+					isActive={moodTab.chill}
+					iconSrc={chillIcon}
+					label='Chill'
+					className='-left-8'
+					handleClick={() => setMoodTab({ ...initialTab, chill: true })}
+				/>
 			</div>
 
 			<div className='my-8 flex justify-between items-center'>
@@ -38,6 +69,14 @@ export default function Mood() {
 				<ReactSlider
 					className='h-3 w-[200px] bg-bg-200 rounded-full'
 					defaultValue={50}
+					onBeforeChange={() => {
+						const thisAudio = mainSoundRef.current;
+						if (thisAudio.paused) thisAudio.play();
+						if (thisAudio.muted) thisAudio.muted = false;
+					}}
+					onChange={(value) => {
+						mainSoundRef.current.volume = value / 100;
+					}}
 					renderTrack={(props, state) => (
 						<div
 							{...props}

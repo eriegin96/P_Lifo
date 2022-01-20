@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 
-import moodIcon from '../../assets/icons/mood.svg';
-import templateIcon from '../../assets/icons/template.svg';
-import setIcon from '../../assets/icons/set.svg';
-import focusIcon from '../../assets/icons/focus.svg';
-import borderBrIcon from '../../assets/icons/border-br.svg';
+import { moodIcon, templateIcon, setIcon, focusIcon, borderBrIcon } from '../../assets/icons';
 import Mood from './Mood';
+import Template from './Template';
+import Focus from './Focus';
+import Set from './Set';
 
 function MenuItem({ iconSrc, className, small, top, bottom, handleClick, isActive, current }) {
 	return (
 		<div
 			className={`relative w-[70px] h-[70px] cursor-pointer ${top ? 'rounded-t-full' : ''} ${
 				bottom ? 'rounded-b-full' : ''
-			}`}
+			} ${isActive ? 'bg-bg-menu' : ''}`}
 			onClick={handleClick}
 		>
 			<div
@@ -24,15 +23,20 @@ function MenuItem({ iconSrc, className, small, top, bottom, handleClick, isActiv
 					<img
 						src={borderBrIcon}
 						alt='border-icon'
-						className='absolute -top-1 right-5 w-[81px] h-[120px] transform -scale-y-100'
+						className='absolute -top-1 left-[13px] w-[81px] h-[120px] transform -scale-y-100'
 					/>
+				)}
+				{current === 'focus' && isActive && (
+					<div className='absolute -top-[41px] -left-7 w-[81px] h-[120px]'>
+						<img src={borderBrIcon} alt='border-icon' className='absolute w-full h-full' />
+					</div>
 				)}
 				<img
 					src={iconSrc}
 					alt='menu-item'
 					className={`w-full h-full ${
 						isActive ? 'opacity-100 brightness-100' : 'opacity-20 brightness-200'
-					} `}
+					}`}
 				/>
 			</div>
 			{!small && !isActive && (
@@ -55,21 +59,29 @@ export default function Menu() {
 					current='mood'
 					isActive={menuTab.mood}
 					className='-top-5 -left-[22px]'
-					handleClick={() => setMenuTab({ ...initialTab, mood: true })}
+					handleClick={() => {
+						menuTab.mood ? setMenuTab(initialTab) : setMenuTab({ ...initialTab, mood: true });
+					}}
 				/>
 				<MenuItem
 					iconSrc={templateIcon}
 					current='template'
 					isActive={menuTab.template}
 					className='-top-7 -left-6'
-					handleClick={() => setMenuTab({ ...initialTab, template: true })}
+					handleClick={() => {
+						menuTab.template
+							? setMenuTab(initialTab)
+							: setMenuTab({ ...initialTab, template: true });
+					}}
 				/>
 				<MenuItem
 					iconSrc={setIcon}
 					current='set'
 					isActive={menuTab.set}
 					className='-top-7 -left-5'
-					handleClick={() => setMenuTab({ ...initialTab, set: true })}
+					handleClick={() => {
+						menuTab.set ? setMenuTab(initialTab) : setMenuTab({ ...initialTab, set: true });
+					}}
 				/>
 				<MenuItem
 					iconSrc={focusIcon}
@@ -78,11 +90,20 @@ export default function Menu() {
 					bottom
 					small
 					className='top-4 left-5'
-					handleClick={() => setMenuTab({ ...initialTab, focus: true })}
+					handleClick={() => {
+						menuTab.focus ? setMenuTab(initialTab) : setMenuTab({ ...initialTab, focus: true });
+					}}
 				/>
 			</div>
 
-			<div className='w-[345px] bg-bg-menu rounded-3xl px-8'>{menuTab.mood && <Mood />}</div>
+			{(menuTab.mood || menuTab.template || menuTab.set || menuTab.focus) && (
+				<div className={`w-[345px] bg-bg-menu rounded-3xl p-6 ${menuTab.focus ? 'mt-40' : ''}`}>
+					{menuTab.mood && <Mood />}
+					{menuTab.template && <Template />}
+					{menuTab.set && <Set />}
+					{menuTab.focus && <Focus />}
+				</div>
+			)}
 		</div>
 	);
 }

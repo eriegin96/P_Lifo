@@ -2,8 +2,7 @@ import React, { useContext, useRef, useState } from 'react';
 
 import { Button } from '..';
 import { AppContext } from '../../context/AppProvider';
-import closeIcon from '../../assets/icons/close.svg';
-import twitterIcon from '../../assets/icons/twitter.svg';
+import { closeIcon, twitterIcon } from '../../assets/icons';
 
 export default function Share() {
 	const { setModalType } = useContext(AppContext);

@@ -1,11 +1,8 @@
 import React, { useContext, useState } from 'react';
 import Switch from 'react-switch';
 
-import logo from '../assets/images/logo.gif';
-import moonIcon from '../assets/icons/day.svg';
-import sunIcon from '../assets/icons/night.svg';
-import fullscreenIcon from '../assets/icons/fullscreen.svg';
-import profileIcon from '../assets/icons/profile.svg';
+import { logoImg } from '../assets/images';
+import { moonIcon, sunIcon, fullscreenIcon, profileIcon } from '../assets/icons';
 import { AppContext } from '../context/AppProvider';
 import { Button } from '.';
 
@@ -27,7 +24,7 @@ export default function Navbar() {
 
 	return (
 		<div className='w-screen px-12 h-20 pt-3 flex items-center justify-between'>
-			<img src={logo} alt='logo' className='h-[100px]' />
+			<img src={logoImg} alt='logo' className='h-[100px]' />
 
 			{!fullscreen && (
 				<div className='flex items-center'>

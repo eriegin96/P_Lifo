@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 
 import { Button } from '..';
-import closeIcon from '../../assets/icons/close.svg';
+import { closeIcon } from '../../assets/icons';
 import { AppContext } from '../../context/AppProvider';
 
 function FormInput({ type = 'text', label, inputId, value }) {

@@ -3,10 +3,8 @@ import Switch from 'react-switch';
 import Slick from 'react-slick';
 
 import { Button } from '..';
-import closeIcon from '../../assets/icons/close.svg';
-import checkIcon from '../../assets/icons/check.svg';
-import xIcon from '../../assets/icons/x.svg';
-import mosaicImg from '../../assets/images/social-mosaic.svg';
+import { closeIcon, checkIcon, xIcon } from '../../assets/icons';
+import { mosaicImg } from '../../assets/images';
 import { BASIC_PACKAGE, PREMIUM_PACKAGE } from '../../constants';
 import { AppContext } from '../../context/AppProvider';
 

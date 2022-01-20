@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { Button } from '..';
-import closeIcon from '../../assets/icons/close.svg';
+import { closeIcon } from '../../assets/icons';
 import { AppContext } from '../../context/AppProvider';
 
 export default function Contact() {

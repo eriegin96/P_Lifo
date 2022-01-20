@@ -4,8 +4,8 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 
 import { Button } from '..';
-import closeIcon from '../../assets/icons/close.svg';
-import logo from '../../assets/images/logo.gif';
+import { closeIcon } from '../../assets/icons';
+import { logoImg } from '../../assets/images';
 import { TUTORIAL_VIDEOS_LINKS } from '../../constants';
 import { AppContext } from '../../context/AppProvider';
 
@@ -94,7 +94,7 @@ function Carousel({ setType }) {
 	return (
 		<Slick {...settings} ref={slickRef}>
 			<div>
-				<img src={logo} alt='logo' className='mb-[100px]' />
+				<img src={logoImg} alt='logo' className='mb-[100px]' />
 
 				<CarouselText
 					first

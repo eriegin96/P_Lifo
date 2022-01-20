@@ -1,10 +1,10 @@
 import React from 'react';
-import logo from '../assets/images/logo.gif';
+import { logoImg } from '../assets/images';
 
 export default function SplashScreen() {
 	return (
 		<div className='min-h-screen bg-bg flex justify-center items-center'>
-			<img src={logo} alt='logo' width={300} />
+			<img src={logoImg} alt='logo' width={300} />
 		</div>
 	);
 }
