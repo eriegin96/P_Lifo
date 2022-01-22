@@ -29,28 +29,28 @@ export default function Navbar() {
 			{!fullscreen && (
 				<div className='flex items-center'>
 					<Button
-						className='p-[18px] font-bold text-md'
+						className='p-[18px] font-bold text-lg'
 						activeButton
 						onClick={() => setModalType('tutorial')}
 					>
 						How it works
 					</Button>
 					<Button
-						className='p-[18px] font-bold text-md'
+						className='p-[18px] font-bold text-lg'
 						activeButton
 						onClick={() => setModalType('upgrade')}
 					>
 						Upgrade
 					</Button>
 					<Button
-						className='p-[18px] font-bold text-md'
+						className='p-[18px] font-bold text-lg'
 						activeButton
 						onClick={() => setModalType('contact')}
 					>
 						Contact us
 					</Button>
 					<div className='group relative'>
-						<Button className='p-[18px] font-bold text-md' activeButton>
+						<Button className='p-[18px] font-bold text-lg' activeButton>
 							More
 						</Button>
 
@@ -104,7 +104,7 @@ export default function Navbar() {
 				</Button>
 
 				<Button
-					className='mx-4 py-1 px-3 bg-transparent-w-10 border border-transparent rounded-full text-xs'
+					className='mx-4 py-1 px-3 bg-transparent-w-10 border border-transparent-w-30 rounded-full text-xs'
 					onClick={() => setModalType('share')}
 				>
 					Share

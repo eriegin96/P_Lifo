@@ -2,8 +2,9 @@ import React, { useContext, useState } from 'react';
 import ReactSlider from 'react-slider';
 
 import { sleepyIcon, jazzyIcon, chillIcon, volumeMinIcon, volumeMaxIcon } from '../../assets/icons';
-import { NOISE_ICONS } from '../../constants';
+import { SLEEPY_LINKS, CHILL_LINKS, JAZZY_LINKS, NOISE_ICONS } from '../../constants';
 import { AppContext } from '../../context/AppProvider';
+import { randomMainSong } from '../../utils/randomMainSong';
 
 function MoodItem({ iconSrc, label, className, isActive, handleClick }) {
 	return (
@@ -32,9 +33,53 @@ function MoodItem({ iconSrc, label, className, isActive, handleClick }) {
 }
 
 export default function Mood() {
-	const { mainSoundRef, noisesRefs } = useContext(AppContext);
+	const { mainSongRef, noisesRefs, currentSong, setCurrentSong, setIsPlaying } =
+		useContext(AppContext);
 	const initialTab = { sleepy: false, jazzy: false, chill: false };
 	const [moodTab, setMoodTab] = useState({ ...initialTab, chill: true });
+
+	const handleMoodType = (type) => {
+		let newSong;
+		setIsPlaying(true);
+
+		switch (type) {
+			case 'sleepy':
+				setMoodTab({ ...initialTab, sleepy: true });
+				newSong = randomMainSong(SLEEPY_LINKS, currentSong.index);
+				setCurrentSong({
+					...currentSong,
+					list: SLEEPY_LINKS,
+					index: newSong.index,
+					link: newSong.link,
+				});
+				break;
+
+			case 'jazzy':
+				setMoodTab({ ...initialTab, jazzy: true });
+				newSong = randomMainSong(JAZZY_LINKS, currentSong.index);
+				setCurrentSong({
+					...currentSong,
+					list: JAZZY_LINKS,
+					index: newSong.index,
+					link: newSong.link,
+				});
+				break;
+
+			case 'chill':
+				setMoodTab({ ...initialTab, chill: true });
+				newSong = randomMainSong(CHILL_LINKS, currentSong.index);
+				setCurrentSong({
+					...currentSong,
+					list: CHILL_LINKS,
+					index: newSong.index,
+					link: newSong.link,
+				});
+				break;
+
+			default:
+				break;
+		}
+	};
 
 	return (
 		<div>
@@ -45,21 +90,21 @@ export default function Mood() {
 					iconSrc={sleepyIcon}
 					label='Sleepy'
 					className='-left-7'
-					handleClick={() => setMoodTab({ ...initialTab, sleepy: true })}
+					handleClick={() => handleMoodType('sleepy')}
 				/>
 				<MoodItem
 					isActive={moodTab.jazzy}
 					iconSrc={jazzyIcon}
 					label='Jazzy'
 					className='-left-7'
-					handleClick={() => setMoodTab({ ...initialTab, jazzy: true })}
+					handleClick={() => handleMoodType('jazzy')}
 				/>
 				<MoodItem
 					isActive={moodTab.chill}
 					iconSrc={chillIcon}
 					label='Chill'
 					className='-left-8'
-					handleClick={() => setMoodTab({ ...initialTab, chill: true })}
+					handleClick={() => handleMoodType('chill')}
 				/>
 			</div>
 
@@ -70,12 +115,12 @@ export default function Mood() {
 					className='h-3 w-[200px] bg-bg-200 rounded-full'
 					defaultValue={50}
 					onBeforeChange={() => {
-						const thisAudio = mainSoundRef.current;
+						const thisAudio = mainSongRef.current;
 						if (thisAudio.paused) thisAudio.play();
 						if (thisAudio.muted) thisAudio.muted = false;
 					}}
 					onChange={(value) => {
-						mainSoundRef.current.volume = value / 100;
+						mainSongRef.current.volume = value / 100;
 					}}
 					renderTrack={(props, state) => (
 						<div

@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default function Background() {
-	return <div></div>;
+	return <div>Background</div>;
 }

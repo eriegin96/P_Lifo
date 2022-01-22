@@ -14,6 +14,7 @@ import moodIcon from './mood.svg';
 import moonIcon from './moon.svg';
 import nextIcon from './next.svg';
 import notesIcon from './notes.svg';
+import pauseIcon from './pause.svg';
 import playIcon from './play.svg';
 import prevIcon from './prev.svg';
 import profileIcon from './profile.svg';
@@ -62,6 +63,7 @@ export {
 	nextIcon,
 	sunIcon,
 	notesIcon,
+	pauseIcon,
 	playIcon,
 	prevIcon,
 	profileIcon,
