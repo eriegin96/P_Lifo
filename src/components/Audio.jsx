@@ -66,12 +66,12 @@ export default function Audio() {
 				ref={mainSongRef}
 				src={currentSong.link}
 				preload='auto'
-				autoPlay
+				// autoPlay
 				onEnded={() =>
 					setCurrentSong({
 						...currentSong,
-						index: currentSong.index + 1,
-						link: nextSong(currentSong.list, currentSong.index),
+						index: nextSong(currentSong.list, currentSong.index).index,
+						link: nextSong(currentSong.list, currentSong.index).link,
 					})
 				}
 			/>

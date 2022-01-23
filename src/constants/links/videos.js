@@ -1,17 +1,32 @@
-export const BG_VIDEOS_LINKS = [
-	{
-		name: 'chill-vibes-day',
-		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20Day%20112521%20%281%29.mp4',
+// TODO: other set videos
+export const BACKGROUND_LINKS = {
+	chill: {
+		scene1: {
+			day: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20Day%20112521%20%281%29.mp4',
+			night:
+				'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20STARRY%20NIGHT%20-.mp4',
+			rainyDay:
+				'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20RAINY%20DAY.mp4',
+			rainyNight:
+				'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20RAINY%20NIGHT.mp4',
+		},
+		scene2: {
+			day: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20Day%20112521.mp4',
+			night:
+				'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20STARRY%20NIGHT.mp4',
+			rainyDay:
+				'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20RAINY%20DAY.mp4',
+			rainyNight:
+				'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20RAINY%20NIGHT.mp4',
+		},
 	},
-	{
-		name: 'chill-vibes-night',
-		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20STARRY%20NIGHT%20-.mp4',
-	},
-	{
-		name: 'chill-vibes-rain',
-		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20RAINY%20DAY.mp4',
-	},
-];
+	desk: { scene1: {}, scene2: {} },
+	forest: { scene1: {}, scene2: {} },
+	ocean: { scene1: {}, scene2: {} },
+	cafe: { scene1: {}, scene2: {} },
+	van: { scene1: {}, scene2: {} },
+	summer: { scene1: {}, scene2: {} },
+};
 
 export const TUTORIAL_VIDEOS_LINKS = [
 	{

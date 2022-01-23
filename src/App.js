@@ -3,7 +3,7 @@ import { Menu, Navbar, Background, Audio, Modal } from './components';
 
 function App() {
 	return (
-		<div className='relative bg-green-500 text-white min-h-screen'>
+		<div className='relative bg-bg text-white min-h-screen'>
 			<Navbar />
 			<Background />
 			<Menu />

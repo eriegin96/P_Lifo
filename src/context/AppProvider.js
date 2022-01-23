@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useRef, useState } from 'react';
 import { AuthContext } from './AuthProvider';
 
-import { CHILL_LINKS } from '../constants';
+import { BACKGROUND_LINKS, CHILL_LINKS } from '../constants';
 
 export const AppContext = createContext();
 
@@ -22,6 +22,18 @@ export default function AppProvider({ children }) {
 		};
 	});
 
+	// Background
+	const [backgroundLinks, setBackgroundLinks] = useState(BACKGROUND_LINKS.chill.scene1);
+	const [background, setBackground] = useState({
+		set: 'chill',
+		scene: 'scene1',
+		showTop: true,
+		day: true,
+		rainy: false,
+		linkTop: backgroundLinks.day,
+		linkBot: backgroundLinks.night,
+	});
+
 	const mainSongRef = useRef();
 	const noisesRefs = useRef([]);
 
@@ -36,6 +48,10 @@ export default function AppProvider({ children }) {
 		setCurrentSong,
 		isPlaying,
 		setIsPlaying,
+		backgroundLinks,
+		setBackgroundLinks,
+		background,
+		setBackground,
 		mainSongRef,
 		noisesRefs,
 	};

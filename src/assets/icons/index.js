@@ -1,3 +1,4 @@
+import arrowLeftIcon from './arrow-left.svg';
 import borderBrIcon from './border-br.svg';
 import checkIcon from './check.svg';
 import chillIcon from './chill.svg';
@@ -18,10 +19,12 @@ import pauseIcon from './pause.svg';
 import playIcon from './play.svg';
 import prevIcon from './prev.svg';
 import profileIcon from './profile.svg';
+import rainyIcon from './rainy.svg';
 import setIcon from './set.svg';
 import sleepyIcon from './sleepy.svg';
 import startSessionIcon from './start-session.svg';
 import sunIcon from './sun.svg';
+import sunnyIcon from './sunny.svg';
 import templateIcon from './template.svg';
 import tomatoIcon from './tomato.svg';
 import twitterIcon from './twitter.svg';
@@ -46,6 +49,7 @@ import oceanIcon from './noises/ocean.svg';
 import snowIcon from './noises/snow.svg';
 
 export {
+	arrowLeftIcon,
 	borderBrIcon,
 	checkIcon,
 	chillIcon,
@@ -67,9 +71,11 @@ export {
 	playIcon,
 	prevIcon,
 	profileIcon,
+	rainyIcon,
 	setIcon,
 	sleepyIcon,
 	startSessionIcon,
+	sunnyIcon,
 	templateIcon,
 	tomatoIcon,
 	twitterIcon,

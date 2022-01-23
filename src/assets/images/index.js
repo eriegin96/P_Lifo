@@ -14,19 +14,21 @@ import homeRoom1Img from './home-room-1.jpg';
 import homeRoom2Img from './home-room-2.jpg';
 import homeRoom3Img from './home-room-3.jpg';
 import homeRoom4Img from './home-room-4.jpg';
-import lofiDesk1Img from './lofi-desk-1.jpg';
-import lofiDesk2Img from './lofi-desk-2.jpg';
-import lofiDesk3Img from './lofi-desk-3.jpg';
 import logoImg from './logo.gif';
 import oceanTales21Img from './ocean-tales-2-1.jpg';
 import oceanTales22Img from './ocean-tales-2-2.jpg';
-import setChillImg from './set-chill.png';
-import setDeskImg from './set-desk.png';
-import setForestImg from './set-forest.png';
-import setOceanImg from './set-ocean.png';
-import setCafeImg from './set-cafe.png';
-import setVanImg from './set-van.png';
-import setSummerImg from './set-summer.png';
+import setChillImg from './thumbnails/set-chill.png';
+import setDeskImg from './thumbnails/set-desk.png';
+import setForestImg from './thumbnails/set-forest.png';
+import setOceanImg from './thumbnails/set-ocean.png';
+import setCafeImg from './thumbnails/set-cafe.png';
+import setVanImg from './thumbnails/set-van.png';
+import setSummerImg from './thumbnails/set-summer.png';
+import sceneChill1Img from './thumbnails/scene-chill-1.png';
+import sceneChill2Img from './thumbnails/scene-chill-2.png';
+import sceneDesk1Img from './thumbnails/scene-desk-1.jpg';
+import sceneDesk2Img from './thumbnails/scene-desk-2.jpg';
+import sceneDesk3Img from './thumbnails/scene-desk-3.jpg';
 import mosaicImg from './social-mosaic.svg';
 
 export {
@@ -46,9 +48,6 @@ export {
 	homeRoom2Img,
 	homeRoom3Img,
 	homeRoom4Img,
-	lofiDesk1Img,
-	lofiDesk2Img,
-	lofiDesk3Img,
 	logoImg,
 	oceanTales21Img,
 	oceanTales22Img,
@@ -59,5 +58,10 @@ export {
 	setCafeImg,
 	setVanImg,
 	setSummerImg,
+	sceneChill1Img,
+	sceneChill2Img,
+	sceneDesk1Img,
+	sceneDesk2Img,
+	sceneDesk3Img,
 	mosaicImg,
 };
