@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('./_ckColors.css');
+
 :root {
 	--color-primary: #f3a952;
 	--color-primary-20: rgba(243, 169, 82, 0.2);

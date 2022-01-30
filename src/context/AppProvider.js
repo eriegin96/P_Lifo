@@ -10,6 +10,8 @@ export default function AppProvider({ children }) {
 	const [theme, setTheme] = useState();
 	const [fullscreen, setFullscreen] = useState(false);
 	const [modalType, setModalType] = useState();
+	const initialDraggableModalType = { session: false, tasks: false, notes: false, history: false };
+	const [draggableModalType, setDraggableModalType] = useState(initialDraggableModalType);
 
 	// Main Song
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -30,6 +32,8 @@ export default function AppProvider({ children }) {
 		showTop: true,
 		day: true,
 		rainy: false,
+		top: 'day',
+		bot: 'night',
 		linkTop: backgroundLinks.day,
 		linkBot: backgroundLinks.night,
 	});
@@ -44,6 +48,9 @@ export default function AppProvider({ children }) {
 		setFullscreen,
 		modalType,
 		setModalType,
+		initialDraggableModalType,
+		draggableModalType,
+		setDraggableModalType,
 		currentSong,
 		setCurrentSong,
 		isPlaying,

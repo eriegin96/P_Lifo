@@ -19,7 +19,7 @@ export default function Background() {
 						muted
 						loop
 						playsInline
-						className='w-full h-full object-cover'
+						className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full min-h-full object-cover lg:aspect-video'
 					/>
 				</div>
 
@@ -34,7 +34,7 @@ export default function Background() {
 						muted
 						loop
 						playsInline
-						className='w-full h-full object-cover'
+						className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full min-h-full object-cover lg:aspect-video pointer-events-none'
 					/>
 				</div>
 			</div>

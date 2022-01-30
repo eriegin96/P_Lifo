@@ -25,7 +25,7 @@ export default function Audio() {
 	};
 
 	return (
-		<div className='absolute bottom-0 w-screen'>
+		<div className='fixed bottom-0 w-screen'>
 			<div className='p-8 pb-4 relative flex justify-center items-center'>
 				<p className='absolute left-20 opacity-50 text-sm'>Music by - lofi.co 2021 ©</p>
 				<Button

@@ -4,6 +4,7 @@ module.exports = {
 		extend: {
 			animation: {
 				fadeIn: 'fadeIn 0.3s ease',
+				fadeIn1s: 'fadeIn 1s ease',
 				fadeOut: 'fadeOut 0.3s ease',
 			},
 			backgroundColor: (theme) => ({
@@ -76,6 +77,10 @@ module.exports = {
 			spacing: {},
 			zIndex: {
 				1: 1,
+				2: 2,
+				3: 3,
+				4: 4,
+				5: 5,
 				'-1': -1,
 			},
 		},

@@ -32,13 +32,17 @@ export default function Navbar() {
 	};
 
 	const handleChangeBg = (mode) => {
-		const newState = newBackground(background, mode, BACKGROUND_LINKS.chill.scene1);
+		const newState = newBackground(
+			background,
+			mode,
+			BACKGROUND_LINKS[background.set][background.scene]
+		);
 
 		setBackground(newState);
 	};
 
 	return (
-		<div className='relative w-screen h-20 z-10'>
+		<div className='fixed w-screen h-20 z-10'>
 			<div className='absolute inset-0 navbar backdrop-blur backdrop-brightness-50' />
 
 			<div className='absolute w-full h-full px-12 pt-3 flex items-center justify-between'>
