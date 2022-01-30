@@ -51,7 +51,7 @@ export default function Menu() {
 	const [menuTab, setMenuTab] = useState(initialTab);
 
 	return (
-		<div className='fixed top-1/2 right-0 transform -translate-y-1/2 flex flex-row-reverse items-center z-50'>
+		<div className='fixed top-1/2 right-0 transform -translate-y-1/2 flex flex-row-reverse items-center z-40'>
 			<div className='relative mr-5 flex flex-col h-[280px] w-[70px] bg-transparent-b-60 rounded-full z-20'>
 				<MenuItem
 					iconSrc={moodIcon}
@@ -99,7 +99,9 @@ export default function Menu() {
 			{(menuTab.mood || menuTab.template || menuTab.set || menuTab.focus) && (
 				<>
 					<div
-						className={`w-[345px] bg-bg-menu rounded-3xl p-4 z-20 ${menuTab.focus ? 'mt-40' : ''}`}
+						className={`w-[345px] bg-bg-menu rounded-3xl z-20 ${menuTab.mood ? 'p-6' : 'p-4'} ${
+							menuTab.focus ? 'mt-40' : ''
+						}`}
 					>
 						{menuTab.mood && <Mood />}
 						{menuTab.template && <Template />}

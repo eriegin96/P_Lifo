@@ -45,7 +45,7 @@ export default function Navbar() {
 		<div className='fixed w-screen h-20 z-10'>
 			<div className='absolute inset-0 navbar backdrop-blur backdrop-brightness-50' />
 
-			<div className='absolute w-full h-full px-12 pt-3 flex items-center justify-between'>
+			<div className='relative w-full h-full px-12 pt-3 flex flex-wrap items-center justify-between'>
 				<img src={logoImg} alt='logo' className='h-[100px]' />
 
 				{!fullscreen && (

@@ -47,6 +47,7 @@ import peopleTalkingIcon from './noises/people.svg';
 import windIcon from './noises/wind.svg';
 import oceanIcon from './noises/ocean.svg';
 import snowIcon from './noises/snow.svg';
+import keyboardIcon from './noises/keyboard.svg';
 
 export {
 	arrowLeftIcon,
@@ -97,4 +98,5 @@ export {
 	windIcon,
 	oceanIcon,
 	snowIcon,
+	keyboardIcon,
 };

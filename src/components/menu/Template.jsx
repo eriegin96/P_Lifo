@@ -8,7 +8,7 @@ export default function Template() {
 
 			<div className='text-center'>
 				<p className='italic opacity-50'>Templates are a premium feature</p>
-				<Button className='w-full my-8 py-1.5 px-4 bg-primary text-center text-black font-semibold text-lg rounded-full'>
+				<Button className='w-full mt-8 my-4 py-1.5 px-4 bg-primary text-center text-black font-semibold text-lg rounded-full'>
 					Go Premium
 				</Button>
 			</div>

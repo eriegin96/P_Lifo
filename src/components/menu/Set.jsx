@@ -41,7 +41,7 @@ export default function Set() {
 					</div>
 
 					<div className='max-h-[500px] flex flex-col justify-between w-full text-center overflow-auto rounded-lg'>
-						{/* Background Music */}
+						{/* Background Video */}
 						{SETS.find((item) => item.set === sceneMode).scenes.map((item) => (
 							<Button
 								key={item.scene}

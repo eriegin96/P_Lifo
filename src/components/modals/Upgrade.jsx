@@ -35,7 +35,7 @@ export default function Upgrade() {
 	const [yearly, setYearly] = useState(true);
 
 	return (
-		<div className='h-screen animate-fadeIn'>
+		<div className='h-screen w-5/6 m-auto'>
 			<div className='relative h-full flex justify-center items-center rounded-2xl bg-transparent-b-70'>
 				<Button className='absolute top-4 right-4' onClick={() => setModalType(null)}>
 					<img src={closeIcon} alt='close' />

@@ -9,13 +9,12 @@ export default function About() {
 	const { setModalType } = useContext(AppContext);
 
 	return (
-		<div className='w-full h-full animate-fadeIn'>
+		<div className='w-full z-10'>
 			<Button className='absolute top-8 right-8' onClick={() => setModalType(null)}>
 				<img src={closeIcon} alt='close' />
 			</Button>
 
 			{/* About section */}
-
 			<div className='h-full flex flex-col justify-center items-center text-center w-4/5 m-auto'>
 				<h3 className='font-bold text-4xl my-8'>About lofi.co</h3>
 				<p className='text-md mx-16'>
@@ -25,7 +24,7 @@ export default function About() {
 					{ABOUT_US_2}
 				</p>
 
-				<div className='my-12 flex items-center justify-between'>
+				<div className='mt-12 flex items-center justify-between'>
 					<a
 						href='https://www.instagram.com/lofi/'
 						target='_blank'

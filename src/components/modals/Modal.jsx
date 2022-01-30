@@ -1,4 +1,6 @@
-import React, { useContext } from 'react';
+import React, { Fragment, useContext } from 'react';
+import { Transition, Dialog } from '@headlessui/react';
+
 import { About, Contact, Profile, Share, Tutorial, Upgrade } from '..';
 import { AppContext } from '../../context/AppProvider';
 
@@ -6,31 +8,51 @@ export default function Modal() {
 	const { modalType, setModalType } = useContext(AppContext);
 
 	return (
-		<>
-			{modalType && (
-				<div
-					className={`absolute inset-0 flex justify-center items-center animate-fadeIn z-50 ${
-						modalType === 'tutorial'
-							? 'bg-transparent-b-70 backdrop-blur-xl'
-							: 'bg-transparent-b-50'
-					}`}
-				>
-					<div
-						className='absolute inset-0 z-40'
-						onClick={() => {
-							modalType !== 'tutorial' && modalType !== 'about' && setModalType(null);
-						}}
-					/>
-					<div className='max-h-full overflow-y-auto z-50'>
-						{modalType === 'tutorial' && <Tutorial />}
-						{modalType === 'upgrade' && <Upgrade />}
-						{modalType === 'contact' && <Contact />}
-						{modalType === 'about' && <About />}
-						{modalType === 'profile' && <Profile />}
-						{modalType === 'share' && <Share />}
-					</div>
+		<Transition show={!!modalType} as={Fragment}>
+			<Dialog
+				as='div'
+				className='fixed inset-0 z-50 overflow-y-auto'
+				onClose={() => setModalType(null)}
+			>
+				<div className='min-h-screen text-center'>
+					<Transition.Child
+						as={Fragment}
+						enter='ease-out duration-300'
+						enterFrom='opacity-0'
+						enterTo='opacity-100'
+						leave='ease-in duration-200'
+						leaveFrom='opacity-100'
+						leaveTo='opacity-0'
+					>
+						<Dialog.Overlay
+							className={`fixed inset-0 ${
+								['tutorial', 'about'].includes(modalType)
+									? 'bg-transparent-b-70 backdrop-blur-xl'
+									: 'bg-transparent-b-50'
+							}`}
+						/>
+					</Transition.Child>
+
+					<Transition.Child
+						as={Fragment}
+						enter='ease-out duration-300'
+						enterFrom='opacity-0'
+						enterTo='opacity-100'
+						leave='ease-in duration-200'
+						leaveFrom='opacity-100'
+						leaveTo='opacity-0'
+					>
+						<div className='min-h-screen flex justify-center items-center text-white z-20'>
+							{modalType === 'tutorial' && <Tutorial />}
+							{modalType === 'upgrade' && <Upgrade />}
+							{modalType === 'contact' && <Contact />}
+							{modalType === 'about' && <About />}
+							{modalType === 'profile' && <Profile />}
+							{modalType === 'share' && <Share />}
+						</div>
+					</Transition.Child>
 				</div>
-			)}
-		</>
+			</Dialog>
+		</Transition>
 	);
 }

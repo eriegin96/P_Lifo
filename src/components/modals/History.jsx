@@ -10,7 +10,7 @@ export default function History() {
 	const [newTab, setNewTab] = useState(true);
 
 	return (
-		<div className='handle absolute top-44 left-1/2 transform -translate-x-1/2 animate-fadeIn cursor-move'>
+		<div className='absolute top-44 left-1/2 transform -translate-x-1/2 animate-fadeIn'>
 			<div className='p-6 w-[440px] flex flex-col justify-center items-center rounded-2xl bg-black'>
 				<Button
 					className='absolute top-4 right-4'
@@ -21,7 +21,7 @@ export default function History() {
 					<img src={closeIcon} alt='close' />
 				</Button>
 
-				<h3 className='text-3xl font-bold'>History</h3>
+				<h3 className='handle w-full text-3xl font-bold text-center cursor-move'>History</h3>
 				<div className='w-full my-6 p-2 flex items-center bg-bg-200 rounded-full font-semibold'>
 					<div
 						className={`w-1/2 py-1.5 px-6 rounded-full text-center cursor-pointer ${

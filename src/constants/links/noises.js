@@ -14,4 +14,5 @@ export const NOISE_LINKS = [
 	'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/effects/wind.mp3',
 	'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/effects/ocean.mp3',
 	'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/effects/snow.mp3',
+	'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/effects/keyboard.mp3',
 ];

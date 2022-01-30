@@ -138,15 +138,13 @@ export default function Tutorial() {
 	const { setModalType } = useContext(AppContext);
 
 	return (
-		<div className='w-full h-full animate-fadeIn'>
+		<div className='w-full h-screen z-10 overflow-auto'>
 			<Button className='absolute top-8 right-8' onClick={() => setModalType(null)}>
 				<img src={closeIcon} alt='close' />
 			</Button>
 
-			<div className='h-full flex flex-col items-center'>
-				<div className='h-full max-w-[500px] overflow-x-hidden pt-4'>
-					<Carousel setType={setModalType} />
-				</div>
+			<div className='h-full w-[500px] m-auto overflow-x-hidden pt-4'>
+				<Carousel setType={setModalType} />
 			</div>
 		</div>
 	);
