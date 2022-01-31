@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useRef, useState } from 'react';
 import { AuthContext } from './AuthProvider';
 
-import { BACKGROUND_LINKS, CHILL_LINKS } from '../constants';
+import { BACKGROUND_LINKS_LIST, CHILL_LINKS } from '../constants';
 
 export const AppContext = createContext();
 
@@ -25,17 +25,17 @@ export default function AppProvider({ children }) {
 	});
 
 	// Background
-	const [backgroundLinks, setBackgroundLinks] = useState(BACKGROUND_LINKS.chill.scene1);
 	const [background, setBackground] = useState({
 		set: 'chill',
 		scene: 'scene1',
-		showTop: true,
+		show1: true,
 		day: true,
 		rainy: false,
-		top: 'day',
-		bot: 'night',
-		linkTop: backgroundLinks.day,
-		linkBot: backgroundLinks.night,
+		link1: BACKGROUND_LINKS_LIST.find(
+			(item) =>
+				item.set === 'chill' && item.scene === 'scene1' && item.day === true && item.rainy === false
+		).link,
+		link2: '',
 	});
 
 	const mainSongRef = useRef();
@@ -55,8 +55,6 @@ export default function AppProvider({ children }) {
 		setCurrentSong,
 		isPlaying,
 		setIsPlaying,
-		backgroundLinks,
-		setBackgroundLinks,
 		background,
 		setBackground,
 		mainSongRef,

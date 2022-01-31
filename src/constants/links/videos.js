@@ -1,90 +1,406 @@
 export const BACKGROUND_LINKS = {
 	chill: {
-		scene1: {
-			day: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20Day%20112521%20%281%29.mp4',
-			night:
-				'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20STARRY%20NIGHT%20-.mp4',
-			rainyDay:
-				'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20RAINY%20DAY.mp4',
-			rainyNight:
-				'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20RAINY%20NIGHT.mp4',
-		},
-		scene2: {
-			day: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20Day%20112521.mp4',
-			night:
-				'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20STARRY%20NIGHT.mp4',
-			rainyDay:
-				'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20RAINY%20DAY.mp4',
-			rainyNight:
-				'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20RAINY%20NIGHT.mp4',
-		},
+		scene1: [
+			{
+				day: true,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20Day%20112521%20%281%29.mp4',
+			},
+			{
+				day: false,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20STARRY%20NIGHT%20-.mp4',
+			},
+			{
+				day: true,
+				rainy: true,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20RAINY%20DAY.mp4',
+			},
+			{
+				day: false,
+				rainy: true,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20RAINY%20NIGHT.mp4',
+			},
+		],
+		scene2: [
+			{
+				day: true,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20Day%20112521.mp4',
+			},
+			{
+				day: false,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20STARRY%20NIGHT.mp4',
+			},
+			{
+				day: true,
+				rainy: true,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20RAINY%20DAY.mp4',
+			},
+			{
+				day: false,
+				rainy: true,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20RAINY%20NIGHT.mp4',
+			},
+		],
 	},
 	northern: {
-		scene1: {
-			day: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cottage/Cottage+Int+Final.mp4',
-		},
-		scene2: {
-			day: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cottage/Cottage+Ext+Final.mp4',
-		},
+		scene1: [
+			{
+				day: true,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cottage/Cottage+Int+Final.mp4',
+			},
+		],
+		scene2: [
+			{
+				day: true,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cottage/Cottage+Ext+Final.mp4',
+			},
+		],
 	},
 	desk: {
-		scene1: {
-			day: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/study/city%20scene.mp4',
-		},
-		scene2: {
-			day: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/study/beach%20scene.mp4',
-		},
-		scene3: {
-			day: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/study/snow%20scene%20wo%20snow.mp4',
-		},
+		scene1: [
+			{
+				day: true,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/study/city%20scene.mp4',
+			},
+		],
+		scene2: [
+			{
+				day: true,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/study/beach%20scene.mp4',
+			},
+		],
+		scene3: [
+			{
+				day: true,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/study/snow%20scene%20wo%20snow.mp4',
+			},
+		],
 	},
 	forest: {
-		scene1: {
-			day: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/forest/inside.mp4',
-			pixel: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/forest/inside-pix.mp4',
-		},
-		scene2: {
-			day: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/forest/outside.mp4',
-			pixel: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/forest/outside-pix.mp4',
-		},
+		scene1: [
+			{
+				day: true,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/forest/inside.mp4',
+			},
+		],
+		scene2: [
+			{
+				day: true,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/forest/outside.mp4',
+			},
+		],
 	},
 	ocean: {
-		scene1: {
-			day: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/ocean/ocean-tales.mp4',
-		},
-		scene2: {
-			day: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/ocean/ocean-tales-out.mp4',
-		},
+		scene1: [
+			{
+				day: true,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/ocean/ocean-tales.mp4',
+			},
+		],
+		scene2: [
+			{
+				day: true,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/ocean/ocean-tales-out.mp4',
+			},
+		],
 	},
 	cafe: {
-		scene1: {
-			day: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/inside.mp4',
-			night: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/inside-night.mp4',
-			rainyDay: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/inside-rain.mp4',
-			rainyNight:
-				'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/inside-night-rain.mp4',
-		},
-		scene2: {
-			day: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/outside.mp4',
-			night: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/outside-night.mp4',
-			rainyDay: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/outside-rain.mp4',
-			rainyNight:
-				'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/outside-night-rain.mp4',
-		},
+		scene1: [
+			{
+				day: true,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/inside.mp4',
+			},
+			{
+				day: false,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/inside-night.mp4',
+			},
+			{
+				day: true,
+				rainy: true,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/inside-rain.mp4',
+			},
+			{
+				day: false,
+				rainy: true,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/inside-night-rain.mp4',
+			},
+		],
+		scene2: [
+			{
+				day: true,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/outside.mp4',
+			},
+			{
+				day: false,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/outside-night.mp4',
+			},
+			{
+				day: true,
+				rainy: true,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/outside-rain.mp4',
+			},
+			{
+				day: false,
+				rainy: true,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/outside-night-rain.mp4',
+			},
+		],
 	},
 	van: {
-		scene1: { night: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/van/van.mp4' },
-		scene2: { night: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/van/van-out.mp4' },
+		scene1: [
+			{
+				day: true,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/van/van.mp4',
+			},
+		],
+		scene2: [
+			{
+				day: true,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/van/van-out.mp4',
+			},
+		],
 	},
 	summer: {
-		scene1: { day: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/summer/summer.mp4' },
-		scene2: {
-			day: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/summer/summer-out.mp4',
-			pixel:
-				'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/summer/summer-out-pixel.mp4',
-		},
+		scene1: [
+			{
+				day: true,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/summer/summer.mp4',
+			},
+		],
+		scene2: [
+			{
+				day: true,
+				rainy: false,
+				link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/summer/summer-out.mp4',
+			},
+		],
 	},
 };
+
+export const BACKGROUND_LINKS_LIST = [
+	{
+		set: 'chill',
+		scene: 'scene1',
+		day: true,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20Day%20112521%20%281%29.mp4',
+	},
+	{
+		set: 'chill',
+		scene: 'scene1',
+		day: false,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20STARRY%20NIGHT%20-.mp4',
+	},
+	{
+		set: 'chill',
+		scene: 'scene1',
+		day: true,
+		rainy: true,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20RAINY%20DAY.mp4',
+	},
+	{
+		set: 'chill',
+		scene: 'scene1',
+		day: false,
+		rainy: true,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20RAINY%20NIGHT.mp4',
+	},
+	{
+		set: 'chill',
+		scene: 'scene2',
+		day: true,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20Day%20112521.mp4',
+	},
+	{
+		set: 'chill',
+		scene: 'scene2',
+		day: false,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20STARRY%20NIGHT.mp4',
+	},
+	{
+		set: 'chill',
+		scene: 'scene2',
+		day: true,
+		rainy: true,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20RAINY%20DAY.mp4',
+	},
+	{
+		set: 'chill',
+		scene: 'scene2',
+		day: false,
+		rainy: true,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20RAINY%20NIGHT.mp4',
+	},
+	{
+		set: 'northern',
+		scene: 'scene1',
+		day: true,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cottage/Cottage+Int+Final.mp4',
+	},
+	{
+		set: 'northern',
+		scene: 'scene2',
+		day: true,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cottage/Cottage+Ext+Final.mp4',
+	},
+	{
+		set: 'desk',
+		scene: 'scene1',
+		day: true,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/study/city%20scene.mp4',
+	},
+	{
+		set: 'desk',
+		scene: 'scene2',
+		day: true,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/study/beach%20scene.mp4',
+	},
+	{
+		set: 'desk',
+		scene: 'scene3',
+		day: true,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/study/snow%20scene%20wo%20snow.mp4',
+	},
+	{
+		set: 'forest',
+		scene: 'scene1',
+		day: true,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/forest/inside.mp4',
+	},
+	{
+		set: 'forest',
+		scene: 'scene2',
+		day: true,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/forest/outside.mp4',
+	},
+	{
+		set: 'ocean',
+		scene: 'scene1',
+		day: true,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/ocean/ocean-tales.mp4',
+	},
+	{
+		set: 'ocean',
+		scene: 'scene2',
+		day: true,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/ocean/ocean-tales-out.mp4',
+	},
+	{
+		set: 'cafe',
+		scene: 'scene1',
+		day: true,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/inside.mp4',
+	},
+	{
+		set: 'cafe',
+		scene: 'scene1',
+		day: false,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/inside-night.mp4',
+	},
+	{
+		set: 'cafe',
+		scene: 'scene1',
+		day: true,
+		rainy: true,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/inside-rain.mp4',
+	},
+	{
+		set: 'cafe',
+		scene: 'scene1',
+		day: false,
+		rainy: true,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/inside-night-rain.mp4',
+	},
+	{
+		set: 'cafe',
+		scene: 'scene2',
+		day: true,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/outside.mp4',
+	},
+	{
+		set: 'cafe',
+		scene: 'scene2',
+		day: false,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/outside-night.mp4',
+	},
+	{
+		set: 'cafe',
+		scene: 'scene2',
+		day: true,
+		rainy: true,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/outside-rain.mp4',
+	},
+	{
+		set: 'cafe',
+		scene: 'scene2',
+		day: false,
+		rainy: true,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/outside-night-rain.mp4',
+	},
+	{
+		set: 'van',
+		scene: 'scene1',
+		day: true,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/van/van.mp4',
+	},
+	{
+		set: 'van',
+		scene: 'scene2',
+		day: true,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/van/van-out.mp4',
+	},
+	{
+		set: 'summer',
+		scene: 'scene1',
+		day: true,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/summer/summer.mp4',
+	},
+	{
+		set: 'summer',
+		scene: 'scene2',
+		day: true,
+		rainy: false,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/summer/summer-out.mp4',
+	},
+];
 
 export const TUTORIAL_VIDEOS_LINKS = [
 	{

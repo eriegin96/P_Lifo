@@ -10,11 +10,11 @@ export default function Background() {
 			<div className='relative w-full h-full'>
 				<div
 					className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
-						background.showTop ? 'opacity-100' : 'opacity-0'
+						background.show1 ? 'opacity-100' : 'opacity-0'
 					}`}
 				>
 					<video
-						src={background.linkTop}
+						src={background.link1}
 						autoPlay
 						muted
 						loop
@@ -25,12 +25,12 @@ export default function Background() {
 
 				<div
 					className={`absolute inset-0 transition duration-500 ease-in-out ${
-						!background.showTop ? 'opacity-100' : 'opacity-0'
+						!background.show1 ? 'opacity-100' : 'opacity-0'
 					}`}
 				>
 					<video
 						autoPlay
-						src={background.linkBot}
+						src={background.link2}
 						muted
 						loop
 						playsInline
