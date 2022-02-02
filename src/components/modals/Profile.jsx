@@ -1,8 +1,11 @@
 import React, { useContext, useState } from 'react';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../firebase/config';
 
 import { Button } from '..';
 import { closeIcon } from '../../assets/icons';
 import { AppContext } from '../../context/AppProvider';
+import { AuthContext } from '../../context/AuthProvider';
 
 function FormInput({ type = 'text', label, inputId, value }) {
 	return (
@@ -21,6 +24,7 @@ function FormInput({ type = 'text', label, inputId, value }) {
 }
 
 export default function Profile() {
+	const { user } = useContext(AuthContext);
 	const { setModalType } = useContext(AppContext);
 	const [nav, setNav] = useState('profile');
 
@@ -55,7 +59,10 @@ export default function Profile() {
 						>
 							Membership
 						</button>
-						<button className='min-h-[40px] mt-10 font-semibold opacity-70 hover:opacity-100 cursor-pointer'>
+						<button
+							className='min-h-[40px] mt-10 font-semibold opacity-70 hover:opacity-100 cursor-pointer'
+							onClick={() => setNav('logout')}
+						>
 							Logout
 						</button>
 					</div>
@@ -74,7 +81,7 @@ export default function Profile() {
 									</Button>
 								</div>
 
-								<FormInput label='Username' inputId='profile-username' value='eriegin96' />
+								<FormInput label='Username' inputId='profile-username' value={user.displayName} />
 							</div>
 
 							<div className='mb-8'>
@@ -90,7 +97,7 @@ export default function Profile() {
 									type='email'
 									label='Email Address'
 									inputId='profile-email'
-									value='eriegin96@gmail.com'
+									value={user.email}
 								/>
 							</div>
 
@@ -123,6 +130,27 @@ export default function Profile() {
 								</div>
 								<div className='text-primary text-sm font-semibold cursor-pointer'>Cancel</div>
 							</div>
+						</div>
+					)}
+
+					{nav === 'logout' && (
+						<div className=''>
+							<div className='mb-4 font-semibold text-lg'>Do you want to Logout?</div>
+							<Button
+								className='mr-2 rounded-full px-4 py-1.5 bg-primary text-black font-semibold text-md'
+								onClick={() => setNav('profile')}
+							>
+								Cancel
+							</Button>
+							<Button
+								className='ml-2 px-4 py-1.5 border border-white rounded-full font-semibold text-md'
+								onClick={() => {
+									setModalType(null);
+									signOut(auth);
+								}}
+							>
+								Yes
+							</Button>
 						</div>
 					)}
 				</div>

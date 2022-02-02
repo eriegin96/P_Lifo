@@ -9,38 +9,6 @@ import {
 	serverTimestamp,
 } from 'firebase/firestore';
 
-// export const createUsersData = () => {
-// 	for (let i = 0; i < 10; i++) {
-// 		const {
-// 			dob: { age },
-// 			gender,
-// 			location: { city, state },
-// 			login: { uuid },
-// 			name: { first, last },
-// 		} = usersList[i];
-// 		const userRef = doc(db, 'users', uuid);
-// 		async function asyncUsersData() {
-// 			await setDoc(userRef, {
-// 				age,
-// 				uid: uuid,
-// 				displayInfo: {
-// 					school: `${city} Univeristy`,
-// 					gender,
-// 					location: `${city}, ${state}`,
-// 					distance: '3 kilometers',
-// 				},
-// 				passions: randomPassion(),
-// 				status: randomStatus(),
-// 				displayName: `${first} ${last}`,
-// 				photos: randomPhotos(),
-// 				createdAt: serverTimestamp(),
-// 				modifiedAt: serverTimestamp(),
-// 			});
-// 		}
-// 		asyncUsersData();
-// 	}
-// };
-
 export const getUserData = (uid) => {
 	const userRef = doc(db, 'users', uid);
 
@@ -57,28 +25,19 @@ export const getUserData = (uid) => {
 	return asyncGetDoc();
 };
 
-// export const addUser = (uid, data) => {
-// 	const userRef = doc(db, 'users', uid);
+export const addUser = (uid, data) => {
+	const userRef = doc(db, 'users', uid);
 
-// 	async function asyncSetDoc() {
-// 		await setDoc(userRef, {
-// 			...data,
-// 			photos: randomPhotos(),
-// 			passions: randomPassion(),
-// 			status: randomStatus(),
-// 			displayInfo: {
-// 				school: '',
-// 				gender: '',
-// 				location: '',
-// 				distance: '',
-// 			},
-// 			createdAt: serverTimestamp(),
-// 			modifiedAt: serverTimestamp(),
-// 		});
-// 	}
+	async function asyncSetDoc() {
+		await setDoc(userRef, {
+			...data,
+			createdAt: serverTimestamp(),
+			modifiedAt: serverTimestamp(),
+		});
+	}
 
-// 	asyncSetDoc();
-// };
+	asyncSetDoc();
+};
 
 // export const updateUser = (uid, data) => {
 // 	const userRef = doc(db, 'users', uid);

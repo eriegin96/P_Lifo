@@ -18,7 +18,7 @@ export default function AuthProvider({ children }) {
 					setIsAuthLoading(false);
 				});
 			} else {
-				setUser({ displayName: '', photos: [], uid: '' });
+				setUser({ displayName: '', photoURL: '', uid: '' });
 				setIsAuthLoading(false);
 			}
 		});
