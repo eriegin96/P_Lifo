@@ -31,9 +31,6 @@ export default function AppProvider({ children }) {
 	const mainSongRef = useRef();
 	const noisesRefs = useRef([]);
 	const alarmRef = useRef();
-	// useEffect(() => {
-	// 	localStorage.setItem('alarm-link', alarmLink || ALARM_LINKS[0]);
-	// }, [alarmLink]);
 	useEffect(() => {
 		localStorage.setItem('alarm', JSON.stringify({ isOn: alarmOn ?? true, link: alarmLink }));
 	}, [alarmOn, alarmLink]);
@@ -58,7 +55,8 @@ export default function AppProvider({ children }) {
 	const [isTimerPlaying, setIsTimerPlaying] = useState(false);
 	const [initSessionTime, setInitSessionTime] = useState(25);
 	const [initBreakTime, setInitBreakTime] = useState(5);
-	const [sessionTime, setSessionTime] = useState(25 * 60);
+	const [sessionTime, setSessionTime] = useState(initSessionTime * 60);
+	const [breakTime, setBreakTime] = useState(initBreakTime * 60);
 	const [sessionInterval, setSessionInterval] = useState();
 	useEffect(() => {
 		if (isTimerPlaying) {
@@ -77,6 +75,23 @@ export default function AppProvider({ children }) {
 			};
 		}
 	}, [isTimerPlaying, sessionTime]);
+	useEffect(() => {
+		if (isTimerPlaying) {
+			if (breakTime === 0) {
+				setIsTimerPlaying(false);
+			}
+
+			setSessionInterval(
+				setInterval(() => {
+					setBreakTime(breakTime - 1);
+				}, 1000)
+			);
+
+			return () => {
+				clearInterval(sessionInterval);
+			};
+		}
+	}, [isTimerPlaying, breakTime]);
 
 	const value = {
 		theme,
@@ -109,6 +124,8 @@ export default function AppProvider({ children }) {
 		setIsTimerPlaying,
 		sessionTime,
 		setSessionTime,
+		breakTime,
+		setBreakTime,
 		initSessionTime,
 		setInitSessionTime,
 		initBreakTime,

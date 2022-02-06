@@ -33,11 +33,13 @@ export default function Tasks() {
 		isTimerPlaying,
 		setIsTimerPlaying,
 		sessionTime,
+		setSessionTime,
+		breakTime,
+		setBreakTime,
 		initSessionTime,
 		setInitSessionTime,
 		initBreakTime,
 		setInitBreakTime,
-		setSessionTime,
 		sessionName,
 		sessionInterval,
 	} = useContext(AppContext);
@@ -88,7 +90,7 @@ export default function Tasks() {
 
 	const addNewTask = (e) => {
 		if (e.key === 'Enter' && newTaskRef.current?.value) {
-			// TODO: add to database
+			// !: add to database
 			const newTaskList = [...taskList, newTaskRef.current.value];
 			localStorage.setItem('task-list', JSON.stringify(newTaskList));
 			setTaskList(newTaskList);
@@ -126,7 +128,10 @@ export default function Tasks() {
 										src={minusIcon}
 										alt='minus'
 										className='h-full w-1/3 p-4 duration-200 ease-in-out hover:bg-primary rounded-l-lg cursor-pointer'
-										onClick={() => setInitSessionTime(initSessionTime - 1)}
+										onClick={() => {
+											setInitSessionTime(initSessionTime - 1);
+											setSessionTime((initSessionTime - 1) * 60);
+										}}
 									/>
 									<input
 										type='number'
@@ -139,7 +144,10 @@ export default function Tasks() {
 										src={plusIcon}
 										alt='plus'
 										className='h-full w-1/3 p-4 duration-200 ease-in-out hover:bg-primary rounded-r-lg cursor-pointer'
-										onClick={() => setInitSessionTime(initSessionTime + 1)}
+										onClick={() => {
+											setInitSessionTime(initSessionTime + 1);
+											setSessionTime((initSessionTime + 1) * 60);
+										}}
 									/>
 								</div>
 							</div>
@@ -150,7 +158,10 @@ export default function Tasks() {
 										src={minusIcon}
 										alt='minus'
 										className='h-full w-1/3 p-4 duration-200 ease-in-out hover:bg-primary rounded-l-lg cursor-pointer'
-										onClick={() => setInitBreakTime(initBreakTime - 1)}
+										onClick={() => {
+											setInitBreakTime(initBreakTime - 1);
+											setBreakTime((initBreakTime - 1) * 60);
+										}}
 									/>
 									<input
 										type='number'
@@ -163,7 +174,10 @@ export default function Tasks() {
 										src={plusIcon}
 										alt='plus'
 										className='h-full w-1/3 p-4 duration-200 ease-in-out hover:bg-primary rounded-r-lg cursor-pointer'
-										onClick={() => setInitBreakTime(initBreakTime + 1)}
+										onClick={() => {
+											setInitBreakTime(initBreakTime + 1);
+											setBreakTime((initBreakTime + 1) * 60);
+										}}
 									/>
 								</div>
 							</div>
@@ -270,10 +284,18 @@ export default function Tasks() {
 								<div className='mb-4 w-full'>
 									<div className='py-5 w-full flex flex-col items-center bg-bg-200 rounded-lg cursor-default'>
 										<h4 className='text-5xl font-bold'>
-											{Math.floor(sessionTime / 60) < 10
-												? '0' + Math.floor(sessionTime / 60)
-												: Math.floor(sessionTime / 60)}
-											:{sessionTime % 60 < 10 ? '0' + (sessionTime % 60) : sessionTime % 60}
+											{isBreak &&
+												`${
+													Math.floor(breakTime / 60) < 10
+														? '0' + Math.floor(breakTime / 60)
+														: Math.floor(breakTime / 60)
+												}:${breakTime % 60 < 10 ? '0' + (breakTime % 60) : breakTime % 60}`}
+											{!isBreak &&
+												`${
+													Math.floor(sessionTime / 60) < 10
+														? '0' + Math.floor(sessionTime / 60)
+														: Math.floor(sessionTime / 60)
+												}:${sessionTime % 60 < 10 ? '0' + (sessionTime % 60) : sessionTime % 60}`}
 										</h4>
 										<p className='text-white opacity-50 text-xl font-semibold'>{sessionName}</p>
 										<div className='my-4 flex justify-center items-center'>
