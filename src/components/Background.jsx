@@ -9,7 +9,7 @@ export default function Background() {
 		<div className='absolute inset-0'>
 			<div className='relative w-full h-full'>
 				<div
-					className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
+					className={`absolute inset-0 transition-opacity duration-500 ease-in-out delay-500 ${
 						background.show1 ? 'opacity-100' : 'opacity-0'
 					}`}
 				>
@@ -24,7 +24,7 @@ export default function Background() {
 				</div>
 
 				<div
-					className={`absolute inset-0 transition duration-500 ease-in-out ${
+					className={`absolute inset-0 transition duration-500 ease-in-out delay-500 ${
 						!background.show1 ? 'opacity-100' : 'opacity-0'
 					}`}
 				>

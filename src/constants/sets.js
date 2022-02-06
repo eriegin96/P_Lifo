@@ -47,7 +47,7 @@ export const SETS = [
 	{
 		set: 'northern',
 		img: setNorthernImg,
-		link: 'https://lofi.co/static/media/cottage.d178159e.png',
+		link: 'https://lofi.co/static/media/cottage.0229b098.png',
 		scenes: [
 			{
 				scene: 'scene1',

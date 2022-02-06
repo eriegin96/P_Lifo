@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
 	signInWithPopup,
 	GoogleAuthProvider,
@@ -10,8 +10,10 @@ import { Button } from '.';
 import { logoImg } from '../assets/images';
 import { auth } from '../firebase/config';
 import { addUser } from '../firebase/services';
+import { AuthContext } from '../context/AuthProvider';
 
 export default function Login() {
+	const { setIsAuthLoading } = useContext(AuthContext);
 	const googleProvider = new GoogleAuthProvider();
 
 	const checkUserExist = (additionalUserInfo, user) => {
@@ -30,7 +32,7 @@ export default function Login() {
 	const handleLogin = () => {
 		signInWithPopup(auth, googleProvider)
 			.then((result) => {
-				console.log(result);
+				setIsAuthLoading(true);
 				const { _tokenResponse, user } = result;
 				checkUserExist(_tokenResponse, user);
 			})

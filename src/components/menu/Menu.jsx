@@ -51,7 +51,7 @@ export default function Menu() {
 	const [menuTab, setMenuTab] = useState(initialTab);
 
 	return (
-		<div className='fixed top-1/2 right-0 transform -translate-y-1/2 flex flex-row-reverse items-center z-40'>
+		<div className='fixed top-1/2 right-0 transform -translate-y-1/2 flex flex-row-reverse items-center z-50'>
 			<div className='relative mr-5 flex flex-col h-[280px] w-[70px] bg-transparent-b-60 rounded-full z-20'>
 				<MenuItem
 					iconSrc={moodIcon}

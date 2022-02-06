@@ -7,134 +7,83 @@ import {
 	setDoc,
 	updateDoc,
 	serverTimestamp,
+	deleteDoc,
 } from 'firebase/firestore';
 
-export const getUserData = (uid) => {
+export const getUserData = async (uid) => {
 	const userRef = doc(db, 'users', uid);
 
-	async function asyncGetDoc() {
-		const userSnap = await getDoc(userRef);
+	// async function asyncGetDoc() {
+	const userSnap = await getDoc(userRef);
 
-		if (userSnap.exists()) {
-			return userSnap.data();
-		} else {
-			return {};
-		}
+	if (userSnap.exists()) {
+		return userSnap.data();
+	} else {
+		return {};
 	}
+	// }
 
-	return asyncGetDoc();
+	// return asyncGetDoc();
 };
 
-export const addUser = (uid, data) => {
+export const addUser = async (uid, data) => {
 	const userRef = doc(db, 'users', uid);
 
-	async function asyncSetDoc() {
-		await setDoc(userRef, {
-			...data,
-			createdAt: serverTimestamp(),
-			modifiedAt: serverTimestamp(),
-		});
-	}
+	// async function asyncSetDoc() {
+	await setDoc(userRef, {
+		...data,
+		createdAt: serverTimestamp(),
+		modifiedAt: serverTimestamp(),
+	});
+	// }
 
-	asyncSetDoc();
+	// asyncSetDoc();
 };
 
-// export const updateUser = (uid, data) => {
-// 	const userRef = doc(db, 'users', uid);
+export const addTask = async (uid, data) => {
+	const taskRef = collection(db, 'users', uid, 'tasks');
 
-// 	async function asyncUpdateDoc() {
-// 		await updateDoc(userRef, {
-// 			...data,
-// 			modifiedAt: serverTimestamp(),
-// 		});
-// 	}
+	// async function asyncAddTask() {
+	await addDoc(taskRef, {
+		...data,
+		createdAt: serverTimestamp(),
+		modifiedAt: serverTimestamp(),
+	});
+	// }
 
-// 	asyncUpdateDoc();
-// };
+	// asyncAddTask();
+};
 
-// export const matchPartner = (uid, partnerId) => {
-// 	const userRef = doc(db, 'users', uid);
-// 	const matchedOfPartnerRef = doc(db, 'users', partnerId, 'matched', uid);
-// 	const partnerRef = doc(db, 'users', partnerId);
-// 	const matchedOfUserRef = doc(db, 'users', uid, 'matched', partnerId);
+export const updateTask = async (uid, taskId, data) => {
+	const taskRef = doc(db, 'users', uid, 'tasks', taskId);
 
-// 	async function asyncAddMatched() {
-// 		// add user to partner
-// 		const userSnap = await getDoc(userRef);
-// 		await setDoc(matchedOfPartnerRef, {
-// 			uid: uid,
-// 			photos: userSnap.data().photos,
-// 			displayName: userSnap.data().displayName,
-// 			createdAt: serverTimestamp(),
-// 			modifiedAt: serverTimestamp(),
-// 		});
+	await updateDoc(taskRef, { ...data, modifiedAt: serverTimestamp() });
+};
 
-// 		// add partner to user
-// 		const partnerSnap = await getDoc(partnerRef);
-// 		await setDoc(matchedOfUserRef, {
-// 			uid: partnerId,
-// 			photos: partnerSnap.data().photos,
-// 			displayName: partnerSnap.data().displayName,
-// 			createdAt: serverTimestamp(),
-// 			modifiedAt: serverTimestamp(),
-// 		});
-// 	}
+export const removeTask = async (uid, taskId) => {
+	const taskRef = doc(db, 'users', uid, 'tasks', taskId);
 
-// 	asyncAddMatched();
-// };
+	await deleteDoc(taskRef);
+};
 
-// export const seenPartner = (uid, partnerId) => {
-// 	const partnerRef = doc(db, 'users', partnerId);
-// 	const seenOfUserRef = doc(db, 'users', uid, 'seen', partnerId);
+export const addNote = async (uid, data) => {
+	const noteRef = collection(db, 'users', uid, 'notes');
 
-// 	async function asyncAddSeen() {
-// 		// add partner to user
-// 		const partnerSnap = await getDoc(partnerRef);
-// 		await setDoc(seenOfUserRef, {
-// 			uid: partnerId,
-// 			photos: partnerSnap.data().photos,
-// 			displayName: partnerSnap.data().displayName,
-// 			createdAt: serverTimestamp(),
-// 			modifiedAt: serverTimestamp(),
-// 		});
-// 	}
+	await addDoc(noteRef, {
+		...data,
+		createdAt: serverTimestamp(),
+		modifiedAt: serverTimestamp(),
+	});
+};
 
-// 	asyncAddSeen();
-// };
+export const updateNote = async (uid, noteId, data) => {
+	const noteRef = doc(db, 'users', uid, 'notes', noteId);
 
-// export const addRoom = (data) => {
-// 	const roomRef = collection(db, 'rooms');
+	await updateDoc(noteRef, { ...data, modifiedAt: serverTimestamp() });
+};
 
-// 	async function asyncAddRoom() {
-// 		await addDoc(roomRef, {
-// 			...data,
-// 			messagesCount: 0,
-// 			createdAt: serverTimestamp(),
-// 			modifiedAt: serverTimestamp(),
-// 		});
-// 	}
+export const removeNote = async (uid, noteId) => {
+	const noteRef = doc(db, 'users', uid, 'notes', noteId);
 
-// 	asyncAddRoom();
-// };
-
-// export const addMessage = (roomId, data) => {
-// 	const messageRef = collection(db, 'rooms', roomId, 'messages');
-// 	const roomRef = doc(db, 'rooms', roomId);
-
-// 	async function asyncAddMessage() {
-// 		const roomSnap = await getDoc(roomRef);
-// 		await addDoc(messageRef, {
-// 			...data,
-// 			createdAt: serverTimestamp(),
-// 			modifiedAt: serverTimestamp(),
-// 		});
-
-// 		await updateDoc(roomRef, {
-// 			messagesCount: roomSnap.messagesCount + 1,
-// 			lastMessage: data.text,
-// 			modifiedAt: serverTimestamp(),
-// 		});
-// 	}
-
-// 	asyncAddMessage();
-// };
+	await deleteDoc(noteRef);
+};

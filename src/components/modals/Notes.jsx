@@ -10,6 +10,10 @@ import { closeIcon } from '../../assets/icons';
 export default function Notes() {
 	const { draggableModalType, setDraggableModalType } = useContext(AppContext);
 
+	const saveNote = () => {
+		// {title, content}
+	};
+
 	return (
 		<div className='absolute top-44 left-1/2 transform -translate-x-1/2 animate-fadeIn'>
 			<div className='p-6 flex flex-col justify-center items-center rounded-2xl bg-black'>

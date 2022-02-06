@@ -1,14 +1,23 @@
 import React, { useContext, useEffect } from 'react';
-import { NOISE_LINKS } from '../constants/links/noises';
 import { AppContext } from '../context/AppProvider';
 
 import { playIcon, pauseIcon, prevIcon, nextIcon } from '../assets/icons';
 import { Button } from '.';
 import { nextSong, prevSong } from '../utils/randomMainSong';
+import { NOISE_LINKS } from '../constants';
 
 export default function Audio() {
-	const { mainSongRef, noisesRefs, isPlaying, setIsPlaying, currentSong, setCurrentSong } =
-		useContext(AppContext);
+	const {
+		alarmOn,
+		mainSongRef,
+		noisesRefs,
+		alarmRef,
+		alarmLink,
+		isPlaying,
+		setIsPlaying,
+		currentSong,
+		setCurrentSong,
+	} = useContext(AppContext);
 
 	useEffect(() => {
 		mainSongRef.current.volume = 0.5;
@@ -61,7 +70,6 @@ export default function Audio() {
 					<img src={nextIcon} alt='next' />
 				</Button>
 			</div>
-
 			<audio
 				ref={mainSongRef}
 				src={currentSong.link}
@@ -75,7 +83,6 @@ export default function Audio() {
 					})
 				}
 			/>
-
 			{NOISE_LINKS.map((link, i) => (
 				<audio
 					key={i}
@@ -88,6 +95,7 @@ export default function Audio() {
 					muted
 				/>
 			))}
+			<audio ref={alarmRef} src={alarmLink} preload='auto' loop autoPlay={alarmOn} />
 		</div>
 	);
 }

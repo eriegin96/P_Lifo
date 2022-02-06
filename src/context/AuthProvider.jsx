@@ -29,7 +29,7 @@ export default function AuthProvider({ children }) {
 	}, []);
 
 	return (
-		<AuthContext.Provider value={{ user }}>
+		<AuthContext.Provider value={{ user, setIsAuthLoading }}>
 			{isAuthLoading ? <SplashScreen /> : children}
 		</AuthContext.Provider>
 	);
