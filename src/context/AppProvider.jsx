@@ -29,7 +29,7 @@ export default function AppProvider({ children }) {
 		};
 	});
 	const mainSongRef = useRef();
-	const noisesRefs = useRef([]);
+	const noisesRef = useRef([]);
 	const alarmRef = useRef();
 	useEffect(() => {
 		localStorage.setItem('alarm', JSON.stringify({ isOn: alarmOn ?? true, link: alarmLink }));
@@ -93,6 +93,9 @@ export default function AppProvider({ children }) {
 		}
 	}, [isTimerPlaying, breakTime]);
 
+	// Notes
+	const notesRef = useRef([]);
+
 	const value = {
 		theme,
 		setTheme,
@@ -112,7 +115,7 @@ export default function AppProvider({ children }) {
 		background,
 		setBackground,
 		mainSongRef,
-		noisesRefs,
+		noisesRef,
 		alarmRef,
 		alarmList,
 		setAlarmList,
@@ -134,6 +137,7 @@ export default function AppProvider({ children }) {
 		setSessionName,
 		sessionInterval,
 		setSessionInterval,
+		notesRef,
 	};
 
 	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

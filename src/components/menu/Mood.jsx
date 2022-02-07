@@ -33,7 +33,7 @@ function MoodItem({ iconSrc, label, className, isActive, handleClick }) {
 }
 
 export default function Mood() {
-	const { mainSongRef, noisesRefs, currentSong, setCurrentSong, setIsPlaying } =
+	const { mainSongRef, noisesRef, currentSong, setCurrentSong, setIsPlaying } =
 		useContext(AppContext);
 	const initialTab = { sleepy: false, jazzy: false, chill: false };
 	const [moodTab, setMoodTab] = useState({ ...initialTab, chill: true });
@@ -146,12 +146,12 @@ export default function Mood() {
 								className='h-6 w-[148px] bg-bg-200 rounded-full mr-1'
 								defaultValue={0}
 								onBeforeChange={() => {
-									const thisAudio = noisesRefs.current[index];
+									const thisAudio = noisesRef.current[index];
 									if (thisAudio.paused) thisAudio.play();
 									if (thisAudio.muted) thisAudio.muted = false;
 								}}
 								onChange={(value) => {
-									noisesRefs.current[index].volume = value / 100;
+									noisesRef.current[index].volume = value / 100;
 								}}
 								renderTrack={(props, state) => (
 									<div

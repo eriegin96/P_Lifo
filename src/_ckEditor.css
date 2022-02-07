@@ -4,20 +4,30 @@
  */
 
 :root {
+	/* Overrides the border radius setting in the theme. */
+	--ck-border-radius: 8px;
+
+	/* Overrides the default font size in the theme. */
+	--ck-font-size-base: 14px;
+
+	/**
+	 * A visual style of focused element's border or outline.
+	 */
+	--ck-focus-ring: 1px solid var(--ck-color-focus-border);
+
 	--ck-color-base-foreground: #000;
 	--ck-color-base-background: #000;
-	--ck-color-base-border: #000;
+	--ck-color-base-border: rgba(255, 255, 255, 0.2);
 	--ck-color-base-action: #61b045;
 	--ck-color-base-focus: #6cb5f9;
 	--ck-color-base-text: #fff;
 	--ck-color-base-active: #e49943;
 	--ck-color-base-active-focus: #d68b34;
 	--ck-color-base-error: #db3700;
-	--test: #1f89e5;
 
 	/* -- Generic colors ------------------------------------------------------------------------ */
 
-	--ck-color-focus-border: #fff;
+	--ck-color-focus-border: rgba(255, 255, 255, 0.3);
 	--ck-color-focus-outer-shadow: #bcdefb;
 	--ck-color-focus-disabled-shadow: rgba(119, 186, 248, 0.302);
 	--ck-color-focus-error-shadow: rgba(255, 64, 31, 0.3);
@@ -108,4 +118,30 @@
 	--ck-color-link-default: #0000f0;
 	--ck-color-link-selected-background: #1fb0ff1a;
 	--ck-color-link-fake-selection: #1fb0ff4d;
+}
+
+.ck-content {
+	height: 340px;
+}
+
+.ck-content h2 {
+	font-size: 26px;
+}
+
+.ck-content h3 {
+	font-size: 22px;
+}
+
+.ck-content h4 {
+	font-size: 18px;
+}
+
+.ck-content ul {
+	list-style: disc !important;
+	padding-left: 40px !important;
+}
+
+.ck-content ol {
+	list-style: decimal !important;
+	padding-left: 40px !important;
 }

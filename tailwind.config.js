@@ -26,6 +26,7 @@ module.exports = {
 				gradient: 'var(--gradient)',
 				'gradient-r': 'var(--gradient-r)',
 				'gradient-half': 'var(--gradient-half)',
+				'gradient-notes': 'var(--gradient-notes)',
 			},
 			borderRadius: {},
 			borderWidth: {},

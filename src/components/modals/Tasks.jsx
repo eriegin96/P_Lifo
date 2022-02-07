@@ -1,4 +1,6 @@
 import React, { Fragment, useContext, useEffect, useRef, useState } from 'react';
+import { Listbox, Menu, Transition } from '@headlessui/react';
+import Switch from 'react-switch';
 
 import { Button } from '..';
 import { AppContext } from '../../context/AppProvider';
@@ -12,12 +14,13 @@ import {
 	plusIcon,
 	settingIcon,
 	skipIcon,
+	taskCheckIcon,
+	taskUnCheckIcon,
 	threeDotsIcon,
-	titleDrawIcon,
+	titleTasksIcon,
 } from '../../assets/icons';
 import { AuthContext } from '../../context/AuthProvider';
-import Switch from 'react-switch';
-import { Listbox, Transition } from '@headlessui/react';
+import { convertTime } from '../../utils/convertTime';
 
 export default function Tasks() {
 	const {
@@ -46,7 +49,6 @@ export default function Tasks() {
 
 	const [isAddingTask, setIsAddingTask] = useState(false);
 	const [taskList, setTaskList] = useState(JSON.parse(localStorage.getItem('task-list')) ?? []);
-	const [currentTask, setCurrentTask] = useState();
 	const [settingMode, setSettingMode] = useState(false);
 	const [selected, setSelected] = useState(alarmList.find((item) => item.link === alarmLink));
 	const newTaskRef = useRef();
@@ -72,9 +74,25 @@ export default function Tasks() {
 		if (isBreak) setSessionTime(initSessionTime * 60);
 	};
 
+	const setCurrentTask = (i) => {
+		const newTaskList = taskList.map((task) => ({ ...task, current: false }));
+		newTaskList[i] = { ...newTaskList[i], current: true };
+
+		setTaskList(newTaskList);
+		localStorage.setItem('task-list', JSON.stringify(newTaskList));
+	};
+
+	const checkTask = (i) => {
+		const newTaskList = [...taskList];
+		newTaskList[i] = { ...newTaskList[i], done: !newTaskList[i].done };
+
+		setTaskList(newTaskList);
+		localStorage.setItem('task-list', JSON.stringify(newTaskList));
+	};
+
 	const updateTask = (e, i) => {
 		const newTaskList = [...taskList];
-		newTaskList[i] = e.target.value;
+		newTaskList[i] = { done: false, content: e.target.value };
 
 		setTaskList(newTaskList);
 		localStorage.setItem('task-list', JSON.stringify(newTaskList));
@@ -91,7 +109,7 @@ export default function Tasks() {
 	const addNewTask = (e) => {
 		if (e.key === 'Enter' && newTaskRef.current?.value) {
 			// !: add to database
-			const newTaskList = [...taskList, newTaskRef.current.value];
+			const newTaskList = [...taskList, { done: false, content: newTaskRef.current.value }];
 			localStorage.setItem('task-list', JSON.stringify(newTaskList));
 			setTaskList(newTaskList);
 
@@ -247,10 +265,10 @@ export default function Tasks() {
 					</div>
 				) : (
 					<>
-						<div className='relative handle w-full'>
+						<div className='relative handle w-2/3'>
 							<h3 className='text-3xl font-bold cursor-move'>Timer & Tasks</h3>
 							<img
-								src={titleDrawIcon}
+								src={titleTasksIcon}
 								alt='title-draw'
 								className='absolute -bottom-3 left-0 w-[220px]'
 							/>
@@ -284,18 +302,7 @@ export default function Tasks() {
 								<div className='mb-4 w-full'>
 									<div className='py-5 w-full flex flex-col items-center bg-bg-200 rounded-lg cursor-default'>
 										<h4 className='text-5xl font-bold'>
-											{isBreak &&
-												`${
-													Math.floor(breakTime / 60) < 10
-														? '0' + Math.floor(breakTime / 60)
-														: Math.floor(breakTime / 60)
-												}:${breakTime % 60 < 10 ? '0' + (breakTime % 60) : breakTime % 60}`}
-											{!isBreak &&
-												`${
-													Math.floor(sessionTime / 60) < 10
-														? '0' + Math.floor(sessionTime / 60)
-														: Math.floor(sessionTime / 60)
-												}:${sessionTime % 60 < 10 ? '0' + (sessionTime % 60) : sessionTime % 60}`}
+											{isBreak ? convertTime(breakTime) : convertTime(sessionTime)}
 										</h4>
 										<p className='text-white opacity-50 text-xl font-semibold'>{sessionName}</p>
 										<div className='my-4 flex justify-center items-center'>
@@ -339,43 +346,88 @@ export default function Tasks() {
 									<ul className='w-full'>
 										{taskList.map((task, i) => (
 											<li key={i} className='my-2 px-4 flex items-center'>
-												<input type='checkbox' />
+												<Button onClick={() => checkTask(i)}>
+													<img src={task.done ? taskCheckIcon : taskUnCheckIcon} alt='checkbox' />
+												</Button>
 												<input
 													type='text'
-													defaultValue={task}
+													defaultValue={task.content}
 													onBlur={(e) => updateTask(e, i)}
-													className='flex-grow py-1 px-4 bg-bg-200 text-sm'
+													className='grow py-1 px-4 bg-bg-200 text-sm'
 												/>
-												{currentTask === i && <img src={currentIcon} alt='' />}
-												<Button>
-													<img src={threeDotsIcon} alt='menu' className='w-[22px] h-[22px]' />
-												</Button>
-												<div>
-													<Button
-														className='flex items-center text-sm'
-														onClick={() => deleteTask(i)}
+												{task.current && (
+													<img src={currentIcon} alt='current' className='mr-2 h-5 self-end' />
+												)}
+												<Menu as='div' className='relative inline-block items-center'>
+													<Menu.Button className='align-middle'>
+														{({ open }) => (
+															<div
+																className={`${
+																	open ? 'bg-transparent-w-20 rounded-md opacity-100' : 'opacity-50'
+																} hover:opacity-30 duration-200 ease-out`}
+															>
+																<img src={threeDotsIcon} alt='menu' className='w-[22px] h-[22px]' />
+															</div>
+														)}
+													</Menu.Button>
+													<Transition
+														as={Fragment}
+														enter='transition ease-out duration-100'
+														enterFrom='transform opacity-0 scale-95'
+														enterTo='transform opacity-100 scale-100'
+														leave='transition ease-in duration-75'
+														leaveFrom='transform opacity-100 scale-100'
+														leaveTo='transform opacity-0 scale-95'
 													>
-														<img src={binIcon} alt='bin' className='w-9 h-9 mr-2' />
-														Delete Task
-													</Button>
-													{currentTask === i ? (
-														<Button
-															className='flex items-center text-sm'
-															onClick={() => setCurrentTask(-1)}
-														>
-															<img src={closeIcon} alt='unset' className='w-9 h-[22px] mr-2' />
-															Unset as current
-														</Button>
-													) : (
-														<Button
-															className='flex items-center text-sm'
-															onClick={() => setCurrentTask(i)}
-														>
-															<img src={currentIcon} alt='set' className='w-9 h-[22px] mr-2' />
-															Set as current
-														</Button>
-													)}
-												</div>
+														<Menu.Items className='absolute right-0 w-[156px] mt-1 origin-top-right bg-transparent-w-20 rounded-lg'>
+															<div className='px-1 py-1 '>
+																<Menu.Item>
+																	{({ active }) => (
+																		<button
+																			className={`${
+																				active ? 'opacity-50' : 'opacity-100'
+																			} my-2 flex items-center duration-200 ease-out w-full text-sm`}
+																			onClick={() => deleteTask(i)}
+																		>
+																			<img src={binIcon} alt='bin' className='w-9 h-9 mr-2' />
+																			Delete Task
+																		</button>
+																	)}
+																</Menu.Item>
+																<Menu.Item>
+																	{({ active }) => (
+																		<button
+																			className={`${
+																				active ? 'opacity-50' : 'opacity-100'
+																			} my-2 flex items-center duration-200 ease-out w-full text-sm`}
+																			onClick={() => setCurrentTask(i)}
+																		>
+																			{task.current ? (
+																				<>
+																					<img
+																						src={closeIcon}
+																						alt='unset'
+																						className='w-9 h-[22px] mr-2'
+																					/>
+																					Unset as current
+																				</>
+																			) : (
+																				<>
+																					<img
+																						src={currentIcon}
+																						alt='set'
+																						className='w-9 h-[22px] mr-2'
+																					/>
+																					Set as current
+																				</>
+																			)}
+																		</button>
+																	)}
+																</Menu.Item>
+															</div>
+														</Menu.Items>
+													</Transition>
+												</Menu>
 											</li>
 										))}
 									</ul>
@@ -386,11 +438,12 @@ export default function Tasks() {
 								{isAddingTask ? (
 									<div className='w-full flex items-center'>
 										<input
+											autoFocus
 											onKeyDown={addNewTask}
 											ref={newTaskRef}
 											type='text'
 											placeholder='New Task name (enter to save)'
-											className='py-1 px-4 flex-grow bg-bg-200 rounded-md bg-[rgba(0, 0, 0, 0.267)]'
+											className='py-1 px-4 grow bg-bg-200 rounded-md bg-[rgba(0, 0, 0, 0.267)]'
 										/>
 										<Button className='mx-4' onClick={() => setIsAddingTask(false)}>
 											<img src={closeIcon} alt='cancel' />

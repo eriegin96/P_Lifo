@@ -4,6 +4,7 @@ import binIcon from './bin.svg';
 import borderBrIcon from './border-br.svg';
 import checkIcon from './check.svg';
 import chillIcon from './chill.svg';
+import clockIcon from './clock.svg';
 import closeIcon from './close.svg';
 import currentIcon from './current.svg';
 import emptyIcon from './empty.svg';
@@ -20,6 +21,7 @@ import mixModeIcon from './mix-mode.svg';
 import moodIcon from './mood.svg';
 import moonIcon from './moon.svg';
 import nextIcon from './next.svg';
+import newNoteIcon from './new-note.svg';
 import notesIcon from './notes.svg';
 import pauseIcon from './pause.svg';
 import playIcon from './play.svg';
@@ -35,7 +37,10 @@ import startSessionIcon from './start-session.svg';
 import sunIcon from './sun.svg';
 import sunnyIcon from './sunny.svg';
 import templateIcon from './template.svg';
-import titleDrawIcon from './title-draw.svg';
+import taskCheckIcon from './task-check.svg';
+import taskUnCheckIcon from './task-uncheck.svg';
+import titleNotesIcon from './title-notes.svg';
+import titleTasksIcon from './title-tasks.svg';
 import tomatoIcon from './tomato.svg';
 import twitterIcon from './twitter.svg';
 import volumeMaxIcon from './volume-max.svg';
@@ -66,6 +71,7 @@ export {
 	borderBrIcon,
 	checkIcon,
 	chillIcon,
+	clockIcon,
 	closeIcon,
 	currentIcon,
 	emptyIcon,
@@ -83,6 +89,7 @@ export {
 	moonIcon,
 	nextIcon,
 	sunIcon,
+	newNoteIcon,
 	notesIcon,
 	pauseIcon,
 	playIcon,
@@ -96,8 +103,11 @@ export {
 	sleepyIcon,
 	startSessionIcon,
 	sunnyIcon,
+	taskCheckIcon,
+	taskUnCheckIcon,
 	templateIcon,
-	titleDrawIcon,
+	titleNotesIcon,
+	titleTasksIcon,
 	tomatoIcon,
 	twitterIcon,
 	volumeMaxIcon,

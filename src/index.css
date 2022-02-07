@@ -1,4 +1,4 @@
-@import url('./_ckColors.css');
+@import url('./_ckEditor.css');
 
 @tailwind base;
 @tailwind components;
@@ -30,6 +30,7 @@
 	--gradient: linear-gradient(360deg, #1f1c2b, rgba(31, 28, 43, 0));
 	--gradient-r: linear-gradient(180deg, #1f1c2b, rgba(31, 28, 43, 0));
 	--gradient-half: linear-gradient(360deg, #1f1c2b, #1f1c2b 40%, rgba(31, 28, 43, 0));
+	--gradient-notes: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
 }
 
 body {
@@ -71,9 +72,12 @@ textarea {
 	mask-image: linear-gradient(180deg, #000, transparent);
 }
 
-/* .react-switch-bg {
-	background-color: #00000040 !important;
-} */
+.note__content {
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
 
 .slick-active div {
 	opacity: 1;
