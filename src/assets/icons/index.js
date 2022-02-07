@@ -1,4 +1,5 @@
 import threeDotsIcon from './3dots.svg';
+import activityIcon from './activity.svg';
 import arrowLeftIcon from './arrow-left.svg';
 import binIcon from './bin.svg';
 import borderBrIcon from './border-br.svg';
@@ -66,6 +67,7 @@ import keyboardIcon from './noises/keyboard.svg';
 
 export {
 	threeDotsIcon,
+	activityIcon,
 	arrowLeftIcon,
 	binIcon,
 	borderBrIcon,

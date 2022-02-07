@@ -29,6 +29,7 @@ export default function Tasks() {
 		alarmLink,
 		setAlarmLink,
 		setAlarmOn,
+		setModalType,
 		draggableModalType,
 		setDraggableModalType,
 		isBreak,
@@ -265,7 +266,7 @@ export default function Tasks() {
 					</div>
 				) : (
 					<>
-						<div className='relative handle w-2/3'>
+						<div className='relative handle w-5/6 self-start'>
 							<h3 className='text-3xl font-bold cursor-move'>Timer & Tasks</h3>
 							<img
 								src={titleTasksIcon}
@@ -322,6 +323,7 @@ export default function Tasks() {
 											className={`w-[120px] py-[3px] px-3 border border-[#5b5a67] text-sm rounded-full ${
 												isTimerPlaying ? 'invisible opacity-0' : 'visible opacity-100'
 											}`}
+											onClick={() => setModalType('end-session')}
 										>
 											End session
 										</Button>
@@ -347,7 +349,11 @@ export default function Tasks() {
 										{taskList.map((task, i) => (
 											<li key={i} className='my-2 px-4 flex items-center'>
 												<Button onClick={() => checkTask(i)}>
-													<img src={task.done ? taskCheckIcon : taskUnCheckIcon} alt='checkbox' />
+													<img
+														src={task.done ? taskCheckIcon : taskUnCheckIcon}
+														alt='checkbox'
+														className='w-5 h-5'
+													/>
 												</Button>
 												<input
 													type='text'

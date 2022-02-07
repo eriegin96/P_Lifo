@@ -75,7 +75,9 @@ module.exports = {
 			minWidth: {},
 			maxWidth: {},
 			rotate: {},
-			spacing: {},
+			spacing: {
+				'9/10': '90%,',
+			},
 			zIndex: {
 				1: 1,
 				2: 2,

@@ -3,6 +3,7 @@ import { Transition, Dialog } from '@headlessui/react';
 
 import { About, Contact, Profile, Share, Tutorial, Upgrade } from '..';
 import { AppContext } from '../../context/AppProvider';
+import EndSession from './EndSession';
 
 export default function Modal() {
 	const { modalType, setModalType } = useContext(AppContext);
@@ -26,7 +27,7 @@ export default function Modal() {
 					>
 						<Dialog.Overlay
 							className={`fixed inset-0 ${
-								['tutorial', 'about'].includes(modalType)
+								['tutorial', 'about', 'end-session'].includes(modalType)
 									? 'bg-transparent-b-70 backdrop-blur-xl'
 									: 'bg-transparent-b-50'
 							}`}
@@ -49,6 +50,7 @@ export default function Modal() {
 							{modalType === 'about' && <About />}
 							{modalType === 'profile' && <Profile />}
 							{modalType === 'share' && <Share />}
+							{modalType === 'end-session' && <EndSession />}
 						</div>
 					</Transition.Child>
 				</div>
