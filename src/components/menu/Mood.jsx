@@ -1,7 +1,15 @@
 import React, { useContext, useState } from 'react';
 import ReactSlider from 'react-slider';
+import { Button } from '..';
 
-import { sleepyIcon, jazzyIcon, chillIcon, volumeMinIcon, volumeMaxIcon } from '../../assets/icons';
+import {
+	sleepyIcon,
+	jazzyIcon,
+	chillIcon,
+	volumeMinIcon,
+	volumeMaxIcon,
+	bookmarkIcon,
+} from '../../assets/icons';
 import { SLEEPY_LINKS, CHILL_LINKS, JAZZY_LINKS, NOISE_ICONS } from '../../constants';
 import { AppContext } from '../../context/AppProvider';
 import { randomMainSong } from '../../utils/randomMainSong';
@@ -83,7 +91,13 @@ export default function Mood() {
 
 	return (
 		<div>
-			<h4 className='font-bold mb-4 text-xl'>Mood</h4>
+			<div className='mb-4 flex justify-between items-center'>
+				<h4 className='font-bold text-xl'>Mood</h4>
+				<Button className='py-1.5 px-4 flex items-center border border-[#5293f3] rounded-full bg-[rgba(82,147,243,.1)]'>
+					<img src={bookmarkIcon} alt='bookmark' className='mr-2' />
+					Save Template
+				</Button>
+			</div>
 			<div className='my-4 flex justify-between items-center'>
 				<MoodItem
 					isActive={moodTab.sleepy}

@@ -169,3 +169,91 @@ export const SETS = [
 		],
 	},
 ];
+
+export const TEMPLATES = [
+	{
+		template: 'chill1',
+		img: sceneChill1Img,
+		link: 'https://lofi.co/static/media/bed-room.325fe2da.png',
+	},
+	{
+		template: 'chill2',
+		img: sceneChill2Img,
+		link: 'https://lofi.co/static/media/living-room.4a22430f.png',
+	},
+	{
+		template: 'northern1',
+		img: sceneNorthern1Img,
+		link: 'https://lofi.co/static/media/cottage-in.f781f6b8.png',
+	},
+	{
+		template: 'northern2',
+		img: sceneNorthern2Img,
+		link: 'https://lofi.co/static/media/cottage-ext.25949b53.png',
+	},
+	{
+		template: 'desk1',
+		img: sceneDesk1Img,
+		link: 'https://lofi.co/static/media/city_study.47526989.png',
+	},
+	{
+		template: 'desk2',
+		img: sceneDesk2Img,
+		link: 'https://lofi.co/static/media/beach_study.b84b6caa.png',
+	},
+	{
+		template: 'desk3',
+		img: sceneDesk3Img,
+		link: 'https://lofi.co/static/media/snow_study.850209bf.png',
+	},
+	{
+		template: 'forest1',
+		img: sceneForest1Img,
+		link: 'https://lofi.co/static/media/forest-inside.8afcbef6.jpg',
+	},
+	{
+		template: 'forest2',
+		img: sceneForest2Img,
+		link: 'https://lofi.co/static/media/forest-outside.f7671afe.jpg',
+	},
+	{
+		template: 'forest1',
+		img: sceneOcean1Img,
+		link: 'https://lofi.co/static/media/ocean-in.9733d460.png',
+	},
+	{
+		template: 'forest2',
+		img: sceneOcean2Img,
+		link: 'https://lofi.co/static/media/ocean-out.1021cca2.png',
+	},
+	{
+		template: 'cafe1',
+		img: sceneCafe1Img,
+		link: 'https://lofi.co/static/media/cafe-in.98c81314.png',
+	},
+	{
+		template: 'cafe2',
+		img: sceneCafe2Img,
+		link: 'https://lofi.co/static/media/cafe-out.0d307fb8.png',
+	},
+	{
+		template: 'van1',
+		img: sceneVan1Img,
+		link: 'https://lofi.co/static/media/van.b164ed19.png',
+	},
+	{
+		template: 'van2',
+		img: sceneVan2Img,
+		link: 'https://lofi.co/static/media/van-out.4790ca5b.png',
+	},
+	{
+		template: 'summer1',
+		img: sceneSummer1Img,
+		link: 'https://lofi.co/static/media/summer.bb0da597.png',
+	},
+	{
+		template: 'summer2',
+		img: sceneSummer2Img,
+		link: 'https://lofi.co/static/media/summer-out.ab53abdb.png',
+	},
+];

@@ -6,8 +6,8 @@ import { AppContext } from '../../context/AppProvider';
 import { closeIcon } from '../../assets/icons';
 
 export default function Session() {
-	const { draggableModalType, setDraggableModalType, sessionName } = useContext(AppContext);
-	const [input, setInput] = useState(sessionName);
+	const { draggableModalType, setDraggableModalType, currentSession } = useContext(AppContext);
+	const [input, setInput] = useState(currentSession.name);
 
 	const startSession = () => {
 		localStorage.setItem('session', input);

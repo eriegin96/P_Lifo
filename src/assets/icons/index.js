@@ -2,6 +2,7 @@ import threeDotsIcon from './3dots.svg';
 import activityIcon from './activity.svg';
 import arrowLeftIcon from './arrow-left.svg';
 import binIcon from './bin.svg';
+import bookmarkIcon from './bookmark.svg';
 import borderBrIcon from './border-br.svg';
 import checkIcon from './check.svg';
 import chillIcon from './chill.svg';
@@ -70,6 +71,7 @@ export {
 	activityIcon,
 	arrowLeftIcon,
 	binIcon,
+	bookmarkIcon,
 	borderBrIcon,
 	checkIcon,
 	chillIcon,

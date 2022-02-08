@@ -44,7 +44,6 @@ export default function Tasks() {
 		setInitSessionTime,
 		initBreakTime,
 		setInitBreakTime,
-		sessionName,
 		sessionInterval,
 	} = useContext(AppContext);
 
@@ -305,7 +304,9 @@ export default function Tasks() {
 										<h4 className='text-5xl font-bold'>
 											{isBreak ? convertTime(breakTime) : convertTime(sessionTime)}
 										</h4>
-										<p className='text-white opacity-50 text-xl font-semibold'>{sessionName}</p>
+										<p className='text-white opacity-50 text-xl font-semibold'>
+											{currentSession.name}
+										</p>
 										<div className='my-4 flex justify-center items-center'>
 											<Button
 												className='min-w-[100px] py-1 px-8 bg-primary text-black font-semibold rounded-full'

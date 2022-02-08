@@ -19,7 +19,7 @@ export default function Audio() {
 		currentSong,
 		setCurrentSong,
 		isBreak,
-		sessionName,
+		currentSession,
 		sessionTime,
 		breakTime,
 		draggableModalType,
@@ -81,11 +81,11 @@ export default function Audio() {
 
 				<div
 					className={`${
-						sessionName ? 'visible' : 'invisible'
+						currentSession.name ? 'visible' : 'invisible'
 					} flex items-center text-sm italic bg-transparent-b-50 backdrop-blur-sm rounded-[20px] py-1.5 px-4 cursor-pointer`}
 					onClick={() => setDraggableModalType({ ...draggableModalType, tasks: true })}
 				>
-					<p className='opacity-50'>{sessionName} / </p>
+					<p className='opacity-50'>{currentSession.name} / </p>
 					<img src={clockIcon} alt='clock' className='w-[18px] h-[18px] mx-2.5' />
 					<p className='opacity-50'>
 						{isBreak ? convertTime(breakTime) : convertTime(sessionTime)}

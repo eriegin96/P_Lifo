@@ -50,7 +50,18 @@ export default function AppProvider({ children }) {
 	});
 
 	// Session & Task
-	const [sessionName, setSessionName] = useState(localStorage.getItem('session-name') || '');
+	const [currentSession, setCurrentSession] = useState({
+		id: '0',
+		name: 'study react',
+		time: 2251,
+		pomodoroTime: 2100,
+		breakTime: 151,
+		date: '08/02/2022',
+		pomodorosCount: 4,
+		breaksCount: 2,
+		completedTasks: [],
+		uncompletedTasks: ['123'],
+	});
 	const [isBreak, setIsBreak] = useState(false);
 	const [isTimerPlaying, setIsTimerPlaying] = useState(false);
 	const [initSessionTime, setInitSessionTime] = useState(25);
@@ -125,6 +136,8 @@ export default function AppProvider({ children }) {
 		setIsBreak,
 		isTimerPlaying,
 		setIsTimerPlaying,
+		currentSession,
+		setCurrentSession,
 		sessionTime,
 		setSessionTime,
 		breakTime,
@@ -133,8 +146,6 @@ export default function AppProvider({ children }) {
 		setInitSessionTime,
 		initBreakTime,
 		setInitBreakTime,
-		sessionName,
-		setSessionName,
 		sessionInterval,
 		setSessionInterval,
 		notesRef,
