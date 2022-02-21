@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../context/AppProvider';
 
 import { playIcon, pauseIcon, prevIcon, nextIcon, clockIcon } from '../assets/icons';
@@ -40,41 +40,41 @@ export default function Audio() {
 		if (!mainSongRef.current.paused) mainSongRef.current.pause();
 	};
 
+	const handlePrev = () => {
+		setCurrentSong({
+			...currentSong,
+			index: nextSong(currentSong.list, currentSong.index).index,
+			link: nextSong(currentSong.list, currentSong.index).link,
+		});
+		setIsPlaying(true);
+		mainSongRef.current.autoplay = true;
+	};
+
+	const handleNext = () => {
+		setCurrentSong({
+			...currentSong,
+			index: prevSong(currentSong.list, currentSong.index).index,
+			link: prevSong(currentSong.list, currentSong.index).link,
+		});
+		setIsPlaying(true);
+		mainSongRef.current.autoplay = true;
+	};
+
 	return (
 		<div className='fixed bottom-0 w-screen'>
 			<div className='p-8 pb-4 relative flex justify-between items-center'>
 				<p className='opacity-50 text-sm'>Music by - lofi.co 2021 ©</p>
-				<div>
-					<Button
-						onClick={() =>
-							setCurrentSong({
-								...currentSong,
-								index: prevSong(currentSong.list, currentSong.index).index,
-								link: prevSong(currentSong.list, currentSong.index).link,
-							})
-						}
-					>
+				<div className='flex items-center'>
+					<Button onClick={handlePrev}>
 						<img src={prevIcon} alt='prev' />
 					</Button>
-					{!isPlaying && (
-						<Button className='mx-4' onClick={handlePlay}>
-							<img src={playIcon} alt='prev' width={54} height={54} />
-						</Button>
-					)}
-					{isPlaying && (
-						<Button className='mx-4' onClick={handlePause}>
-							<img src={pauseIcon} alt='prev' width={54} height={54} />
-						</Button>
-					)}
-					<Button
-						onClick={() =>
-							setCurrentSong({
-								...currentSong,
-								index: nextSong(currentSong.list, currentSong.index).index,
-								link: nextSong(currentSong.list, currentSong.index).link,
-							})
-						}
-					>
+					<Button className={`mx-4 ${isPlaying ? 'hidden' : ''}`} onClick={handlePlay}>
+						<img src={playIcon} alt='play' width={54} height={54} />
+					</Button>
+					<Button className={`mx-4 ${!isPlaying ? 'hidden' : ''}`} onClick={handlePause}>
+						<img src={pauseIcon} alt='pause' width={54} height={54} />
+					</Button>
+					<Button onClick={handleNext}>
 						<img src={nextIcon} alt='next' />
 					</Button>
 				</div>
@@ -97,7 +97,6 @@ export default function Audio() {
 				ref={mainSongRef}
 				src={currentSong.link}
 				preload='auto'
-				// autoPlay
 				onEnded={() =>
 					setCurrentSong({
 						...currentSong,
@@ -118,7 +117,7 @@ export default function Audio() {
 					muted
 				/>
 			))}
-			<audio ref={alarmRef} src={alarmLink} preload='auto' loop autoPlay={alarmOn} />
+			<audio ref={alarmRef} src={alarmLink} preload='auto' loop /* autoPlay={alarmOn} */ />
 		</div>
 	);
 }

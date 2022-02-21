@@ -3,7 +3,6 @@ import { Listbox, Menu, Transition } from '@headlessui/react';
 import Switch from 'react-switch';
 
 import { Button } from '..';
-import { AppContext } from '../../context/AppProvider';
 import {
 	arrowLeftIcon,
 	binIcon,
@@ -20,15 +19,18 @@ import {
 	titleTasksIcon,
 } from '../../assets/icons';
 import { AuthContext } from '../../context/AuthProvider';
+import { AppContext } from '../../context/AppProvider';
 import { convertTime } from '../../utils/convertTime';
+import { ALARM_LINKS } from '../../constants';
+import { updateUser } from '../../firebase/services';
 
 export default function Tasks() {
 	const {
+		user: { uid, alarm },
+	} = useContext(AuthContext);
+	const {
 		alarmOn,
-		alarmList,
 		alarmLink,
-		setAlarmLink,
-		setAlarmOn,
 		setModalType,
 		draggableModalType,
 		setDraggableModalType,
@@ -36,6 +38,7 @@ export default function Tasks() {
 		setIsBreak,
 		isTimerPlaying,
 		setIsTimerPlaying,
+		currentSession,
 		sessionTime,
 		setSessionTime,
 		breakTime,
@@ -48,13 +51,12 @@ export default function Tasks() {
 	} = useContext(AppContext);
 
 	const [isAddingTask, setIsAddingTask] = useState(false);
-	const [taskList, setTaskList] = useState(JSON.parse(localStorage.getItem('task-list')) ?? []);
 	const [settingMode, setSettingMode] = useState(false);
-	const [selected, setSelected] = useState(alarmList.find((item) => item.link === alarmLink));
+	const [selected, setSelected] = useState(ALARM_LINKS.find((item) => item.link === alarmLink));
 	const newTaskRef = useRef();
 
 	useEffect(() => {
-		setAlarmLink(selected.link);
+		updateUser(uid, { alarm: { ...alarm, link: selected.link } });
 	}, [selected]);
 
 	const startSessionTimer = () => {
@@ -74,48 +76,64 @@ export default function Tasks() {
 		if (isBreak) setSessionTime(initSessionTime * 60);
 	};
 
+	const unsetCurrentTask = () => {
+		const newTaskList = currentSession.taskList.map((task) => ({ ...task, current: false }));
+
+		updateUser(uid, { currentSession: { ...currentSession, taskList: newTaskList } });
+	};
+
 	const setCurrentTask = (i) => {
-		const newTaskList = taskList.map((task) => ({ ...task, current: false }));
+		const newTaskList = currentSession.taskList.map((task) => ({ ...task, current: false }));
 		newTaskList[i] = { ...newTaskList[i], current: true };
 
-		setTaskList(newTaskList);
-		localStorage.setItem('task-list', JSON.stringify(newTaskList));
+		updateUser(uid, { currentSession: { ...currentSession, taskList: newTaskList } });
 	};
 
 	const checkTask = (i) => {
-		const newTaskList = [...taskList];
+		const newTaskList = [...currentSession.taskList];
 		newTaskList[i] = { ...newTaskList[i], done: !newTaskList[i].done };
 
-		setTaskList(newTaskList);
-		localStorage.setItem('task-list', JSON.stringify(newTaskList));
+		updateUser(uid, { currentSession: { ...currentSession, taskList: newTaskList } });
 	};
 
 	const updateTask = (e, i) => {
-		const newTaskList = [...taskList];
-		newTaskList[i] = { done: false, content: e.target.value };
+		const newTaskList = [...currentSession.taskList];
+		newTaskList[i] = { ...newTaskList[i], done: false, content: e.target.value };
 
-		setTaskList(newTaskList);
-		localStorage.setItem('task-list', JSON.stringify(newTaskList));
+		updateUser(uid, { currentSession: { ...currentSession, taskList: newTaskList } });
 	};
 
 	const deleteTask = (i) => {
-		const newTaskList = [...taskList];
+		const newTaskList = [...currentSession.taskList];
 		newTaskList.splice(i, 1);
 
-		setTaskList(newTaskList);
-		localStorage.setItem('task-list', JSON.stringify(newTaskList));
+		updateUser(uid, { currentSession: { ...currentSession, taskList: newTaskList } });
 	};
 
 	const addNewTask = (e) => {
 		if (e.key === 'Enter' && newTaskRef.current?.value) {
-			// !: add to database
-			const newTaskList = [...taskList, { done: false, content: newTaskRef.current.value }];
-			localStorage.setItem('task-list', JSON.stringify(newTaskList));
-			setTaskList(newTaskList);
+			const newTaskList = [
+				...currentSession.taskList,
+				{ done: false, content: newTaskRef.current.value },
+			];
 
+			updateUser(uid, { currentSession: { ...currentSession, taskList: newTaskList } });
 			setIsAddingTask(false);
 			newTaskRef.current.value = '';
 		}
+	};
+
+	const handleEndSession = () => {
+		const completedTasks = currentSession.taskList
+			.filter((task) => task.done === true)
+			.map((task) => task.content);
+		const uncompletedTasks = currentSession.taskList
+			.filter((task) => task.done === false)
+			.map((task) => task.content);
+
+		updateUser(uid, {
+			currentSession: { ...currentSession, completedTasks, uncompletedTasks },
+		}).then(() => setModalType('end-session'));
 	};
 
 	return (
@@ -205,7 +223,7 @@ export default function Tasks() {
 								<h5 className='font-semibold'>Play alarm?</h5>
 								<Switch
 									className='mx-4 mt-2'
-									onChange={() => setAlarmOn(!alarmOn)}
+									onChange={() => updateUser(uid, { alarm: { ...alarm, isOn: !alarmOn } })}
 									checked={alarmOn}
 									uncheckedIcon={false}
 									checkedIcon={false}
@@ -234,7 +252,7 @@ export default function Tasks() {
 											leaveTo='opacity-0'
 										>
 											<Listbox.Options className='absolute w-full py-1 mt-1 overflow-auto text-base bg-transparent-w-20 rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm'>
-												{alarmList.map((alarm, idx) => (
+												{ALARM_LINKS.map((alarm, idx) => (
 													<Listbox.Option
 														key={idx}
 														className={({ active }) =>
@@ -324,7 +342,7 @@ export default function Tasks() {
 											className={`w-[120px] py-[3px] px-3 border border-[#5b5a67] text-sm rounded-full ${
 												isTimerPlaying ? 'invisible opacity-0' : 'visible opacity-100'
 											}`}
-											onClick={() => setModalType('end-session')}
+											onClick={handleEndSession}
 										>
 											End session
 										</Button>
@@ -343,11 +361,11 @@ export default function Tasks() {
 							</div>
 
 							<div className='w-full py-3 flex flex-col justify-center items-center bg-bg-200 rounded-lg'>
-								{taskList.length === 0 ? (
+								{currentSession.taskList.length === 0 ? (
 									<img src={emptyIcon} alt='empty' />
 								) : (
 									<ul className='w-full'>
-										{taskList.map((task, i) => (
+										{currentSession.taskList.map((task, i) => (
 											<li key={i} className='my-2 px-4 flex items-center'>
 												<Button onClick={() => checkTask(i)}>
 													<img
@@ -407,7 +425,9 @@ export default function Tasks() {
 																			className={`${
 																				active ? 'opacity-50' : 'opacity-100'
 																			} my-2 flex items-center duration-200 ease-out w-full text-sm`}
-																			onClick={() => setCurrentTask(i)}
+																			onClick={() => {
+																				task.current ? unsetCurrentTask() : setCurrentTask(i);
+																			}}
 																		>
 																			{task.current ? (
 																				<>

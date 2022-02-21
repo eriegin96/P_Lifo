@@ -80,7 +80,7 @@ export default function Notes() {
 									onClick={() => setCurrentNote(note)}
 								>
 									<h5 className='text-lg font-semibold'>{note.title}</h5>
-									<p className='text-xs'>{note.time}</p>
+									<p className='text-xs'>{note.createdAt}</p>
 									<p className='text-sm note__content'>{note.content}</p>
 								</div>
 							))}

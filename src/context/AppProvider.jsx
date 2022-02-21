@@ -1,67 +1,77 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { AuthContext } from './AuthProvider';
 
-import { ALARM_LINKS, BACKGROUND_LINKS_LIST, CHILL_LINKS } from '../constants';
+import {
+	ALARM_LINKS,
+	BACKGROUND_LINKS_LIST,
+	CHILL_LINKS,
+	JAZZY_LINKS,
+	SLEEPY_LINKS,
+} from '../constants';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { db } from '../firebase/config';
 
 export const AppContext = createContext();
 
 export default function AppProvider({ children }) {
-	// const { user } = useContext(AuthContext);
-	const [theme, setTheme] = useState();
+	const { user } = useContext(AuthContext);
 	const [fullscreen, setFullscreen] = useState(false);
 	const [modalType, setModalType] = useState();
 	const initialDraggableModalType = { session: false, tasks: false, notes: false, history: false };
 	const [draggableModalType, setDraggableModalType] = useState(initialDraggableModalType);
 
+	// Background
+	const background = user.background;
+
 	// Main Song
+	const alarmOn = user.alarm.isOn;
+	const alarmLink = user.alarm.link;
 	const [isPlaying, setIsPlaying] = useState(false);
-	const [alarmOn, setAlarmOn] = useState(JSON.parse(localStorage.getItem('alarm'))?.isOn ?? true);
-	const [alarmList, setAlarmList] = useState(ALARM_LINKS);
-	const [alarmLink, setAlarmLink] = useState(
-		JSON.parse(localStorage.getItem('alarm'))?.link ?? ALARM_LINKS[0].link
-	);
 	const [currentSong, setCurrentSong] = useState(() => {
-		const randomIndex = Math.floor(Math.random() * CHILL_LINKS.length);
-		return {
-			list: CHILL_LINKS,
-			index: randomIndex,
-			link: CHILL_LINKS[randomIndex],
-		};
+		let randomIndex, currentSong;
+
+		switch (background.mood) {
+			case 'sleepy':
+				randomIndex = Math.floor(Math.random() * SLEEPY_LINKS.length);
+				currentSong = { list: SLEEPY_LINKS, index: randomIndex, link: SLEEPY_LINKS[randomIndex] };
+				break;
+			case 'jazzy':
+				randomIndex = Math.floor(Math.random() * JAZZY_LINKS.length);
+				currentSong = { list: JAZZY_LINKS, index: randomIndex, link: JAZZY_LINKS[randomIndex] };
+			case 'chill':
+				randomIndex = Math.floor(Math.random() * CHILL_LINKS.length);
+				currentSong = { list: CHILL_LINKS, index: randomIndex, link: CHILL_LINKS[randomIndex] };
+			default:
+				break;
+		}
+
+		return currentSong;
 	});
 	const mainSongRef = useRef();
 	const noisesRef = useRef([]);
 	const alarmRef = useRef();
-	useEffect(() => {
-		localStorage.setItem('alarm', JSON.stringify({ isOn: alarmOn ?? true, link: alarmLink }));
-	}, [alarmOn, alarmLink]);
-
-	// Background
-	const [background, setBackground] = useState({
-		set: 'chill',
-		scene: 'scene1',
-		show1: true,
-		day: true,
-		rainy: false,
-		link1: BACKGROUND_LINKS_LIST.find(
-			(item) =>
-				item.set === 'chill' && item.scene === 'scene1' && item.day === true && item.rainy === false
-		).link,
-		link2: '',
-	});
+	// useEffect(() => {
+	// 	localStorage.setItem('alarm', JSON.stringify({ isOn: alarmOn ?? true, link: alarmLink }));
+	// }, [alarmOn, alarmLink]);
 
 	// Session & Task
-	const [currentSession, setCurrentSession] = useState({
-		id: '0',
-		name: 'study react',
-		time: 2251,
-		pomodoroTime: 2100,
-		breakTime: 151,
-		date: '08/02/2022',
-		pomodorosCount: 4,
-		breaksCount: 2,
-		completedTasks: [],
-		uncompletedTasks: ['123'],
-	});
+	const currentSession = user.currentSession;
+	// const [currentSession, setCurrentSession] = useState({
+	// 	id: '0',
+	// 	name: 'study react',
+	// 	time: 2251,
+	// 	pomodoroTime: 2100,
+	// 	breakTime: 151,
+	// 	date: '08/02/2022',
+	// 	pomodorosCount: 4,
+	// 	breaksCount: 2,
+	// 	taskList: [
+	// 		{ done: true, content: '123', current: true },
+	// 		{ done: true, content: '456' },
+	// 	],
+	// 	completedTasks: [],
+	// 	uncompletedTasks: ['123'],
+	// });
 	const [isBreak, setIsBreak] = useState(false);
 	const [isTimerPlaying, setIsTimerPlaying] = useState(false);
 	const [initSessionTime, setInitSessionTime] = useState(25);
@@ -108,8 +118,6 @@ export default function AppProvider({ children }) {
 	const notesRef = useRef([]);
 
 	const value = {
-		theme,
-		setTheme,
 		fullscreen,
 		setFullscreen,
 		modalType,
@@ -118,26 +126,21 @@ export default function AppProvider({ children }) {
 		draggableModalType,
 		setDraggableModalType,
 		alarmOn,
-		setAlarmOn,
+		alarmLink,
 		currentSong,
 		setCurrentSong,
 		isPlaying,
 		setIsPlaying,
 		background,
-		setBackground,
 		mainSongRef,
 		noisesRef,
 		alarmRef,
-		alarmList,
-		setAlarmList,
-		alarmLink,
-		setAlarmLink,
 		isBreak,
 		setIsBreak,
 		isTimerPlaying,
 		setIsTimerPlaying,
 		currentSession,
-		setCurrentSession,
+		// setCurrentSession,
 		sessionTime,
 		setSessionTime,
 		breakTime,

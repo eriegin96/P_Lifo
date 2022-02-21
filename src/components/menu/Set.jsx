@@ -5,9 +5,14 @@ import { Button } from '..';
 import { AppContext } from '../../context/AppProvider';
 import { SETS } from '../../constants';
 import { newBackground } from '../../utils/newBackground';
+import { updateUser } from '../../firebase/services';
+import { AuthContext } from '../../context/AuthProvider';
 
 export default function Set() {
-	const { background, setBackground } = useContext(AppContext);
+	const {
+		user: { uid },
+	} = useContext(AuthContext);
+	const { background } = useContext(AppContext);
 
 	const [setMode, setSetMode] = useState();
 
@@ -20,7 +25,7 @@ export default function Set() {
 		};
 		const newBg = newBackground(background, condition);
 
-		setBackground(newBg);
+		updateUser(uid, { background: newBg });
 	};
 
 	return (

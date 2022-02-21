@@ -15,6 +15,10 @@ import {
 	oceanIcon,
 	snowIcon,
 	keyboardIcon,
+	startSessionIcon,
+	tomatoIcon,
+	notesIcon,
+	historyIcon,
 } from '../assets/icons';
 
 export const NOISE_ICONS = [
@@ -34,4 +38,11 @@ export const NOISE_ICONS = [
 	{ label: 'Ocean Sound', icon: oceanIcon },
 	{ label: 'Blizzard', icon: snowIcon },
 	{ label: 'Keyboard', icon: keyboardIcon },
+];
+
+export const FOCUS_ICONS = [
+	{ label: 'Start Session', icon: startSessionIcon, modalType: 'session' },
+	{ label: 'Timer and Tasks', icon: tomatoIcon, modalType: 'tasks' },
+	{ label: 'Notes', icon: notesIcon, modalType: 'notes' },
+	{ label: 'History', icon: historyIcon, modalType: 'history' },
 ];

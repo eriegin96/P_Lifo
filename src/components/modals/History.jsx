@@ -39,7 +39,6 @@ const SESSIONS = [
 	},
 ];
 
-// TODO: check CSS
 export default function History() {
 	const { draggableModalType, setDraggableModalType } = useContext(AppContext);
 	const [isDetail, setIsDetail] = useState(false);
@@ -85,7 +84,7 @@ export default function History() {
 								<h4 className='my-2 text-xl font-semibold'>{viewSession.name}</h4>
 								<div className='flex justify-between items-center'>
 									<p className='text-sm my-2'>Date:</p>
-									<time className='text-primary text-sm'>{viewSession.date}</time>
+									<time className='text-primary text-sm'>{viewSession.createdAt}</time>
 								</div>
 								<div className='flex justify-between items-center border-t border-transparent-w-20'>
 									<p className='text-sm my-2'>Length:</p>
@@ -177,7 +176,7 @@ export default function History() {
 												<time className='text-5xl'>{session.time}</time>
 												<span className='ml-2 text-lg'>min</span>
 											</h2>
-											<time className='self-end opacity-50 text-sm'>{session.date}</time>
+											<time className='self-end opacity-50 text-sm'>{session.createdAt}</time>
 										</div>
 									</div>
 								))}

@@ -9,6 +9,7 @@ import {
 	serverTimestamp,
 	deleteDoc,
 } from 'firebase/firestore';
+import { ALARM_LINKS, BACKGROUND_LINKS_LIST } from '../constants';
 
 export const getUserData = async (uid) => {
 	const userRef = doc(db, 'users', uid);
@@ -29,41 +30,72 @@ export const getUserData = async (uid) => {
 export const addUser = async (uid, data) => {
 	const userRef = doc(db, 'users', uid);
 
-	// async function asyncSetDoc() {
 	await setDoc(userRef, {
 		...data,
+		alarm: {
+			isOn: true,
+			link: ALARM_LINKS[0].link,
+		},
+		background: {
+			mood: 'chill',
+			set: 'chill',
+			scene: 'scene1',
+			show1: true,
+			day: true,
+			rainy: false,
+			link1: BACKGROUND_LINKS_LIST.find(
+				(item) =>
+					item.set === 'chill' &&
+					item.scene === 'scene1' &&
+					item.day === true &&
+					item.rainy === false
+			).link,
+			link2: '',
+		},
+		currentSession: {
+			id: '',
+			name: '',
+			time: 0,
+			pomodoroTime: 0,
+			breakTime: 0,
+			date: '',
+			pomodorosCount: 0,
+			breaksCount: 0,
+			taskList: [],
+		},
 		createdAt: serverTimestamp(),
 		modifiedAt: serverTimestamp(),
 	});
-	// }
-
-	// asyncSetDoc();
 };
 
-export const addTask = async (uid, data) => {
-	const taskRef = collection(db, 'users', uid, 'tasks');
+export const updateUser = async (uid, data) => {
+	const userRef = doc(db, 'users', uid);
 
-	// async function asyncAddTask() {
-	await addDoc(taskRef, {
+	await updateDoc(userRef, {
 		...data,
+		modifiedAt: serverTimestamp(),
+	});
+};
+
+export const updateSession = async (uid, sessionId, data) => {
+	const sessionRef = doc(db, 'users', uid, 'sessions', sessionId);
+
+	console.log({ ...sessionRef });
+};
+
+export const addSession = async (uid, data) => {
+	const sessionRef = collection(db, 'users', uid, 'sessions');
+
+	await setDoc(sessionRef, {
+		...data,
+		// name: 'study 1',
+		// time: '3,492',
+		// date: '05/02/2022',
+		// completedTasks: ['123', '456', 'abc', '000'],
+		// uncompletedTasks: ['123', '456', 'abc', '000'],
 		createdAt: serverTimestamp(),
 		modifiedAt: serverTimestamp(),
 	});
-	// }
-
-	// asyncAddTask();
-};
-
-export const updateTask = async (uid, taskId, data) => {
-	const taskRef = doc(db, 'users', uid, 'tasks', taskId);
-
-	await updateDoc(taskRef, { ...data, modifiedAt: serverTimestamp() });
-};
-
-export const removeTask = async (uid, taskId) => {
-	const taskRef = doc(db, 'users', uid, 'tasks', taskId);
-
-	await deleteDoc(taskRef);
 };
 
 export const addNote = async (uid, data) => {
@@ -71,6 +103,10 @@ export const addNote = async (uid, data) => {
 
 	await addDoc(noteRef, {
 		...data,
+		// id: '1',
+		// title: 'note 1',
+		// content: 'note 1 content',
+		// time: '05/02/2022',
 		createdAt: serverTimestamp(),
 		modifiedAt: serverTimestamp(),
 	});

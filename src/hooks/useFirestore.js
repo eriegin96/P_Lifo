@@ -1,6 +1,10 @@
-// import { useEffect, useState } from 'react';
-// import { db } from '../firebase/config';
-// import { query, where, collection, onSnapshot, orderBy } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { db } from '../firebase/config';
+import { query, where, doc, collection, onSnapshot, orderBy } from 'firebase/firestore';
+
+// export const unsub = onSnapshot(doc(db, 'users', 'AlMa4aSBPgmaSe0uagnac0o38Bf7'), (doc) => {
+// 	console.log('Current data: ', doc.data());
+// });
 
 // export const useFirestore = (collectionName, condition) => {
 // 	const [documents, setDocuments] = useState([]);
@@ -32,44 +36,42 @@
 // 	return documents;
 // };
 
-// export const useFirestoreAllList = (uid) => {
-// 	const [userDocs, setUserDocs] = useState([]);
-// 	const [roomDocs, setRoomDocs] = useState([]);
+// export const useUser = (uid) => {
+// 	const [userDoc, setUserDoc] = useState({});
 
 // 	useEffect(() => {
-// 		let userRef = collection(db, 'users');
-// 		let roomRef = collection(db, 'rooms');
-// 		let q = query(roomRef, where('members', 'array-contains', uid));
+// 		let userRef = doc(db, 'users', uid);
 
 // 		const userUnsubscribe = onSnapshot(userRef, (snapshot) => {
-// 			const data = snapshot.docs.map((doc) => ({
-// 				...doc.data(),
-// 			}));
-
-// 			setUserDocs(data);
-// 		});
-
-// 		const roomUnsubscribe = onSnapshot(q, (snapshot) => {
-// 			const data = snapshot.docs.map((doc) => {
-// 				const newArr = doc.data().members.slice();
-// 				const idx = newArr.indexOf(uid);
-// 				newArr.splice(idx, 1);
-// 				return newArr[0];
-// 			});
-
-// 			setRoomDocs(data);
+// 			setUserDoc(snapshot.data());
 // 		});
 
 // 		return () => {
 // 			userUnsubscribe();
-// 			roomUnsubscribe();
 // 		};
 // 	}, [uid]);
 
-// 	const chatList = userDocs.filter((user) => roomDocs.includes(user.uid));
-
-// 	return chatList;
+// 	return userDoc;
 // };
+
+export const useNotes = (uid) => {
+	const [noteDocs, setNoteDocs] = useState([]);
+
+	useEffect(() => {
+		let notesRef = collection(db, 'users', uid, 'notes');
+
+		const notesUnsubscribe = onSnapshot(notesRef, (snapshot) => {
+			// setNoteDocs(snapshot.data());
+			console.log(snapshot.data());
+		});
+
+		return () => {
+			notesUnsubscribe();
+		};
+	}, [uid]);
+
+	return noteDocs;
+};
 
 // export const useFirestoreSuggestList = (uid) => {
 // 	const [userDocs, setUserDocs] = useState([]);

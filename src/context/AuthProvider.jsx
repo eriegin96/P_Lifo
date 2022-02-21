@@ -1,8 +1,9 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../firebase/config';
+import { auth, db } from '../firebase/config';
 import { getUserData } from '../firebase/services';
 import { SplashScreen } from '../components';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 export const AuthContext = createContext();
 
@@ -13,10 +14,18 @@ export default function AuthProvider({ children }) {
 	useEffect(() => {
 		const unsubscribed = onAuthStateChanged(auth, (user) => {
 			if (user) {
-				getUserData(user.uid).then((data) => {
-					setUser(data);
+				let userRef = doc(db, 'users', user.uid);
+
+				onSnapshot(userRef, (snapshot) => {
+					console.log(snapshot.data());
+					setUser(snapshot.data());
 					setIsAuthLoading(false);
 				});
+
+				// getUserData(user.uid).then((data) => {
+				// 	setUser(data);
+				// 	setIsAuthLoading(false);
+				// });
 			} else {
 				setUser({ displayName: '', photoURL: '', uid: '' });
 				setIsAuthLoading(false);

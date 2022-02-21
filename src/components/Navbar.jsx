@@ -13,10 +13,14 @@ import {
 import { AppContext } from '../context/AppProvider';
 import { Button } from '.';
 import { newBackground } from '../utils/newBackground';
+import { updateUser } from '../firebase/services';
+import { AuthContext } from '../context/AuthProvider';
 
 export default function Navbar() {
-	const { fullscreen, setFullscreen, setModalType, background, setBackground } =
-		useContext(AppContext);
+	const {
+		user: { uid },
+	} = useContext(AuthContext);
+	const { fullscreen, setFullscreen, setModalType, background } = useContext(AppContext);
 
 	const toggleFullscreen = () => {
 		if (!document.fullscreenElement) {
@@ -39,7 +43,7 @@ export default function Navbar() {
 		};
 		const newBg = newBackground(background, condition);
 
-		setBackground(newBg);
+		updateUser(uid, { background: newBg });
 	};
 
 	return (

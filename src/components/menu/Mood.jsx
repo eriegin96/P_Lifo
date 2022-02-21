@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import ReactSlider from 'react-slider';
 import { Button } from '..';
 
@@ -12,6 +12,8 @@ import {
 } from '../../assets/icons';
 import { SLEEPY_LINKS, CHILL_LINKS, JAZZY_LINKS, NOISE_ICONS } from '../../constants';
 import { AppContext } from '../../context/AppProvider';
+import { AuthContext } from '../../context/AuthProvider';
+import { updateUser } from '../../firebase/services';
 import { randomMainSong } from '../../utils/randomMainSong';
 
 function MoodItem({ iconSrc, label, className, isActive, handleClick }) {
@@ -41,18 +43,20 @@ function MoodItem({ iconSrc, label, className, isActive, handleClick }) {
 }
 
 export default function Mood() {
-	const { mainSongRef, noisesRef, currentSong, setCurrentSong, setIsPlaying } =
+	const {
+		user: { uid },
+	} = useContext(AuthContext);
+	const { mainSongRef, noisesRef, currentSong, setCurrentSong, setIsPlaying, background } =
 		useContext(AppContext);
-	const initialTab = { sleepy: false, jazzy: false, chill: false };
-	const [moodTab, setMoodTab] = useState({ ...initialTab, chill: true });
 
 	const handleMoodType = (type) => {
 		let newSong;
 		setIsPlaying(true);
+		mainSongRef.current.autoplay = true;
 
 		switch (type) {
 			case 'sleepy':
-				setMoodTab({ ...initialTab, sleepy: true });
+				updateUser(uid, { background: { ...background, mood: 'sleepy' } });
 				newSong = randomMainSong(SLEEPY_LINKS, currentSong.index);
 				setCurrentSong({
 					...currentSong,
@@ -63,7 +67,7 @@ export default function Mood() {
 				break;
 
 			case 'jazzy':
-				setMoodTab({ ...initialTab, jazzy: true });
+				updateUser(uid, { background: { ...background, mood: 'jazzy' } });
 				newSong = randomMainSong(JAZZY_LINKS, currentSong.index);
 				setCurrentSong({
 					...currentSong,
@@ -74,7 +78,7 @@ export default function Mood() {
 				break;
 
 			case 'chill':
-				setMoodTab({ ...initialTab, chill: true });
+				updateUser(uid, { background: { ...background, mood: 'chill' } });
 				newSong = randomMainSong(CHILL_LINKS, currentSong.index);
 				setCurrentSong({
 					...currentSong,
@@ -100,21 +104,21 @@ export default function Mood() {
 			</div>
 			<div className='my-4 flex justify-between items-center'>
 				<MoodItem
-					isActive={moodTab.sleepy}
+					isActive={background.mood === 'sleepy'}
 					iconSrc={sleepyIcon}
 					label='Sleepy'
 					className='-left-7'
 					handleClick={() => handleMoodType('sleepy')}
 				/>
 				<MoodItem
-					isActive={moodTab.jazzy}
+					isActive={background.mood === 'jazzy'}
 					iconSrc={jazzyIcon}
 					label='Jazzy'
 					className='-left-7'
 					handleClick={() => handleMoodType('jazzy')}
 				/>
 				<MoodItem
-					isActive={moodTab.chill}
+					isActive={background.mood === 'chill'}
 					iconSrc={chillIcon}
 					label='Chill'
 					className='-left-8'
