@@ -14,7 +14,6 @@ import { ALARM_LINKS, BACKGROUND_LINKS_LIST } from '../constants';
 export const getUserData = async (uid) => {
 	const userRef = doc(db, 'users', uid);
 
-	// async function asyncGetDoc() {
 	const userSnap = await getDoc(userRef);
 
 	if (userSnap.exists()) {
@@ -22,9 +21,6 @@ export const getUserData = async (uid) => {
 	} else {
 		return {};
 	}
-	// }
-
-	// return asyncGetDoc();
 };
 
 export const addUser = async (uid, data) => {
@@ -77,22 +73,11 @@ export const updateUser = async (uid, data) => {
 	});
 };
 
-export const updateSession = async (uid, sessionId, data) => {
-	const sessionRef = doc(db, 'users', uid, 'sessions', sessionId);
-
-	console.log({ ...sessionRef });
-};
-
 export const addSession = async (uid, data) => {
 	const sessionRef = collection(db, 'users', uid, 'sessions');
 
-	await setDoc(sessionRef, {
+	await addDoc(sessionRef, {
 		...data,
-		// name: 'study 1',
-		// time: '3,492',
-		// date: '05/02/2022',
-		// completedTasks: ['123', '456', 'abc', '000'],
-		// uncompletedTasks: ['123', '456', 'abc', '000'],
 		createdAt: serverTimestamp(),
 		modifiedAt: serverTimestamp(),
 	});
@@ -103,10 +88,6 @@ export const addNote = async (uid, data) => {
 
 	await addDoc(noteRef, {
 		...data,
-		// id: '1',
-		// title: 'note 1',
-		// content: 'note 1 content',
-		// time: '05/02/2022',
 		createdAt: serverTimestamp(),
 		modifiedAt: serverTimestamp(),
 	});

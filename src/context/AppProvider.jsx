@@ -2,14 +2,13 @@ import React, { createContext, useContext, useEffect, useRef, useState } from 'r
 import { AuthContext } from './AuthProvider';
 
 import {
-	ALARM_LINKS,
-	BACKGROUND_LINKS_LIST,
 	CHILL_LINKS,
 	JAZZY_LINKS,
 	SLEEPY_LINKS,
 } from '../constants';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase/config';
+import { useNotes, useSessions } from '../hooks/useFirestore';
 
 export const AppContext = createContext();
 
@@ -21,16 +20,16 @@ export default function AppProvider({ children }) {
 	const [draggableModalType, setDraggableModalType] = useState(initialDraggableModalType);
 
 	// Background
-	const background = user.background;
+	const background = user?.background;
 
 	// Main Song
-	const alarmOn = user.alarm.isOn;
-	const alarmLink = user.alarm.link;
+	const alarmOn = user?.alarm?.isOn;
+	const alarmLink = user?.alarm?.link;
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [currentSong, setCurrentSong] = useState(() => {
 		let randomIndex, currentSong;
 
-		switch (background.mood) {
+		switch (background?.mood) {
 			case 'sleepy':
 				randomIndex = Math.floor(Math.random() * SLEEPY_LINKS.length);
 				currentSong = { list: SLEEPY_LINKS, index: randomIndex, link: SLEEPY_LINKS[randomIndex] };
@@ -50,28 +49,10 @@ export default function AppProvider({ children }) {
 	const mainSongRef = useRef();
 	const noisesRef = useRef([]);
 	const alarmRef = useRef();
-	// useEffect(() => {
-	// 	localStorage.setItem('alarm', JSON.stringify({ isOn: alarmOn ?? true, link: alarmLink }));
-	// }, [alarmOn, alarmLink]);
 
 	// Session & Task
-	const currentSession = user.currentSession;
-	// const [currentSession, setCurrentSession] = useState({
-	// 	id: '0',
-	// 	name: 'study react',
-	// 	time: 2251,
-	// 	pomodoroTime: 2100,
-	// 	breakTime: 151,
-	// 	date: '08/02/2022',
-	// 	pomodorosCount: 4,
-	// 	breaksCount: 2,
-	// 	taskList: [
-	// 		{ done: true, content: '123', current: true },
-	// 		{ done: true, content: '456' },
-	// 	],
-	// 	completedTasks: [],
-	// 	uncompletedTasks: ['123'],
-	// });
+	const currentSession = user?.currentSession;
+	const sessionList = useSessions(user.uid);
 	const [isBreak, setIsBreak] = useState(false);
 	const [isTimerPlaying, setIsTimerPlaying] = useState(false);
 	const [initSessionTime, setInitSessionTime] = useState(25);
@@ -116,6 +97,7 @@ export default function AppProvider({ children }) {
 
 	// Notes
 	const notesRef = useRef([]);
+	const noteList = useNotes(user.uid);
 
 	const value = {
 		fullscreen,
@@ -140,7 +122,7 @@ export default function AppProvider({ children }) {
 		isTimerPlaying,
 		setIsTimerPlaying,
 		currentSession,
-		// setCurrentSession,
+		sessionList,
 		sessionTime,
 		setSessionTime,
 		breakTime,
@@ -152,6 +134,7 @@ export default function AppProvider({ children }) {
 		sessionInterval,
 		setSessionInterval,
 		notesRef,
+		noteList,
 	};
 
 	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

@@ -54,6 +54,29 @@ import { query, where, doc, collection, onSnapshot, orderBy } from 'firebase/fir
 // 	return userDoc;
 // };
 
+export const useSessions = (uid) => {
+	const [sessionDocs, setSessionDocs] = useState([]);
+
+	useEffect(() => {
+		let sessionsRef = collection(db, 'users', uid, 'sessions');
+
+		const sessionsUnsubscribe = onSnapshot(sessionsRef, (snapshot) => {
+			const data = snapshot.docs.map((doc) => ({
+				...doc.data(),
+				id: doc.id,
+			}));
+
+			setSessionDocs(data);
+		});
+
+		return () => {
+			sessionsUnsubscribe();
+		};
+	}, [uid]);
+
+	return sessionDocs;
+};
+
 export const useNotes = (uid) => {
 	const [noteDocs, setNoteDocs] = useState([]);
 
@@ -61,8 +84,12 @@ export const useNotes = (uid) => {
 		let notesRef = collection(db, 'users', uid, 'notes');
 
 		const notesUnsubscribe = onSnapshot(notesRef, (snapshot) => {
-			// setNoteDocs(snapshot.data());
-			console.log(snapshot.data());
+			const data = snapshot.docs.map((doc) => ({
+				...doc.data(),
+				id: doc.id,
+			}));
+
+			setNoteDocs(data);
 		});
 
 		return () => {

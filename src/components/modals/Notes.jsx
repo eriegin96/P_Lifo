@@ -1,47 +1,36 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import { Button } from '..';
 import { AppContext } from '../../context/AppProvider';
 import { binIcon, closeIcon, newNoteIcon, titleNotesIcon } from '../../assets/icons';
-
-const NOTES = [
-	{ id: '1', title: 'note 1', time: '05/02/2022', content: 'note 1 content' },
-	{
-		id: '2',
-		title: 'note 2',
-		time: '06/02/2022',
-		content:
-			'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-	},
-	{
-		id: '3',
-		title: 'note 3',
-		time: '07/02/2022',
-		content:
-			'Etiam pharetra consectetur consectetur. Vivamus egestas sem ut blandit aliquam. In et porttitor metus, ac elementum quam. Aenean vestibulum placerat consequat. Aenean feugiat vitae tortor vel feugiat. Quisque viverra tristique congue. In nec sapien sed nisi feugiat suscipit. Nulla at metus tincidunt, dapibus lorem vitae, dictum justo. Phasellus nisi lacus.',
-	},
-	{
-		id: '4',
-		title: 'note 4',
-		time: '08/02/2022',
-		content:
-			'Mauris quis enim ultricies, tristique ante eu, rutrum est. Ut eget ultrices lectus, vitae placerat magna. Proin scelerisque mattis mauris. Suspendisse porta turpis nec scelerisque pharetra. Aenean sed enim nec eros rutrum congue. Sed varius neque ipsum, eu malesuada tortor aliquam eget. Etiam non mauris eget ex bibendum placerat. Curabitur.',
-	},
-];
+import { format } from 'date-fns';
+import { addNote, removeNote, updateNote } from '../../firebase/services';
+import { AuthContext } from '../../context/AuthProvider';
 
 export default function Notes() {
-	const { draggableModalType, setDraggableModalType, notesRef } = useContext(AppContext);
-	const [currentNote, setCurrentNote] = useState();
+	const {user: {uid}} = useContext(AuthContext);
+	const { draggableModalType, setDraggableModalType, notesRef, noteList } = useContext(AppContext);
+	const [currentNote, setCurrentNote] = useState({title: '', content: ''});
+	const editorRef = useRef();
 
 	const saveNote = () => {
-		// {title, content}
+		const {title, content} = currentNote;
+
+		if (currentNote.id) {
+			updateNote(uid, currentNote.id, {title, content});
+		} else {
+			addNote(uid, {title, content});
+			setCurrentNote({title: '', content: ''});
+		}
 	};
 
 	const deleteNote = (id) => {
-		const deleteIndex = NOTES.findIndex((note) => note.id === id);
-		NOTES.splice(deleteIndex, 1);
+		if (id) {
+			removeNote(uid, id)
+			setCurrentNote({title: '', content: ''});
+		};
 	};
 
 	return (
@@ -68,19 +57,16 @@ export default function Notes() {
 							/>
 						</div>
 						<div className='h-[400px] overflow-auto border border-transparent-w-20 rounded-xl'>
-							{NOTES.map((note, i) => (
+							{noteList.map((note, i) => (
 								<div
 									key={i}
-									ref={(el) => {
-										notesRef.current[i] = el;
-									}}
 									className={`max-h-[150px] p-2 ${i === 0 ? '' : 'border-t'} ${
 										note.id === currentNote?.id && 'bg-primary text-black'
 									} border-transparent-w-10 hover:opacity-70 duration-300 ease-out overflow-hidden cursor-pointer`}
 									onClick={() => setCurrentNote(note)}
 								>
 									<h5 className='text-lg font-semibold'>{note.title}</h5>
-									<p className='text-xs'>{note.createdAt}</p>
+									<p className='text-xs'>{format(note?.modifiedAt?.seconds * 1000 || Date.now(), 'dd/MM/yyyy')}</p>
 									<p className='text-sm note__content'>{note.content}</p>
 								</div>
 							))}
@@ -90,7 +76,7 @@ export default function Notes() {
 					{/* Right */}
 					<div className='w-2/3 py-4 px-4 bg-black rounded-tr-3xl rounded-br-3xl'>
 						<div className='py-2 flex items-center'>
-							<Button onClick={() => setCurrentNote({})}>
+							<Button onClick={() => setCurrentNote({title: '', content: ''})}>
 								<img src={newNoteIcon} alt='new' className='w-6 h-6' />
 							</Button>
 							<Button onClick={() => deleteNote(currentNote?.id)}>
@@ -99,12 +85,14 @@ export default function Notes() {
 							<input
 								type='text'
 								placeholder='Add title here...'
-								defaultValue={currentNote?.title}
+								value={currentNote.title}
+								onChange={(e) => setCurrentNote({...currentNote, title: e.target.value})}
 								className='ml-2 bg-black text-3xl'
 							/>
 						</div>
 						<div className='mt-2 h-[400px]'>
 							<CKEditor
+								ref={editorRef}
 								editor={ClassicEditor}
 								data={currentNote?.content}
 								onReady={(editor) => {
@@ -117,6 +105,7 @@ export default function Notes() {
 								}}
 								onBlur={(event, editor) => {
 									console.log('Blur.', editor);
+									setCurrentNote({...currentNote, content: editor.getData()})
 								}}
 								onFocus={(event, editor) => {
 									console.log('Focus.', editor);
@@ -124,7 +113,7 @@ export default function Notes() {
 							/>
 						</div>
 						<div className='flex justify-end'>
-							<Button className='py-1 px-6 bg-primary rounded-full text-black font-medium'>
+							<Button className='py-1 px-6 bg-primary rounded-full text-black font-medium' onClick={saveNote}>
 								Save
 							</Button>
 						</div>

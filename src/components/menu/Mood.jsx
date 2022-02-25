@@ -162,7 +162,7 @@ export default function Mood() {
 
 							<ReactSlider
 								className='h-6 w-[148px] bg-bg-200 rounded-full mr-1'
-								defaultValue={0}
+								defaultValue={noisesRef.current[index].volume * 100}
 								onBeforeChange={() => {
 									const thisAudio = noisesRef.current[index];
 									if (thisAudio.paused) thisAudio.play();

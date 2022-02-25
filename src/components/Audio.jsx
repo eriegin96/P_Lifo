@@ -4,12 +4,11 @@ import { AppContext } from '../context/AppProvider';
 import { playIcon, pauseIcon, prevIcon, nextIcon, clockIcon } from '../assets/icons';
 import { Button } from '.';
 import { nextSong, prevSong } from '../utils/randomMainSong';
-import { NOISE_LINKS } from '../constants';
+import { NOISE_ICONS, NOISE_LINKS } from '../constants';
 import { convertTime } from '../utils/convertTime';
 
 export default function Audio() {
 	const {
-		alarmOn,
 		mainSongRef,
 		noisesRef,
 		alarmRef,
@@ -29,6 +28,12 @@ export default function Audio() {
 	useEffect(() => {
 		mainSongRef.current.volume = 0.5;
 	}, [mainSongRef]);
+
+	useEffect(() => {
+		for (let i = 0; i < NOISE_ICONS.length; i++) {
+			noisesRef.current[i].volume = 0;
+		}
+	}, [noisesRef.current]);
 
 	const handlePlay = () => {
 		setIsPlaying(true);

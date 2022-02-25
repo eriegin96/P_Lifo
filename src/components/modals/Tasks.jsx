@@ -22,7 +22,7 @@ import { AuthContext } from '../../context/AuthProvider';
 import { AppContext } from '../../context/AppProvider';
 import { convertTime } from '../../utils/convertTime';
 import { ALARM_LINKS } from '../../constants';
-import { updateUser } from '../../firebase/services';
+import { addSession, updateUser } from '../../firebase/services';
 
 export default function Tasks() {
 	const {
@@ -131,6 +131,7 @@ export default function Tasks() {
 			.filter((task) => task.done === false)
 			.map((task) => task.content);
 
+		addSession(uid, {name: currentSession.name, time: currentSession.pomodoroTime + currentSession.breakTime + 1000, completedTasks, uncompletedTasks});
 		updateUser(uid, {
 			currentSession: { ...currentSession, completedTasks, uncompletedTasks },
 		}).then(() => setModalType('end-session'));

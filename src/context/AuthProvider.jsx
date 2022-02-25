@@ -22,10 +22,6 @@ export default function AuthProvider({ children }) {
 					setIsAuthLoading(false);
 				});
 
-				// getUserData(user.uid).then((data) => {
-				// 	setUser(data);
-				// 	setIsAuthLoading(false);
-				// });
 			} else {
 				setUser({ displayName: '', photoURL: '', uid: '' });
 				setIsAuthLoading(false);
