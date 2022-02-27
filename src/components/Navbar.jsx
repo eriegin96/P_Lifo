@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Switch from 'react-switch';
+import Switch from 'react-switch/dist/react-switch.dev.js';
 
 import { logoImg } from '../assets/images';
 import {

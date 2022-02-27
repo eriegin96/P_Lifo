@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import Switch from 'react-switch';
+import Switch from 'react-switch/dist/react-switch.dev.js';
 import Slick from 'react-slick';
 
 import { Button } from '..';

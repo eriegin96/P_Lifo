@@ -1,6 +1,6 @@
 import React, { Fragment, useContext, useEffect, useRef, useState } from 'react';
 import { Listbox, Menu, Transition } from '@headlessui/react';
-import Switch from 'react-switch';
+import Switch from 'react-switch/dist/react-switch.dev.js';
 
 import { Button } from '..';
 import {

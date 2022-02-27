@@ -1,10 +1,5 @@
 import React, { useContext } from 'react';
-import {
-	signInWithPopup,
-	GoogleAuthProvider,
-	FacebookAuthProvider,
-	fetchSignInMethodsForEmail,
-} from 'firebase/auth';
+import { signInWithPopup, GoogleAuthProvider, fetchSignInMethodsForEmail } from 'firebase/auth';
 
 import { Button } from '.';
 import { logoImg } from '../assets/images';

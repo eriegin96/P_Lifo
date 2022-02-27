@@ -50,7 +50,7 @@ export default function AppProvider({ children }) {
 
 	// Session & Task
 	const currentSession = user?.currentSession;
-	const sessionList = useHistory(user.uid, 'sessions');
+	const sessionList = useHistory(user?.uid, 'sessions');
 	const [isBreak, setIsBreak] = useState(false);
 	const [isPomodoroTimePlaying, setIsPomodoroTimePlaying] = useState(false);
 	const [isBreakTimePlaying, setIsBreakTimePlaying] = useState(false);
@@ -123,7 +123,7 @@ export default function AppProvider({ children }) {
 	}, [isBreakTimePlaying, breakTime]);
 
 	// Notes
-	const noteList = useHistory(user.uid, 'notes');
+	const noteList = useHistory(user?.uid, 'notes');
 
 	const value = {
 		fullscreen,

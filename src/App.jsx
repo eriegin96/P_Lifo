@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
-import { Menu, Navbar, Background, Audio, Modal, DraggableModal } from './components';
-import Login from './components/Login';
+import { Menu, Navbar, Background, Audio, Modal, DraggableModal, Login } from './components';
 import { AuthContext } from './context/AuthProvider';
 
 function App() {
