@@ -5,7 +5,7 @@ import { FOCUS_ICONS } from '../../constants';
 import { AppContext } from '../../context/AppProvider';
 
 export default function Focus({ setMenuTab, initialTab }) {
-	const { setDraggableModalType, draggableModalType } = useContext(AppContext);
+	const { setDraggableModalType, draggableModalType, currentSession } = useContext(AppContext);
 
 	return (
 		<div>
@@ -17,7 +17,13 @@ export default function Focus({ setMenuTab, initialTab }) {
 						key={item.label}
 						className='w-full flex items-center mt-3 py-2 px-4 bg-bg-200 rounded-xl cursor-pointer'
 						onClick={() => {
-							setDraggableModalType({ ...draggableModalType, [item.modalType]: true });
+							if (currentSession.name) {
+								setDraggableModalType({ ...draggableModalType, [item.modalType]: true });
+							} else {
+								item.modalType === 'tasks'
+									? setDraggableModalType({ ...draggableModalType, session: true })
+									: setDraggableModalType({ ...draggableModalType, [item.modalType]: true });
+							}
 							setMenuTab(initialTab);
 						}}
 					>

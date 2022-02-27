@@ -14,7 +14,7 @@ import { SLEEPY_LINKS, CHILL_LINKS, JAZZY_LINKS, NOISE_ICONS } from '../../const
 import { AppContext } from '../../context/AppProvider';
 import { AuthContext } from '../../context/AuthProvider';
 import { updateUser } from '../../firebase/services';
-import { randomMainSong } from '../../utils/randomMainSong';
+import { randomMainSong } from '../../utils';
 
 function MoodItem({ iconSrc, label, className, isActive, handleClick }) {
 	return (
@@ -43,11 +43,16 @@ function MoodItem({ iconSrc, label, className, isActive, handleClick }) {
 }
 
 export default function Mood() {
+	const { uid } = useContext(AuthContext);
 	const {
-		user: { uid },
-	} = useContext(AuthContext);
-	const { mainSongRef, noisesRef, currentSong, setCurrentSong, setIsPlaying, background } =
-		useContext(AppContext);
+		mainSongRef,
+		noisesRef,
+		currentSong,
+		setCurrentSong,
+		setIsPlaying,
+		background,
+		templates,
+	} = useContext(AppContext);
 
 	const handleMoodType = (type) => {
 		let newSong;
@@ -93,14 +98,24 @@ export default function Mood() {
 		}
 	};
 
+	const saveTemplate = () => {
+		if (!templates.includes(background.scene))
+			updateUser(uid, { templates: [...templates, background.scene] });
+	};
+
 	return (
 		<div>
 			<div className='mb-4 flex justify-between items-center'>
 				<h4 className='font-bold text-xl'>Mood</h4>
-				<Button className='py-1.5 px-4 flex items-center border border-[#5293f3] rounded-full bg-[rgba(82,147,243,.1)]'>
-					<img src={bookmarkIcon} alt='bookmark' className='mr-2' />
-					Save Template
-				</Button>
+				{!templates.includes(background.scene) && (
+					<Button
+						className='py-1.5 px-4 flex items-center border border-[#5293f3] rounded-full bg-[rgba(82,147,243,.1)]'
+						onClick={saveTemplate}
+					>
+						<img src={bookmarkIcon} alt='bookmark' className='mr-2' />
+						Save Template
+					</Button>
+				)}
 			</div>
 			<div className='my-4 flex justify-between items-center'>
 				<MoodItem

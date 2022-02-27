@@ -1,14 +1,9 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { AuthContext } from './AuthProvider';
 
-import {
-	CHILL_LINKS,
-	JAZZY_LINKS,
-	SLEEPY_LINKS,
-} from '../constants';
-import { doc, onSnapshot } from 'firebase/firestore';
-import { db } from '../firebase/config';
-import { useNotes, useSessions } from '../hooks/useFirestore';
+import { ALARM_LINKS, CHILL_LINKS, JAZZY_LINKS, SLEEPY_LINKS } from '../constants';
+import { useHistory } from '../hooks/useFirestore';
+import { updateUser } from '../firebase/services';
 
 export const AppContext = createContext();
 
@@ -18,6 +13,9 @@ export default function AppProvider({ children }) {
 	const [modalType, setModalType] = useState();
 	const initialDraggableModalType = { session: false, tasks: false, notes: false, history: false };
 	const [draggableModalType, setDraggableModalType] = useState(initialDraggableModalType);
+
+	// Templates
+	const templates = user?.templates;
 
 	// Background
 	const background = user?.background;
@@ -52,52 +50,80 @@ export default function AppProvider({ children }) {
 
 	// Session & Task
 	const currentSession = user?.currentSession;
-	const sessionList = useSessions(user.uid);
+	const sessionList = user?.uid ? useHistory(user.uid, 'sessions') : [];
 	const [isBreak, setIsBreak] = useState(false);
-	const [isTimerPlaying, setIsTimerPlaying] = useState(false);
-	const [initSessionTime, setInitSessionTime] = useState(25);
-	const [initBreakTime, setInitBreakTime] = useState(5);
-	const [sessionTime, setSessionTime] = useState(initSessionTime * 60);
+	const [isPomodoroTimePlaying, setIsPomodoroTimePlaying] = useState(false);
+	const [isBreakTimePlaying, setIsBreakTimePlaying] = useState(false);
+	const timer = user?.timer;
+	const initPomodoroTime = timer?.pomodoroTime;
+	const initBreakTime = timer?.breakTime;
+	const [pomodoroTime, setPomodoroTime] = useState(initPomodoroTime * 60);
 	const [breakTime, setBreakTime] = useState(initBreakTime * 60);
-	const [sessionInterval, setSessionInterval] = useState();
+	const [pomodoroInterval, setPomodoroInterval] = useState();
+	const [breakInterval, setBreakInterval] = useState();
 	useEffect(() => {
-		if (isTimerPlaying) {
-			if (sessionTime === 0) {
-				setIsTimerPlaying(false);
+		if (isPomodoroTimePlaying) {
+			if (pomodoroTime === 0) {
+				if (alarmOn) alarmRef.current.play();
+				setTimeout(() => alarmRef.current.pause(), 10000);
+
+				setIsBreak(!isBreak);
+				setIsPomodoroTimePlaying(false);
+				setPomodoroTime(initPomodoroTime * 60);
+				updateUser(user.uid, {
+					currentSession: {
+						...currentSession,
+						pomodoroCount: currentSession.pomodoroCount + 1,
+						pomodoroTime: currentSession.pomodoroTime + initPomodoroTime * 60 - pomodoroTime,
+					},
+				});
+				return () => clearInterval(pomodoroInterval);
 			}
 
-			setSessionInterval(
+			setPomodoroInterval(
 				setInterval(() => {
-					setSessionTime(sessionTime - 1);
+					setPomodoroTime(pomodoroTime - 1);
 				}, 1000)
 			);
 
 			return () => {
-				clearInterval(sessionInterval);
+				clearInterval(pomodoroInterval);
 			};
 		}
-	}, [isTimerPlaying, sessionTime]);
+	}, [isPomodoroTimePlaying, pomodoroTime]);
 	useEffect(() => {
-		if (isTimerPlaying) {
+		if (isBreakTimePlaying) {
 			if (breakTime === 0) {
-				setIsTimerPlaying(false);
+				if (alarmOn) alarmRef.current.play();
+				setTimeout(() => alarmRef.current.pause(), 10000);
+
+				setIsBreak(!isBreak);
+				setIsBreakTimePlaying(false);
+				setBreakTime(initBreakTime * 60);
+				updateUser(user.uid, {
+					currentSession: {
+						...currentSession,
+						breakCount: currentSession.breakCount + 1,
+						breakTime: currentSession.breakTime + initBreakTime * 60 - breakTime,
+					},
+				});
+				return () => clearInterval(breakInterval);
 			}
 
-			setSessionInterval(
+			setBreakInterval(
 				setInterval(() => {
 					setBreakTime(breakTime - 1);
 				}, 1000)
 			);
 
 			return () => {
-				clearInterval(sessionInterval);
+				clearInterval(breakInterval);
 			};
 		}
-	}, [isTimerPlaying, breakTime]);
+	}, [isBreakTimePlaying, breakTime]);
 
 	// Notes
-	const notesRef = useRef([]);
-	const noteList = useNotes(user.uid);
+	const noteList = user?.uid ? useHistory(user.uid, 'notes') : [];
 
 	const value = {
 		fullscreen,
@@ -107,6 +133,7 @@ export default function AppProvider({ children }) {
 		initialDraggableModalType,
 		draggableModalType,
 		setDraggableModalType,
+		templates,
 		alarmOn,
 		alarmLink,
 		currentSong,
@@ -119,21 +146,23 @@ export default function AppProvider({ children }) {
 		alarmRef,
 		isBreak,
 		setIsBreak,
-		isTimerPlaying,
-		setIsTimerPlaying,
+		isPomodoroTimePlaying,
+		setIsPomodoroTimePlaying,
+		isBreakTimePlaying,
+		setIsBreakTimePlaying,
 		currentSession,
 		sessionList,
-		sessionTime,
-		setSessionTime,
+		pomodoroTime,
+		setPomodoroTime,
 		breakTime,
+		timer,
 		setBreakTime,
-		initSessionTime,
-		setInitSessionTime,
+		initPomodoroTime,
 		initBreakTime,
-		setInitBreakTime,
-		sessionInterval,
-		setSessionInterval,
-		notesRef,
+		pomodoroInterval,
+		setPomodoroInterval,
+		breakInterval,
+		setBreakInterval,
 		noteList,
 	};
 

@@ -4,9 +4,7 @@ import Login from './components/Login';
 import { AuthContext } from './context/AuthProvider';
 
 function App() {
-	const {
-		user: { uid },
-	} = useContext(AuthContext);
+	const { uid } = useContext(AuthContext);
 
 	return (
 		<div className='relative bg-bg text-white min-h-screen overflow-auto'>

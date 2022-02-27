@@ -3,10 +3,20 @@ import React, { useContext } from 'react';
 import { Button } from '..';
 import { checkIcon, xIcon } from '../../assets/icons';
 import { AppContext } from '../../context/AppProvider';
-import { convertTime } from '../../utils/convertTime';
+import { AuthContext } from '../../context/AuthProvider';
+import { updateCurrentSession } from '../../firebase/services';
+import { convertTime } from '../../utils';
 
 export default function EndSession() {
-	const { setModalType, currentSession } = useContext(AppContext);
+	const { uid } = useContext(AuthContext);
+	const { setModalType, currentSession, initialDraggableModalType, setDraggableModalType } =
+		useContext(AppContext);
+
+	const refreshCurrentSession = () => {
+		updateCurrentSession(uid);
+		setModalType(null);
+		setDraggableModalType(initialDraggableModalType);
+	};
 
 	return (
 		<div className='w-full h-screen z-10 overflow-auto'>
@@ -16,15 +26,17 @@ export default function EndSession() {
 					<h3 className='text-3xl font-bold'>{currentSession.name}</h3>
 					<div className='flex my-2 text-sm'>
 						<p className='grow'>Length:</p>
-						<time className='text-primary'>{convertTime(currentSession.time)}</time>
+						<time className='text-primary'>
+							{convertTime(currentSession.pomodoroTime + currentSession.breakTime)}
+						</time>
 					</div>
 					<div className='flex my-2 text-sm'>
 						<p className='grow'>Completed Pomodoros:</p>
-						<time className='text-primary'>{currentSession.pomodorosCount}</time>
+						<time className='text-primary'>{currentSession.pomodoroCount}</time>
 					</div>
 					<div className='flex my-2 text-sm'>
 						<p className='grow'>Breaks taken:</p>
-						<time className='text-primary'>{currentSession.breaksCount}</time>
+						<time className='text-primary'>{currentSession.breakCount}</time>
 					</div>
 				</div>
 
@@ -74,7 +86,7 @@ export default function EndSession() {
 
 				<Button
 					className='w-full my-4 px-4 py-1 bg-primary text-black text-base font-semibold rounded-full'
-					onClick={() => setModalType(null)}
+					onClick={refreshCurrentSession}
 				>
 					Done
 				</Button>

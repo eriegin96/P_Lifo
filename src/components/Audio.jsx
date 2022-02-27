@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { AppContext } from '../context/AppProvider';
 
 import { playIcon, pauseIcon, prevIcon, nextIcon, clockIcon } from '../assets/icons';
 import { Button } from '.';
-import { nextSong, prevSong } from '../utils/randomMainSong';
 import { NOISE_ICONS, NOISE_LINKS } from '../constants';
-import { convertTime } from '../utils/convertTime';
+import { convertTime, nextSong, prevSong } from '../utils';
 
 export default function Audio() {
 	const {
@@ -19,7 +18,7 @@ export default function Audio() {
 		setCurrentSong,
 		isBreak,
 		currentSession,
-		sessionTime,
+		pomodoroTime,
 		breakTime,
 		draggableModalType,
 		setDraggableModalType,
@@ -93,7 +92,7 @@ export default function Audio() {
 					<p className='opacity-50'>{currentSession.name} / </p>
 					<img src={clockIcon} alt='clock' className='w-[18px] h-[18px] mx-2.5' />
 					<p className='opacity-50'>
-						{isBreak ? convertTime(breakTime) : convertTime(sessionTime)}
+						{isBreak ? convertTime(breakTime) : convertTime(pomodoroTime)}
 					</p>
 				</div>
 			</div>
@@ -122,7 +121,7 @@ export default function Audio() {
 					muted
 				/>
 			))}
-			<audio ref={alarmRef} src={alarmLink} preload='auto' loop /* autoPlay={alarmOn} */ />
+			<audio ref={alarmRef} src={alarmLink} preload='auto' loop />
 		</div>
 	);
 }

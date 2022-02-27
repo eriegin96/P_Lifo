@@ -1,36 +1,37 @@
 import React, { useContext, useRef, useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { convert } from 'html-to-text';
+import { format } from 'date-fns';
 
 import { Button } from '..';
+import { AuthContext } from '../../context/AuthProvider';
 import { AppContext } from '../../context/AppProvider';
 import { binIcon, closeIcon, newNoteIcon, titleNotesIcon } from '../../assets/icons';
-import { format } from 'date-fns';
 import { addNote, removeNote, updateNote } from '../../firebase/services';
-import { AuthContext } from '../../context/AuthProvider';
 
 export default function Notes() {
-	const {user: {uid}} = useContext(AuthContext);
-	const { draggableModalType, setDraggableModalType, notesRef, noteList } = useContext(AppContext);
-	const [currentNote, setCurrentNote] = useState({title: '', content: ''});
+	const { uid } = useContext(AuthContext);
+	const { draggableModalType, setDraggableModalType, noteList } = useContext(AppContext);
+	const [currentNote, setCurrentNote] = useState({ title: '', content: '' });
 	const editorRef = useRef();
 
 	const saveNote = () => {
-		const {title, content} = currentNote;
+		const { title, content } = currentNote;
 
 		if (currentNote.id) {
-			updateNote(uid, currentNote.id, {title, content});
+			updateNote(uid, currentNote.id, { title, content });
 		} else {
-			addNote(uid, {title, content});
-			setCurrentNote({title: '', content: ''});
+			addNote(uid, { title, content });
+			setCurrentNote({ title: '', content: '' });
 		}
 	};
 
 	const deleteNote = (id) => {
 		if (id) {
-			removeNote(uid, id)
-			setCurrentNote({title: '', content: ''});
-		};
+			removeNote(uid, id);
+			setCurrentNote({ title: '', content: '' });
+		}
 	};
 
 	return (
@@ -57,26 +58,33 @@ export default function Notes() {
 							/>
 						</div>
 						<div className='h-[400px] overflow-auto border border-transparent-w-20 rounded-xl'>
-							{noteList.map((note, i) => (
-								<div
-									key={i}
-									className={`max-h-[150px] p-2 ${i === 0 ? '' : 'border-t'} ${
-										note.id === currentNote?.id && 'bg-primary text-black'
-									} border-transparent-w-10 hover:opacity-70 duration-300 ease-out overflow-hidden cursor-pointer`}
-									onClick={() => setCurrentNote(note)}
-								>
-									<h5 className='text-lg font-semibold'>{note.title}</h5>
-									<p className='text-xs'>{format(note?.modifiedAt?.seconds * 1000 || Date.now(), 'dd/MM/yyyy')}</p>
-									<p className='text-sm note__content'>{note.content}</p>
-								</div>
-							))}
+							{noteList.length === 0 && (
+								<div className='relative top-1/2 -translate-y-1/2 text-center'>No notes</div>
+							)}
+
+							{noteList.length > 0 &&
+								noteList.map((note, i) => (
+									<div
+										key={i}
+										className={`max-h-[150px] p-2 ${i === 0 ? '' : 'border-t'} ${
+											note.id === currentNote?.id && 'bg-primary text-black'
+										} border-transparent-w-10 hover:opacity-70 duration-300 ease-out overflow-hidden cursor-pointer`}
+										onClick={() => setCurrentNote(note)}
+									>
+										<h5 className='text-lg font-semibold'>{note.title}</h5>
+										<p className='text-xs'>
+											{format(note?.modifiedAt?.seconds * 1000 || Date.now(), 'dd/MM/yyyy')}
+										</p>
+										<p className='text-sm note__content'>{convert(note.content)}</p>
+									</div>
+								))}
 						</div>
 					</div>
 
 					{/* Right */}
 					<div className='w-2/3 py-4 px-4 bg-black rounded-tr-3xl rounded-br-3xl'>
 						<div className='py-2 flex items-center'>
-							<Button onClick={() => setCurrentNote({title: '', content: ''})}>
+							<Button onClick={() => setCurrentNote({ title: '', content: '' })}>
 								<img src={newNoteIcon} alt='new' className='w-6 h-6' />
 							</Button>
 							<Button onClick={() => deleteNote(currentNote?.id)}>
@@ -86,7 +94,7 @@ export default function Notes() {
 								type='text'
 								placeholder='Add title here...'
 								value={currentNote.title}
-								onChange={(e) => setCurrentNote({...currentNote, title: e.target.value})}
+								onChange={(e) => setCurrentNote({ ...currentNote, title: e.target.value })}
 								className='ml-2 bg-black text-3xl'
 							/>
 						</div>
@@ -105,7 +113,7 @@ export default function Notes() {
 								}}
 								onBlur={(event, editor) => {
 									console.log('Blur.', editor);
-									setCurrentNote({...currentNote, content: editor.getData()})
+									setCurrentNote({ ...currentNote, content: editor.getData() });
 								}}
 								onFocus={(event, editor) => {
 									console.log('Focus.', editor);
@@ -113,7 +121,10 @@ export default function Notes() {
 							/>
 						</div>
 						<div className='flex justify-end'>
-							<Button className='py-1 px-6 bg-primary rounded-full text-black font-medium' onClick={saveNote}>
+							<Button
+								className='py-1 px-6 bg-primary rounded-full text-black font-medium'
+								onClick={saveNote}
+							>
 								Save
 							</Button>
 						</div>

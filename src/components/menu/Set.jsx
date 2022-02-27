@@ -4,14 +4,12 @@ import { arrowLeftIcon } from '../../assets/icons';
 import { Button } from '..';
 import { AppContext } from '../../context/AppProvider';
 import { SETS } from '../../constants';
-import { newBackground } from '../../utils/newBackground';
+import { newBackground } from '../../utils';
 import { updateUser } from '../../firebase/services';
 import { AuthContext } from '../../context/AuthProvider';
 
 export default function Set() {
-	const {
-		user: { uid },
-	} = useContext(AuthContext);
+	const { uid } = useContext(AuthContext);
 	const { background } = useContext(AppContext);
 
 	const [setMode, setSetMode] = useState();

@@ -3,21 +3,40 @@ import React, { useContext, useState } from 'react';
 import { Button } from '..';
 import { AppContext } from '../../context/AppProvider';
 import { closeIcon } from '../../assets/icons';
-import { updateUser } from '../../firebase/services';
+import { addSession, updateUser } from '../../firebase/services';
 import { AuthContext } from '../../context/AuthProvider';
 
 export default function Session() {
-	const {
-		user: { uid },
-	} = useContext(AuthContext);
+	const { uid } = useContext(AuthContext);
 	const { draggableModalType, setDraggableModalType, currentSession, setModalType } =
 		useContext(AppContext);
 	const [input, setInput] = useState(currentSession.name);
 
 	const startSession = () => {
-		updateUser(uid, { currentSession: { ...currentSession, name: input } });
-		setInput('');
-		setDraggableModalType({ ...draggableModalType, session: false, tasks: true });
+		if (input) {
+			updateUser(uid, { currentSession: { ...currentSession, name: input } });
+			setInput('');
+			setDraggableModalType({ ...draggableModalType, session: false, tasks: true });
+		}
+	};
+
+	const handleEndSession = () => {
+		const completedTasks = currentSession.taskList
+			.filter((task) => task.done === true)
+			.map((task) => task.content);
+		const uncompletedTasks = currentSession.taskList
+			.filter((task) => task.done === false)
+			.map((task) => task.content);
+
+		addSession(uid, {
+			name: currentSession.name,
+			time: currentSession.pomodoroTime + currentSession.breakTime + 1000,
+			completedTasks,
+			uncompletedTasks,
+		});
+		updateUser(uid, {
+			currentSession: { ...currentSession, completedTasks, uncompletedTasks },
+		}).then(() => setModalType('end-session'));
 	};
 
 	return (
@@ -48,6 +67,9 @@ export default function Session() {
 							value={input}
 							placeholder='Session name'
 							onChange={(e) => setInput(e.target.value)}
+							onKeyDown={(e) => {
+								if (e.key === 'Enter') startSession();
+							}}
 							type='text'
 							id='session'
 							className='my-2 py-2 px-4 w-full bg-bg-200 rounded-xl'
@@ -59,7 +81,7 @@ export default function Session() {
 				{currentSession.name ? (
 					<Button
 						className={`min-w-[120px] p-2 border border-[#5b5a67] text-sm rounded-full`}
-						onClick={() => setModalType('end-session')}
+						onClick={handleEndSession}
 					>
 						End session
 					</Button>

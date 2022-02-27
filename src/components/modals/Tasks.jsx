@@ -20,7 +20,7 @@ import {
 } from '../../assets/icons';
 import { AuthContext } from '../../context/AuthProvider';
 import { AppContext } from '../../context/AppProvider';
-import { convertTime } from '../../utils/convertTime';
+import { convertTime } from '../../utils';
 import { ALARM_LINKS } from '../../constants';
 import { addSession, updateUser } from '../../firebase/services';
 
@@ -30,50 +30,88 @@ export default function Tasks() {
 	} = useContext(AuthContext);
 	const {
 		alarmOn,
+		alarmRef,
 		alarmLink,
 		setModalType,
 		draggableModalType,
 		setDraggableModalType,
 		isBreak,
 		setIsBreak,
-		isTimerPlaying,
-		setIsTimerPlaying,
+		isPomodoroTimePlaying,
+		setIsPomodoroTimePlaying,
+		isBreakTimePlaying,
+		setIsBreakTimePlaying,
 		currentSession,
-		sessionTime,
-		setSessionTime,
+		pomodoroTime,
+		setPomodoroTime,
 		breakTime,
 		setBreakTime,
-		initSessionTime,
-		setInitSessionTime,
+		timer,
+		initPomodoroTime,
 		initBreakTime,
-		setInitBreakTime,
-		sessionInterval,
+		pomodoroInterval,
+		breakInterval,
 	} = useContext(AppContext);
 
 	const [isAddingTask, setIsAddingTask] = useState(false);
 	const [settingMode, setSettingMode] = useState(false);
 	const [selected, setSelected] = useState(ALARM_LINKS.find((item) => item.link === alarmLink));
+	const [initSelected, setInitSelected] = useState(true);
 	const newTaskRef = useRef();
 
 	useEffect(() => {
-		updateUser(uid, { alarm: { ...alarm, link: selected.link } });
+		initSelected
+			? setInitSelected(false)
+			: updateUser(uid, { alarm: { ...alarm, link: selected.link } }).then(() => {
+					alarmRef.current.load();
+					alarmRef.current.play();
+
+					const timeout = setTimeout(() => alarmRef.current.pause(), 5000);
+					return () => clearTimeout(timeout);
+			  });
 	}, [selected]);
 
 	const startSessionTimer = () => {
-		// if (sessionInterval) clearInterval(sessionInterval);
-		setIsTimerPlaying(true);
+		isBreak ? setIsBreakTimePlaying(true) : setIsPomodoroTimePlaying(true);
+		alarmRef.current.load();
 	};
 
 	const stopSessionTimer = () => {
-		clearInterval(sessionInterval);
-		setIsTimerPlaying(false);
+		if (isBreak) {
+			clearInterval(breakInterval);
+			setIsBreakTimePlaying(false);
+		} else {
+			clearInterval(pomodoroInterval);
+			setIsPomodoroTimePlaying(false);
+		}
 	};
 
 	const skipTimer = () => {
 		setIsBreak(!isBreak);
 
-		if (!isBreak) setSessionTime(initBreakTime * 60);
-		if (isBreak) setSessionTime(initSessionTime * 60);
+		if (isBreak) {
+			setIsBreakTimePlaying(false);
+			clearInterval(breakInterval);
+			setBreakTime(initBreakTime * 60);
+			updateUser(uid, {
+				currentSession: {
+					...currentSession,
+					breakCount: currentSession.breakCount + 1,
+					breakTime: currentSession.breakTime + initBreakTime * 60 - breakTime,
+				},
+			});
+		} else {
+			setIsPomodoroTimePlaying(false);
+			clearInterval(pomodoroInterval);
+			setPomodoroTime(initPomodoroTime * 60);
+			updateUser(uid, {
+				currentSession: {
+					...currentSession,
+					pomodoroCount: currentSession.pomodoroCount + 1,
+					pomodoroTime: currentSession.pomodoroTime + initPomodoroTime * 60 - pomodoroTime,
+				},
+			});
+		}
 	};
 
 	const unsetCurrentTask = () => {
@@ -131,10 +169,15 @@ export default function Tasks() {
 			.filter((task) => task.done === false)
 			.map((task) => task.content);
 
-		addSession(uid, {name: currentSession.name, time: currentSession.pomodoroTime + currentSession.breakTime + 1000, completedTasks, uncompletedTasks});
 		updateUser(uid, {
 			currentSession: { ...currentSession, completedTasks, uncompletedTasks },
 		}).then(() => setModalType('end-session'));
+		addSession(uid, {
+			name: currentSession.name,
+			time: currentSession.pomodoroTime + currentSession.breakTime + 1000,
+			completedTasks,
+			uncompletedTasks,
+		});
 	};
 
 	return (
@@ -166,15 +209,17 @@ export default function Tasks() {
 										alt='minus'
 										className='h-full w-1/3 p-4 duration-200 ease-in-out hover:bg-primary rounded-l-lg cursor-pointer'
 										onClick={() => {
-											setInitSessionTime(initSessionTime - 1);
-											setSessionTime((initSessionTime - 1) * 60);
+											updateUser(uid, { timer: { ...timer, pomodoroTime: initPomodoroTime - 1 } });
+											setPomodoroTime((initPomodoroTime - 1) * 60);
 										}}
 									/>
 									<input
 										type='number'
 										min={1}
-										value={initSessionTime}
-										onChange={(e) => setInitSessionTime(e.current.value)}
+										value={initPomodoroTime}
+										onChange={(e) =>
+											updateUser(uid, { timer: { ...timer, pomodoroTime: e.target.value } })
+										}
 										className='w-1/3 h-full bg-bg-200 text-center'
 									/>
 									<img
@@ -182,8 +227,8 @@ export default function Tasks() {
 										alt='plus'
 										className='h-full w-1/3 p-4 duration-200 ease-in-out hover:bg-primary rounded-r-lg cursor-pointer'
 										onClick={() => {
-											setInitSessionTime(initSessionTime + 1);
-											setSessionTime((initSessionTime + 1) * 60);
+											updateUser(uid, { timer: { ...timer, pomodoroTime: initPomodoroTime + 1 } });
+											setPomodoroTime((initPomodoroTime + 1) * 60);
 										}}
 									/>
 								</div>
@@ -196,7 +241,7 @@ export default function Tasks() {
 										alt='minus'
 										className='h-full w-1/3 p-4 duration-200 ease-in-out hover:bg-primary rounded-l-lg cursor-pointer'
 										onClick={() => {
-											setInitBreakTime(initBreakTime - 1);
+											updateUser(uid, { timer: { ...timer, breakTime: initBreakTime - 1 } });
 											setBreakTime((initBreakTime - 1) * 60);
 										}}
 									/>
@@ -204,7 +249,9 @@ export default function Tasks() {
 										type='number'
 										min={1}
 										value={initBreakTime}
-										onChange={(e) => setInitBreakTime(e.current.value)}
+										onChange={(e) =>
+											updateUser(uid, { timer: { ...timer, breakTime: e.target.value } })
+										}
 										className='w-1/3 h-full bg-bg-200 text-center'
 									/>
 									<img
@@ -212,7 +259,7 @@ export default function Tasks() {
 										alt='plus'
 										className='h-full w-1/3 p-4 duration-200 ease-in-out hover:bg-primary rounded-r-lg cursor-pointer'
 										onClick={() => {
-											setInitBreakTime(initBreakTime + 1);
+											updateUser(uid, { timer: { ...timer, breakTime: initBreakTime + 1 } });
 											setBreakTime((initBreakTime + 1) * 60);
 										}}
 									/>
@@ -224,7 +271,10 @@ export default function Tasks() {
 								<h5 className='font-semibold'>Play alarm?</h5>
 								<Switch
 									className='mx-4 mt-2'
-									onChange={() => updateUser(uid, { alarm: { ...alarm, isOn: !alarmOn } })}
+									onChange={() => {
+										alarmRef.current.pause();
+										updateUser(uid, { alarm: { ...alarm, isOn: !alarmOn } });
+									}}
 									checked={alarmOn}
 									uncheckedIcon={false}
 									checkedIcon={false}
@@ -292,17 +342,14 @@ export default function Tasks() {
 								className='absolute -bottom-3 left-0 w-[220px]'
 							/>
 						</div>
-						<div className='h-[500px] mt-5 w-full overflow-y-auto'>
+						<div className='max-h-[500px] mt-5 w-full overflow-y-auto'>
 							<div>
 								<div className='w-full mb-5 p-2 flex items-center bg-bg-200 rounded-full'>
 									<div
 										className={`w-1/2 text-sm font-medium py-1.5 px-6 rounded-full text-center cursor-pointer ${
 											!isBreak ? 'bg-primary text-black' : 'text-gray-500'
 										}`}
-										onClick={() => {
-											setIsBreak(false);
-											setSessionTime(initSessionTime * 60);
-										}}
+										onClick={() => setIsBreak(false)}
 									>
 										Pomodoro
 									</div>
@@ -310,10 +357,7 @@ export default function Tasks() {
 										className={`w-1/2 text-sm font-medium py-1.5 px-6 rounded-full text-center cursor-pointer ${
 											isBreak ? 'bg-primary text-black' : 'text-gray-500'
 										}`}
-										onClick={() => {
-											setIsBreak(true);
-											setSessionTime(initBreakTime * 60);
-										}}
+										onClick={() => setIsBreak(true)}
 									>
 										Break
 									</div>
@@ -321,27 +365,51 @@ export default function Tasks() {
 								<div className='mb-4 w-full'>
 									<div className='py-5 w-full flex flex-col items-center bg-bg-200 rounded-lg cursor-default'>
 										<h4 className='text-5xl font-bold'>
-											{isBreak ? convertTime(breakTime) : convertTime(sessionTime)}
+											{isBreak ? convertTime(breakTime) : convertTime(pomodoroTime)}
 										</h4>
 										<p className='text-white opacity-50 text-xl font-semibold'>
 											{currentSession.name}
 										</p>
 										<div className='my-4 flex justify-center items-center'>
-											<Button
-												className='min-w-[100px] py-1 px-8 bg-primary text-black font-semibold rounded-full'
-												onClick={isTimerPlaying ? stopSessionTimer : startSessionTimer}
-											>
-												{isTimerPlaying ? 'Stop' : 'Start'}
-											</Button>
+											{((isPomodoroTimePlaying && !isBreak) || (isBreakTimePlaying && isBreak)) && (
+												<Button
+													className='min-w-[100px] py-1 px-8 bg-primary text-black font-semibold rounded-full'
+													onClick={stopSessionTimer}
+												>
+													Stop
+												</Button>
+											)}
 
-											<Button onClick={skipTimer} className='mx-4'>
-												<img src={skipIcon} alt='skip' className='w-9 h-[30px] invert' />
-											</Button>
+											{((!isPomodoroTimePlaying && initBreakTime * 60 === breakTime && !isBreak) ||
+												(!isBreakTimePlaying &&
+													initPomodoroTime * 60 === pomodoroTime &&
+													isBreak)) && (
+												<Button
+													className='min-w-[100px] py-1 px-8 bg-primary text-black font-semibold rounded-full'
+													onClick={startSessionTimer}
+												>
+													Start
+												</Button>
+											)}
+
+											{((initBreakTime * 60 === breakTime && !isBreak) ||
+												(initPomodoroTime * 60 === pomodoroTime && isBreak)) && (
+												<Button onClick={skipTimer} className='mx-4'>
+													<img src={skipIcon} alt='skip' className='w-9 h-[30px] invert' />
+												</Button>
+											)}
+
+											{initBreakTime * 60 > breakTime && !isBreak && <p>You are in Break time</p>}
+											{initPomodoroTime * 60 > pomodoroTime && isBreak && (
+												<p>You are in Pomodoro time</p>
+											)}
 										</div>
 
 										<Button
 											className={`w-[120px] py-[3px] px-3 border border-[#5b5a67] text-sm rounded-full ${
-												isTimerPlaying ? 'invisible opacity-0' : 'visible opacity-100'
+												isPomodoroTimePlaying || isBreakTimePlaying
+													? 'invisible opacity-0'
+													: 'visible opacity-100'
 											}`}
 											onClick={handleEndSession}
 										>

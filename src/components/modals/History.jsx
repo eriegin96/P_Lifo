@@ -12,33 +12,7 @@ import {
 	xIcon,
 } from '../../assets/icons';
 import { format } from 'date-fns';
-
-// const SESSIONS = [
-// 	{
-// 		id: '1',
-// 		name: 'study 1',
-// 		time: '3,492',
-// 		date: '05/02/2022',
-// 		completedTasks: ['123', '456', 'abc', '000'],
-// 		uncompletedTasks: ['123', '456', 'abc', '000'],
-// 	},
-// 	{
-// 		id: '2',
-// 		name: 'study 2',
-// 		time: '99',
-// 		date: '06/02/2022',
-// 		completedTasks: ['123', '456', 'abc', '000'],
-// 		uncompletedTasks: ['123', '456', 'abc', '000'],
-// 	},
-// 	{
-// 		id: '3',
-// 		name: 'study 3',
-// 		time: '02',
-// 		date: '07/02/2022',
-// 		completedTasks: ['123', '456', 'abc', '000'],
-// 		uncompletedTasks: ['123', '456', 'abc', '000'],
-// 	},
-// ];
+import { convertTime, dayStreak, totalHours } from '../../utils';
 
 export default function History() {
 	const { draggableModalType, setDraggableModalType, sessionList } = useContext(AppContext);
@@ -54,7 +28,6 @@ export default function History() {
 			setViewSession({});
 		}
 	};
-
 
 	return (
 		<div className='absolute top-8 left-1/2 transform -translate-x-1/2'>
@@ -86,11 +59,13 @@ export default function History() {
 								<h4 className='my-2 text-xl font-semibold'>{viewSession.name}</h4>
 								<div className='flex justify-between items-center'>
 									<p className='text-sm my-2'>Date:</p>
-									<time className='text-primary text-sm'>{format(viewSession.createdAt.seconds * 1000, 'dd/MM/yyyy')}</time>
+									<time className='text-primary text-sm'>
+										{format(viewSession.createdAt.seconds * 1000, 'dd/MM/yyyy')}
+									</time>
 								</div>
 								<div className='flex justify-between items-center border-t border-transparent-w-20'>
 									<p className='text-sm my-2'>Length:</p>
-									<time className='text-primary text-sm'>{viewSession.time}</time>
+									<time className='text-primary text-sm'>{convertTime(viewSession.time)}</time>
 								</div>
 							</div>
 						</div>
@@ -149,15 +124,15 @@ export default function History() {
 								<div className='w-full flex justify-between my-2 mx-4'>
 									<div>
 										<p className='text-sm opacity-50'>Total Sessions</p>
-										<h4 className='text-xl font-semibold'>4</h4>
+										<h4 className='text-xl font-semibold'>{sessionList.length}</h4>
 									</div>
 									<div>
 										<p className='text-sm opacity-50'>Total Hours</p>
-										<h4 className='text-xl font-semibold'>117</h4>
+										<h4 className='text-xl font-semibold'>{totalHours(sessionList)}</h4>
 									</div>
 									<div>
 										<p className='text-sm opacity-50'>Day Streak</p>
-										<h4 className='text-xl font-semibold'>4</h4>
+										<h4 className='text-xl font-semibold'>{dayStreak(sessionList)}</h4>
 									</div>
 								</div>
 							</div>
@@ -165,23 +140,28 @@ export default function History() {
 
 						<div className='w-full mt-8'>
 							<h4 className='text-xl font-semibold'>Sessions</h4>
-							<div className='w-full h-[300px] overflow-auto rounded-b-xl'>
-								{sessionList.map((session, i) => (
-									<div
-										key={i}
-										className='mt-5 p-5 bg-bg-200 rounded-xl border border-transparent-w-20 cursor-pointer hover:opacity-50 duration-200 ease-out'
-										onClick={() => viewDetail(session.id)}
-									>
-										<h5 className='mb-3 text-2xl font-medium'>{session.name}</h5>
-										<div className='w-full flex'>
-											<h2 className='grow font-bold text-primary'>
-												<time className='text-5xl'>{session.time}</time>
-												<span className='ml-2 text-lg'>min</span>
-											</h2>
-											<time className='self-end opacity-50 text-sm'>{format(session.createdAt.seconds * 1000, 'dd/MM/yyyy')}</time>
+							<div className='w-full max-h-[300px] overflow-auto rounded-b-xl'>
+								{sessionList.length === 0 && <div>No sessions in history</div>}
+
+								{sessionList.length > 0 &&
+									sessionList.map((session, i) => (
+										<div
+											key={i}
+											className='mt-5 p-5 bg-bg-200 rounded-xl border border-transparent-w-20 cursor-pointer hover:opacity-50 duration-200 ease-out'
+											onClick={() => viewDetail(session.id)}
+										>
+											<h5 className='mb-3 text-2xl font-medium'>{session.name}</h5>
+											<div className='w-full flex'>
+												<h2 className='grow font-bold text-primary'>
+													<time className='text-5xl'>{Math.floor(session.time / 60)}</time>
+													<span className='ml-2 text-lg'>min</span>
+												</h2>
+												<time className='self-end opacity-50 text-sm'>
+													{format(session.createdAt.seconds * 1000, 'dd/MM/yyyy')}
+												</time>
+											</div>
 										</div>
-									</div>
-								))}
+									))}
 							</div>
 						</div>
 					</>

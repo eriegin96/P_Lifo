@@ -1,15 +1,17 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth, db } from '../firebase/config';
-import { getUserData } from '../firebase/services';
-import { SplashScreen } from '../components';
 import { doc, onSnapshot } from 'firebase/firestore';
+
+import { SplashScreen } from '../components';
+import { auth, db } from '../firebase/config';
 
 export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
 	const [user, setUser] = useState({});
 	const [isAuthLoading, setIsAuthLoading] = useState(true);
+	const uid = user?.uid;
+	const email = user?.email;
 
 	useEffect(() => {
 		const unsubscribed = onAuthStateChanged(auth, (user) => {
@@ -17,11 +19,9 @@ export default function AuthProvider({ children }) {
 				let userRef = doc(db, 'users', user.uid);
 
 				onSnapshot(userRef, (snapshot) => {
-					console.log(snapshot.data());
 					setUser(snapshot.data());
 					setIsAuthLoading(false);
 				});
-
 			} else {
 				setUser({ displayName: '', photoURL: '', uid: '' });
 				setIsAuthLoading(false);
@@ -34,7 +34,7 @@ export default function AuthProvider({ children }) {
 	}, []);
 
 	return (
-		<AuthContext.Provider value={{ user, setIsAuthLoading }}>
+		<AuthContext.Provider value={{ user, uid, email, setIsAuthLoading }}>
 			{isAuthLoading ? <SplashScreen /> : children}
 		</AuthContext.Provider>
 	);

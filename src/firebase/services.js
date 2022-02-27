@@ -32,6 +32,10 @@ export const addUser = async (uid, data) => {
 			isOn: true,
 			link: ALARM_LINKS[0].link,
 		},
+		timer: {
+			pomodoroTime: 25,
+			breakTime: 5,
+		},
 		background: {
 			mood: 'chill',
 			set: 'chill',
@@ -42,23 +46,23 @@ export const addUser = async (uid, data) => {
 			link1: BACKGROUND_LINKS_LIST.find(
 				(item) =>
 					item.set === 'chill' &&
-					item.scene === 'scene1' &&
+					item.scene === 'chill1' &&
 					item.day === true &&
 					item.rainy === false
 			).link,
 			link2: '',
 		},
 		currentSession: {
-			id: '',
 			name: '',
 			time: 0,
 			pomodoroTime: 0,
 			breakTime: 0,
 			date: '',
-			pomodorosCount: 0,
-			breaksCount: 0,
+			pomodoroCount: 0,
+			breakCount: 0,
 			taskList: [],
 		},
+		templates: [],
 		createdAt: serverTimestamp(),
 		modifiedAt: serverTimestamp(),
 	});
@@ -79,6 +83,25 @@ export const addSession = async (uid, data) => {
 	await addDoc(sessionRef, {
 		...data,
 		createdAt: serverTimestamp(),
+		modifiedAt: serverTimestamp(),
+	});
+};
+
+export const updateCurrentSession = async (uid) => {
+	const userRef = doc(db, 'users', uid);
+
+	await updateDoc(userRef, {
+		currentSession: {
+			id: '',
+			name: '',
+			time: 0,
+			pomodoroTime: 0,
+			breakTime: 0,
+			date: '',
+			pomodorosCount: 0,
+			breaksCount: 0,
+			taskList: [],
+		},
 		modifiedAt: serverTimestamp(),
 	});
 };

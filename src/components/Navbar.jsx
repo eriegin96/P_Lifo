@@ -12,14 +12,12 @@ import {
 } from '../assets/icons';
 import { AppContext } from '../context/AppProvider';
 import { Button } from '.';
-import { newBackground } from '../utils/newBackground';
+import { newBackground } from '../utils';
 import { updateUser } from '../firebase/services';
 import { AuthContext } from '../context/AuthProvider';
 
 export default function Navbar() {
-	const {
-		user: { uid },
-	} = useContext(AuthContext);
+	const { uid } = useContext(AuthContext);
 	const { fullscreen, setFullscreen, setModalType, background } = useContext(AppContext);
 
 	const toggleFullscreen = () => {
