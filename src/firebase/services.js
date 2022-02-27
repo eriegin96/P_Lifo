@@ -39,7 +39,7 @@ export const addUser = async (uid, data) => {
 		background: {
 			mood: 'chill',
 			set: 'chill',
-			scene: 'scene1',
+			scene: 'chill1',
 			show1: true,
 			day: true,
 			rainy: false,

@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { AuthContext } from './AuthProvider';
 
-import { ALARM_LINKS, CHILL_LINKS, JAZZY_LINKS, SLEEPY_LINKS } from '../constants';
+import { CHILL_LINKS, JAZZY_LINKS, SLEEPY_LINKS } from '../constants';
 import { useHistory } from '../hooks/useFirestore';
 import { updateUser } from '../firebase/services';
 
@@ -50,7 +50,7 @@ export default function AppProvider({ children }) {
 
 	// Session & Task
 	const currentSession = user?.currentSession;
-	const sessionList = user?.uid ? useHistory(user.uid, 'sessions') : [];
+	const sessionList = useHistory(user.uid, 'sessions');
 	const [isBreak, setIsBreak] = useState(false);
 	const [isPomodoroTimePlaying, setIsPomodoroTimePlaying] = useState(false);
 	const [isBreakTimePlaying, setIsBreakTimePlaying] = useState(false);
@@ -70,7 +70,7 @@ export default function AppProvider({ children }) {
 				setIsBreak(!isBreak);
 				setIsPomodoroTimePlaying(false);
 				setPomodoroTime(initPomodoroTime * 60);
-				updateUser(user.uid, {
+				updateUser(user?.uid, {
 					currentSession: {
 						...currentSession,
 						pomodoroCount: currentSession.pomodoroCount + 1,
@@ -100,7 +100,7 @@ export default function AppProvider({ children }) {
 				setIsBreak(!isBreak);
 				setIsBreakTimePlaying(false);
 				setBreakTime(initBreakTime * 60);
-				updateUser(user.uid, {
+				updateUser(user?.uid, {
 					currentSession: {
 						...currentSession,
 						breakCount: currentSession.breakCount + 1,
@@ -123,7 +123,7 @@ export default function AppProvider({ children }) {
 	}, [isBreakTimePlaying, breakTime]);
 
 	// Notes
-	const noteList = user?.uid ? useHistory(user.uid, 'notes') : [];
+	const noteList = useHistory(user.uid, 'notes');
 
 	const value = {
 		fullscreen,

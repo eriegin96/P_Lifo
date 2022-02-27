@@ -24,7 +24,7 @@ function FormInput({ type = 'text', label, inputId, value }) {
 }
 
 export default function Profile() {
-	const { email } = useContext(AuthContext);
+	const { user } = useContext(AuthContext);
 	const { setModalType } = useContext(AppContext);
 	const [nav, setNav] = useState('profile');
 
@@ -97,7 +97,7 @@ export default function Profile() {
 									type='email'
 									label='Email Address'
 									inputId='profile-email'
-									value={email}
+									value={user.email}
 								/>
 							</div>
 

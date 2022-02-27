@@ -6,21 +6,23 @@ export const useHistory = (uid, collectionName) => {
 	const [historyDocs, setHistoryDocs] = useState([]);
 
 	useEffect(() => {
-		let historyRef = collection(db, 'users', uid, collectionName);
-		let q = query(historyRef, orderBy('createdAt', 'desc'));
+		if (uid) {
+			let historyRef = collection(db, 'users', uid, collectionName);
+			let q = query(historyRef, orderBy('createdAt', 'desc'));
 
-		const unsubscribe = onSnapshot(q, (snapshot) => {
-			const data = snapshot.docs.map((doc) => ({
-				...doc.data(),
-				id: doc.id,
-			}));
+			const unsubscribe = onSnapshot(q, (snapshot) => {
+				const data = snapshot.docs.map((doc) => ({
+					...doc.data(),
+					id: doc.id,
+				}));
 
-			setHistoryDocs(data);
-		});
+				setHistoryDocs(data);
+			});
 
-		return () => {
-			unsubscribe();
-		};
+			return () => {
+				unsubscribe();
+			};
+		}
 	}, [uid]);
 
 	return historyDocs;

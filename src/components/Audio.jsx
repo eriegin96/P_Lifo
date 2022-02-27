@@ -25,7 +25,7 @@ export default function Audio() {
 	} = useContext(AppContext);
 
 	useEffect(() => {
-		mainSongRef.current.volume = 0.5;
+		if (mainSongRef) mainSongRef.current.volume = 0.5;
 	}, [mainSongRef]);
 
 	useEffect(() => {
