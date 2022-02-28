@@ -1,7 +1,7 @@
 const CHILL_LINKS = [
 	'https://dl.dropboxusercontent.com/s/abprt68xoomljpj/Sometimes%20I%20Miss%20Myself%20-%20Marlus.mp3?dl=0',
 	'https://dl.dropboxusercontent.com/s/zb9d4as22irm9vr/Copia%20di%20Hiroyuki%20Kondo%20-%20Memories.mp3?dl=0',
-	'https://dl.dropboxusercontent.com/s/3pra2d3oypyg979/Copia%20di%20Jon%20Kyoto%20-%20Juishy.mp3?dl=0 ',
+	'https://dl.dropboxusercontent.com/s/3pra2d3oypyg979/Copia%20di%20Jon%20Kyoto%20-%20Juishy.mp3?dl=0',
 	'https://dl.dropboxusercontent.com/s/xg9k8dzj7askft8/Formant%20-%20Safety.mp3?dl=0',
 	'https://dl.dropboxusercontent.com/s/m9fsyhjtgqjkbuw/4.%20azayaka%20-%20looks%20like%20rain.mp3?dl=0',
 	'https://dl.dropboxusercontent.com/s/tvtumfj2latvwue/18.%20odd%20panda%20%2B%20v%20i%20v%20-%20luminous%20moss.mp3?dl=0',

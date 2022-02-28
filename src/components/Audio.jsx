@@ -101,6 +101,7 @@ export default function Audio() {
 				ref={mainSongRef}
 				src={currentSong.link}
 				preload='auto'
+				autoPlay
 				onEnded={() =>
 					setCurrentSong({
 						...currentSong,
