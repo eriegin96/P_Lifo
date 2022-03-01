@@ -11,7 +11,14 @@ export default function AppProvider({ children }) {
 	const { user } = useContext(AuthContext);
 	const [fullscreen, setFullscreen] = useState(false);
 	const [modalType, setModalType] = useState();
-	const initialDraggableModalType = { session: false, tasks: false, notes: false, history: false };
+	const initialDraggableModalType = {
+		session: false,
+		tasks: false,
+		notes: false,
+		history: false,
+		custom: false,
+		videoPlayer: false,
+	};
 	const [draggableModalType, setDraggableModalType] = useState(initialDraggableModalType);
 
 	// Templates
@@ -19,6 +26,9 @@ export default function AppProvider({ children }) {
 
 	// Background
 	const background = user?.background;
+
+	// Video
+	const [videoId, setVideoId] = useState('');
 
 	// Main Song
 	const alarmOn = user?.alarm?.isOn;
@@ -134,6 +144,8 @@ export default function AppProvider({ children }) {
 		draggableModalType,
 		setDraggableModalType,
 		templates,
+		videoId,
+		setVideoId,
 		alarmOn,
 		alarmLink,
 		currentSong,

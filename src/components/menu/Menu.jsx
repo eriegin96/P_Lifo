@@ -103,7 +103,7 @@ export default function Menu() {
 							menuTab.focus ? 'mt-40' : ''
 						}`}
 					>
-						{menuTab.mood && <Mood />}
+						{menuTab.mood && <Mood setMenuTab={setMenuTab} initialTab={initialTab} />}
 						{menuTab.template && <Template />}
 						{menuTab.set && <Set />}
 						{menuTab.focus && <Focus setMenuTab={setMenuTab} initialTab={initialTab} />}

@@ -108,7 +108,7 @@ export default function Notes() {
 								}}
 							/>
 						</div>
-						<div className='flex justify-end'>
+						<div className='handle cursor-move flex justify-end'>
 							<Button
 								className='py-1 px-6 bg-primary rounded-full text-black font-medium'
 								onClick={saveNote}

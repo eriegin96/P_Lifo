@@ -16,6 +16,8 @@ export { default as Contact } from './modals/Contact';
 export { default as Share } from './modals/Share';
 export { default as Tutorial } from './modals/Tutorial';
 export { default as Upgrade } from './modals/Upgrade';
+export { default as Custom } from './modals/Custom';
+export { default as VideoPlayer } from './modals/VideoPlayer';
 export { default as Session } from './modals/Session';
 export { default as Tasks } from './modals/Tasks';
 export { default as Notes } from './modals/Notes';
