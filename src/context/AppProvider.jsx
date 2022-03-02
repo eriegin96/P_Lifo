@@ -16,7 +16,7 @@ export default function AppProvider({ children }) {
 		tasks: false,
 		notes: false,
 		history: false,
-		custom: false,
+		search: false,
 		videoPlayer: false,
 	};
 	const [draggableModalType, setDraggableModalType] = useState(initialDraggableModalType);

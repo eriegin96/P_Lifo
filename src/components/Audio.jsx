@@ -25,8 +25,9 @@ export default function Audio() {
 	} = useContext(AppContext);
 
 	useEffect(() => {
-		if (mainSongRef) mainSongRef.current.volume = 0.5;
-	}, [mainSongRef]);
+		mainSongRef.current.volume = 0.5;
+		mainSongRef.current.pause();
+	}, []);
 
 	useEffect(() => {
 		for (let i = 0; i < NOISE_ICONS.length; i++) {

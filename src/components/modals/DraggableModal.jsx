@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import Draggable from 'react-draggable';
-import { Session, Tasks, Notes, History, Custom, VideoPlayer } from '..';
+import { Session, Tasks, Notes, History, Search, VideoPlayer } from '..';
 import { AppContext } from '../../context/AppProvider';
 
 export default function DraggableModal() {
 	const {
-		draggableModalType: { session, tasks, notes, history, custom, videoPlayer },
+		draggableModalType: { session, tasks, notes, history, search, videoPlayer },
 	} = useContext(AppContext);
 
 	return (
@@ -38,10 +38,10 @@ export default function DraggableModal() {
 					</div>
 				</Draggable>
 			)}
-			{custom && (
+			{search && (
 				<Draggable handle='.handle'>
 					<div className='relative z-40'>
-						<Custom />
+						<Search />
 					</div>
 				</Draggable>
 			)}

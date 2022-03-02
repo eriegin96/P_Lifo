@@ -23,7 +23,7 @@ export default function AuthProvider({ children }) {
 					setIsAuthLoading(false);
 				});
 			} else {
-				setUser({ displayName: '', photoURL: '', uid: '' });
+				setUser({});
 				setIsAuthLoading(false);
 			}
 		});

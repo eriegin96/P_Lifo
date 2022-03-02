@@ -31,6 +31,7 @@ import plusIcon from './plus.svg';
 import prevIcon from './prev.svg';
 import profileIcon from './profile.svg';
 import rainyIcon from './rainy.svg';
+import searchIcon from './search.svg';
 import setIcon from './set.svg';
 import settingIcon from './setting.svg';
 import skipIcon from './skip.svg';
@@ -101,6 +102,7 @@ export {
 	prevIcon,
 	profileIcon,
 	rainyIcon,
+	searchIcon,
 	setIcon,
 	settingIcon,
 	skipIcon,
