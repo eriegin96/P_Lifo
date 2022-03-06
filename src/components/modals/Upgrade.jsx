@@ -35,7 +35,7 @@ export default function Upgrade() {
 	const [yearly, setYearly] = useState(true);
 
 	return (
-		<div className='h-screen w-5/6 m-auto'>
+		<div className='h-screen m-auto'>
 			<div className='relative h-full flex justify-center items-center rounded-2xl bg-transparent-b-70'>
 				<Button className='absolute top-4 right-4' onClick={() => setModalType(null)}>
 					<img src={closeIcon} alt='close' />
@@ -133,7 +133,7 @@ export default function Upgrade() {
 					</div>
 				</div>
 				{/* Right part */}
-				<div className='h-full w-[300px] flex flex-col font-bold overflow-x-scroll rounded-r-2xl'>
+				<div className='h-full w-[300px] flex flex-col font-bold overflow-x-hidden rounded-r-2xl'>
 					<h3 className='m-8 text-3xl'>
 						Join the <span className='text-primary'>lofi.co</span> family
 					</h3>
