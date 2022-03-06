@@ -39,7 +39,7 @@ export default function Share() {
 				}`}
 				onClick={copyToClipboard}
 			>
-				https://lofi.co?s=Y2hpbGxfdmliZXMmMCYwMDA1MCY=
+				https://lifo-95316.web.app/
 			</div>
 
 			{copied && <div className='text-green-500 mb-6'>Copied</div>}
