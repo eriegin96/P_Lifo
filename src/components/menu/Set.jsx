@@ -39,7 +39,7 @@ export default function Set() {
 								className='mt-2 cursor-pointer'
 								onClick={() => setSetMode(item.set)}
 							>
-								<img src={item.link} alt='set' className='animate-fadeIn1s' />
+								<img src={item.img} alt='set' className='animate-fadeIn1s' />
 							</Button>
 						))}
 					</div>
@@ -64,7 +64,7 @@ export default function Set() {
 								className='w-full mt-4 cursor-pointer'
 								onClick={() => handleChangeBg(item)}
 							>
-								<img src={item.link} alt='scene' className='w-full rounded-xl animate-fadeIn1s' />
+								<img src={item.img} alt='scene' className='w-full rounded-xl animate-fadeIn1s' />
 							</Button>
 						))}
 					</div>

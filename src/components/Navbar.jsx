@@ -97,64 +97,61 @@ export default function Navbar() {
 				)}
 
 				<div className='flex items-center'>
-					{['chill', 'cafe'].includes(background.set) && (
-						<>
-							<div className='transition-all duration-300 ease-in hover:opacity-50 '>
-								<Switch
-									onChange={() => handleChangeBg('day')}
-									checked={background.day}
-									handleDiameter={26}
-									offColor='#545459'
-									onColor='#f3a952'
-									height={30}
-									width={62}
-									activeBoxShadow='0px 0px 0px 0px transparent'
-									uncheckedIcon={
-										<div className='flex justify-center items-center h-full '>
-											<img src={moonIcon} alt='moon' />
-										</div>
-									}
-									checkedIcon={
-										<div className='flex justify-center items-center h-full '>
-											<img src={sunIcon} alt='sun' />
-										</div>
-									}
-								/>
-							</div>
-
-							<div className='transition-all duration-300 ease-in hover:opacity-50 ml-4'>
-								<Switch
-									onChange={() => handleChangeBg('rainy')}
-									checked={background.rainy}
-									handleDiameter={26}
-									offColor='#545459'
-									onColor='#f3a952'
-									height={30}
-									width={62}
-									activeBoxShadow='0px 0px 0px 0px transparent'
-									uncheckedIcon={
-										<div className='flex justify-center items-center h-full '>
-											<img src={rainyIcon} alt='rainy' />
-										</div>
-									}
-									checkedIcon={
-										<div className='relative -top-0.5 flex justify-center items-center h-full '>
-											<img src={sunnyIcon} alt='sunny' />
-										</div>
-									}
-								/>
-							</div>
-						</>
+					{['chill', 'cafe', 'book'].includes(background.set) && (
+						<div className='transition-all duration-300 ease-in hover:opacity-50 '>
+							<Switch
+								onChange={() => handleChangeBg('day')}
+								checked={background.day}
+								handleDiameter={26}
+								offColor='#545459'
+								onColor='#f3a952'
+								height={30}
+								width={62}
+								activeBoxShadow='0px 0px 0px 0px transparent'
+								uncheckedIcon={
+									<div className='flex justify-center items-center h-full '>
+										<img src={moonIcon} alt='moon' />
+									</div>
+								}
+								checkedIcon={
+									<div className='flex justify-center items-center h-full '>
+										<img src={sunIcon} alt='sun' />
+									</div>
+								}
+							/>
+						</div>
 					)}
 
+					{['chill', 'cafe'].includes(background.set) && (
+						<div className='transition-all duration-300 ease-in hover:opacity-50 ml-4'>
+							<Switch
+								onChange={() => handleChangeBg('rainy')}
+								checked={background.rainy}
+								handleDiameter={26}
+								offColor='#545459'
+								onColor='#f3a952'
+								height={30}
+								width={62}
+								activeBoxShadow='0px 0px 0px 0px transparent'
+								uncheckedIcon={
+									<div className='flex justify-center items-center h-full '>
+										<img src={rainyIcon} alt='rainy' />
+									</div>
+								}
+								checkedIcon={
+									<div className='relative -top-0.5 flex justify-center items-center h-full '>
+										<img src={sunnyIcon} alt='sunny' />
+									</div>
+								}
+							/>
+						</div>
+					)}
 					<Button className='mx-4' onClick={toggleFullscreen}>
 						<img src={fullscreenIcon} alt='full-screen' />
 					</Button>
-
 					<Button onClick={() => setModalType('profile')}>
 						<img src={profileIcon} alt='profile' />
 					</Button>
-
 					<Button
 						className='mx-4 py-1 px-3 bg-transparent-w-10 border border-transparent-w-30 rounded-full text-xs'
 						onClick={() => setModalType('share')}
