@@ -31,6 +31,10 @@ import summer1 from './summer-1.mp4';
 import summer2 from './summer-2.mp4';
 import van1 from './van-1.mp4';
 import van2 from './van-2.mp4';
+import tutorial1 from './tutorial-1.mp4';
+import tutorial2 from './tutorial-2.mp4';
+import tutorial3 from './tutorial-3.mp4';
+import tutorial4 from './tutorial-4.mp4';
 
 export {
 	book1Day,
@@ -66,4 +70,8 @@ export {
 	summer2,
 	van1,
 	van2,
+	tutorial1,
+	tutorial2,
+	tutorial3,
+	tutorial4,
 };

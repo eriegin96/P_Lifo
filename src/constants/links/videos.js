@@ -32,6 +32,10 @@ import {
 	summer2,
 	van1,
 	van2,
+	tutorial1,
+	tutorial2,
+	tutorial3,
+	tutorial4,
 } from '../../assets/videos';
 
 export const BACKGROUND_LINKS_LIST = [
@@ -41,6 +45,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: false,
 		video: chill1Day,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20Day%20112521%20%281%29.mp4',
 	},
 	{
 		set: 'chill',
@@ -48,6 +53,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: false,
 		rainy: false,
 		video: chill1Night,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20STARRY%20NIGHT%20-.mp4',
 	},
 	{
 		set: 'chill',
@@ -55,6 +61,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: true,
 		video: chill1RainyDay,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20RAINY%20DAY.mp4',
 	},
 	{
 		set: 'chill',
@@ -62,6 +69,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: false,
 		rainy: true,
 		video: chill1RainyNight,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/BDR%20RAINY%20NIGHT.mp4',
 	},
 	{
 		set: 'chill',
@@ -69,6 +77,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: false,
 		video: chill2Day,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20Day%20112521.mp4',
 	},
 	{
 		set: 'chill',
@@ -76,6 +85,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: false,
 		rainy: false,
 		video: chill2Night,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20STARRY%20NIGHT.mp4',
 	},
 	{
 		set: 'chill',
@@ -83,6 +93,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: true,
 		video: chill2RainyDay,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20RAINY%20DAY.mp4',
 	},
 	{
 		set: 'chill',
@@ -90,6 +101,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: false,
 		rainy: true,
 		video: chill2RainyNight,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/chill-vibes/LVR%20RAINY%20NIGHT.mp4',
 	},
 	{
 		set: 'northern',
@@ -97,6 +109,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: false,
 		video: northern1,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cottage/Cottage+Int+Final.mp4',
 	},
 	{
 		set: 'northern',
@@ -104,6 +117,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: false,
 		video: northern2,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cottage/Cottage+Ext+Final.mp4',
 	},
 	{
 		set: 'book',
@@ -111,6 +125,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: false,
 		video: book1Day,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/book-cafe/Exterior+-+Day.mp4',
 	},
 	{
 		set: 'book',
@@ -118,6 +133,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: false,
 		rainy: false,
 		video: book1Night,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/book-cafe/Exterior+-+Night.mp4',
 	},
 	{
 		set: 'book',
@@ -125,6 +141,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: false,
 		video: book2Day,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/book-cafe/Interior+-+Sunny+Day.mp4',
 	},
 	{
 		set: 'book',
@@ -132,6 +149,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: false,
 		rainy: false,
 		video: book2Night,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/book-cafe/Interior+-+Night.mp4',
 	},
 	{
 		set: 'desk',
@@ -139,6 +157,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: false,
 		video: desk1,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/study/city%20scene.mp4',
 	},
 	{
 		set: 'desk',
@@ -146,6 +165,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: false,
 		video: desk2,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/study/beach%20scene.mp4',
 	},
 	{
 		set: 'desk',
@@ -153,6 +173,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: false,
 		video: desk3,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/study/snow%20scene%20wo%20snow.mp4',
 	},
 	{
 		set: 'forest',
@@ -160,6 +181,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: false,
 		video: forest1,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/forest/inside.mp4',
 	},
 	{
 		set: 'forest',
@@ -167,6 +189,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: false,
 		video: forest2,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/forest/outside.mp4',
 	},
 	{
 		set: 'ocean',
@@ -174,6 +197,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: false,
 		video: ocean1,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/ocean/ocean-tales.mp4',
 	},
 	{
 		set: 'ocean',
@@ -181,6 +205,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: false,
 		video: ocean2,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/ocean/ocean-tales-out.mp4',
 	},
 	{
 		set: 'cafe',
@@ -188,6 +213,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: false,
 		video: cafe1Day,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/inside.mp4',
 	},
 	{
 		set: 'cafe',
@@ -195,6 +221,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: false,
 		rainy: false,
 		video: cafe1Night,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/inside-night.mp4',
 	},
 	{
 		set: 'cafe',
@@ -202,6 +229,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: true,
 		video: cafe1RainyDay,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/inside-rain.mp4',
 	},
 	{
 		set: 'cafe',
@@ -209,6 +237,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: false,
 		rainy: true,
 		video: cafe1RainyNight,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/inside-night-rain.mp4',
 	},
 	{
 		set: 'cafe',
@@ -216,6 +245,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: false,
 		video: cafe2Day,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/outside.mp4',
 	},
 	{
 		set: 'cafe',
@@ -223,6 +253,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: false,
 		rainy: false,
 		video: cafe2Night,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/outside-night.mp4',
 	},
 	{
 		set: 'cafe',
@@ -230,6 +261,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: true,
 		video: cafe2RainyDay,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/outside-rain.mp4',
 	},
 	{
 		set: 'cafe',
@@ -237,6 +269,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: false,
 		rainy: true,
 		video: cafe2RainyNight,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/cafe/outside-night-rain.mp4',
 	},
 	{
 		set: 'van',
@@ -244,6 +277,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: false,
 		video: van1,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/van/van.mp4',
 	},
 	{
 		set: 'van',
@@ -251,6 +285,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: false,
 		video: van2,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/van/van-out.mp4',
 	},
 	{
 		set: 'summer',
@@ -258,6 +293,7 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: false,
 		video: summer1,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/summer/summer.mp4',
 	},
 	{
 		set: 'summer',
@@ -265,12 +301,14 @@ export const BACKGROUND_LINKS_LIST = [
 		day: true,
 		rainy: false,
 		video: summer2,
+		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/summer/summer-out.mp4',
 	},
 ];
 
 export const TUTORIAL_VIDEOS_LINKS = [
 	{
 		name: 'tutorial-1',
+		video: tutorial1,
 		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/tutorial/Video%201%20-%20Mixer.mp4',
 		title1: 'The Perfect Playlist',
 		title2: 'With One Click',
@@ -279,6 +317,7 @@ export const TUTORIAL_VIDEOS_LINKS = [
 	},
 	{
 		name: 'tutorial-2',
+		video: tutorial2,
 		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/tutorial/Video%202%20-%20Scenes.mp4',
 		title1: 'Craft Your Focus Environment',
 		des1: 'Would you rather get it done in the cafe, or escape to the beach? Lofi.co gives you both with interactive artworks.',
@@ -286,6 +325,7 @@ export const TUTORIAL_VIDEOS_LINKS = [
 	},
 	{
 		name: 'tutorial-3',
+		video: tutorial3,
 		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/tutorial/Video%204%20-%20Mixer%20Environment.mp4',
 		title1: 'Cut Out Distractions',
 		title2: 'With Peaceful Sounds',
@@ -294,6 +334,7 @@ export const TUTORIAL_VIDEOS_LINKS = [
 	},
 	{
 		name: 'tutorial-4',
+		video: tutorial4,
 		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/tutorial/Video%203%20-%20Focus%20_%20History%20%281%29.mp4',
 		title1: 'The Focus Zone (Premium)',
 		des1: 'Deadline coming up? The Focus Zone lets you stay on track by gathering the best focus tools in one place - away from your distracting smartphone.',

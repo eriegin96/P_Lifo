@@ -16,7 +16,7 @@ export const newBackground = (currentBg, condition) => {
 			item.scene === condition.scene &&
 			item.day === condition.day &&
 			item.rainy === condition.rainy
-	).video;
+	).link;
 
 	if (currentBg.show1) {
 		newBackground.link2 = newLink;
