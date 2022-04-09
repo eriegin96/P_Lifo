@@ -145,7 +145,7 @@ export default function Mood({ setMenuTab, initialTab }) {
 					handleClick={() => handleMoodType('chill')}
 				/>
 				<div
-					className='relative flex items-center h-16 border border-[3px] border-transparent-w-20 rounded-xl cursor-pointer group'
+					className='relative flex items-center h-16 border-[3px] border-transparent-w-20 rounded-xl cursor-pointer group'
 					onClick={() => {
 						setDraggableModalType({ ...draggableModalType, search: true });
 						setMenuTab(initialTab);
