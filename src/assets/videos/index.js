@@ -27,6 +27,10 @@ import northern1 from './northern-1.mp4';
 import northern2 from './northern-2.mp4';
 import ocean1 from './ocean-1.mp4';
 import ocean2 from './ocean-2.mp4';
+import spring1Day from './spring-1-day.mp4';
+import spring1Night from './spring-1-night.mp4';
+import spring2Day from './spring-2-day.mp4';
+import spring2Night from './spring-2-night.mp4';
 import summer1 from './summer-1.mp4';
 import summer2 from './summer-2.mp4';
 import van1 from './van-1.mp4';
@@ -66,6 +70,10 @@ export {
 	forest2,
 	ocean1,
 	ocean2,
+	spring1Day,
+	spring1Night,
+	spring2Day,
+	spring2Night,
 	summer1,
 	summer2,
 	van1,

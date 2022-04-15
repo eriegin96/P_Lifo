@@ -28,6 +28,8 @@ import {
 	forest2,
 	ocean1,
 	ocean2,
+	spring1,
+	spring2,
 	summer1,
 	summer2,
 	van1,
