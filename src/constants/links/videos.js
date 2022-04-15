@@ -28,8 +28,10 @@ import {
 	forest2,
 	ocean1,
 	ocean2,
-	spring1,
-	spring2,
+	spring1Day,
+	spring1Night,
+	spring2Day,
+	spring2Night,
 	summer1,
 	summer2,
 	van1,
@@ -110,6 +112,7 @@ export const BACKGROUND_LINKS_LIST = [
 		scene: 'spring1',
 		day: true,
 		rainy: false,
+		video: spring1Day,
 		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/kyoto/Kyoto+Street+-+Day.mp4',
 	},
 	{
@@ -117,6 +120,7 @@ export const BACKGROUND_LINKS_LIST = [
 		scene: 'spring1',
 		day: false,
 		rainy: false,
+		video: spring1Night,
 		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/kyoto/Kyoto+Street+-+Night.mp4',
 	},
 	{
@@ -124,6 +128,7 @@ export const BACKGROUND_LINKS_LIST = [
 		scene: 'spring2',
 		day: true,
 		rainy: false,
+		video: spring2Day,
 		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/kyoto/Kyoto+Park+-+Day.mp4',
 	},
 	{
@@ -131,6 +136,7 @@ export const BACKGROUND_LINKS_LIST = [
 		scene: 'spring2',
 		day: false,
 		rainy: false,
+		video: spring2Night,
 		link: 'https://s3.us-east-2.amazonaws.com/lofi.co/lofi.co/scenes/kyoto/Kyoto+Park+-+Night.mp4',
 	},
 	{
