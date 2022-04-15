@@ -1,5 +1,6 @@
 import {
 	setChillImg,
+	setSpringImg,
 	setNorthernImg,
 	setBookImg,
 	setDeskImg,
@@ -10,6 +11,8 @@ import {
 	setSummerImg,
 	sceneChill1Img,
 	sceneChill2Img,
+	sceneSpring1Img,
+	sceneSpring2Img,
 	sceneNorthern1Img,
 	sceneNorthern2Img,
 	sceneBook1Img,
@@ -41,6 +44,20 @@ export const SETS = [
 			{
 				scene: 'chill2',
 				img: sceneChill2Img,
+			},
+		],
+	},
+	{
+		set: 'spring',
+		img: setSpringImg,
+		scenes: [
+			{
+				scene: 'spring1',
+				img: sceneSpring1Img,
+			},
+			{
+				scene: 'spring2',
+				img: sceneSpring2Img,
 			},
 		],
 	},
@@ -172,6 +189,16 @@ export const TEMPLATES = [
 		name: 'Chill 2',
 		template: 'chill2',
 		img: sceneChill2Img,
+	},
+	{
+		name: 'Spring 1',
+		template: 'spring1',
+		img: sceneSpring1Img,
+	},
+	{
+		name: 'Spring 2',
+		template: 'spring2',
+		img: sceneSpring2Img,
 	},
 	{
 		name: 'Northern 1',

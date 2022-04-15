@@ -18,6 +18,7 @@ import logoImg from './logo.gif';
 import oceanTales21Img from './ocean-tales-2-1.jpg';
 import oceanTales22Img from './ocean-tales-2-2.jpg';
 import setChillImg from './thumbnails/set-chill.png';
+import setSpringImg from './thumbnails/set-spring.png';
 import setNorthernImg from './thumbnails/set-northern.png';
 import setBookImg from './thumbnails/set-book.png';
 import setDeskImg from './thumbnails/set-desk.png';
@@ -28,6 +29,8 @@ import setVanImg from './thumbnails/set-van.png';
 import setSummerImg from './thumbnails/set-summer.png';
 import sceneChill1Img from './thumbnails/scene-chill-1.png';
 import sceneChill2Img from './thumbnails/scene-chill-2.png';
+import sceneSpring1Img from './thumbnails/scene-spring-1.png';
+import sceneSpring2Img from './thumbnails/scene-spring-2.png';
 import sceneNorthern1Img from './thumbnails/scene-northern-1.png';
 import sceneNorthern2Img from './thumbnails/scene-northern-2.png';
 import sceneBook1Img from './thumbnails/scene-book-1.png';
@@ -68,6 +71,7 @@ export {
 	oceanTales21Img,
 	oceanTales22Img,
 	setChillImg,
+	setSpringImg,
 	setNorthernImg,
 	setBookImg,
 	setDeskImg,
@@ -78,6 +82,8 @@ export {
 	setSummerImg,
 	sceneChill1Img,
 	sceneChill2Img,
+	sceneSpring1Img,
+	sceneSpring2Img,
 	sceneNorthern1Img,
 	sceneNorthern2Img,
 	sceneBook1Img,

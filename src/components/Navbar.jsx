@@ -97,7 +97,7 @@ export default function Navbar() {
 				)}
 
 				<div className='flex items-center'>
-					{['chill', 'cafe', 'book'].includes(background.set) && (
+					{['chill', 'cafe', 'book', 'spring'].includes(background.set) && (
 						<div className='transition-all duration-300 ease-in hover:opacity-50 '>
 							<Switch
 								onChange={() => handleChangeBg('day')}
